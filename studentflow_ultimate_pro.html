@@ -1490,10 +1490,10 @@
                 <button onclick="startQuickFocus()" class="w-full py-2 bg-indigo-600 rounded-lg text-xs font-bold hover:bg-indigo-500 transition">
                     ⚡ Quick Focus (25 min)
                 </button>
-                <button onclick="openAddNoteModal()" class="w-full py-2 bg-purple-600 rounded-lg text-xs font-bold hover:bg-purple-500 transition">
+                <button onclick="quickNoteFromWidget()" class="w-full py-2 bg-purple-600 rounded-lg text-xs font-bold hover:bg-purple-500 transition">
                     📝 Quick Note
                 </button>
-                <button onclick="openQuickGoalModal()" class="w-full py-2 bg-emerald-600 rounded-lg text-xs font-bold hover:bg-emerald-500 transition">
+                <button onclick="quickGoalFromWidget()" class="w-full py-2 bg-emerald-600 rounded-lg text-xs font-bold hover:bg-emerald-500 transition">
                     🎯 Quick Goal
                 </button>
             </div>
@@ -7581,6 +7581,34 @@
                     document.activeElement.blur();
                 }
             }, 200);
+        }
+        
+        function quickNoteFromWidget() {
+            // Fermer le widget d'abord
+            const widget = document.getElementById('quick-widget');
+            widget.classList.add('hidden');
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
+            
+            // Ouvrir le modal de note avec un petit délai
+            setTimeout(() => {
+                openAddNoteModal();
+            }, 100);
+        }
+        
+        function quickGoalFromWidget() {
+            // Fermer le widget d'abord
+            const widget = document.getElementById('quick-widget');
+            widget.classList.add('hidden');
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
+            
+            // Ouvrir le modal d'objectif avec un petit délai
+            setTimeout(() => {
+                openQuickGoalModal();
+            }, 100);
         }
         
         // Auto-update widget every 30 seconds
