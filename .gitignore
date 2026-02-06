@@ -1,22 +1,27 @@
 # Node
 node_modules/
+dist/
+www/
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Android build
+# Android
 android/.gradle/
 android/build/
 android/app/build/
+*.apk
+
+# iOS (Fichiers temporaires Xcode)
+ios/App/build/
+ios/App/Pods/
+ios/App/Podfile.lock
+.xccheckout
+xcdatamodeld
+xcuserdata/
 
 # OS
 .DS_Store
 Thumbs.db
-*.apk
-
-android/app/release/
-android/keystore/
-StudentFlow-*.apk
-FICHE_METHODE_APK.md

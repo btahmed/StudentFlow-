@@ -416,6 +416,10 @@
                 <i data-lucide="activity" class="w-5 h-5"></i> 
                 <span class="hidden md:block font-bold uppercase text-[10px]">Bio-Hack</span>
             </button>
+            <button onclick="switchTab('download')" id="btn-download" class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
+                <i data-lucide="download" class="w-5 h-5"></i> 
+                <span class="hidden md:block font-bold uppercase text-[10px]">Télécharger</span>
+            </button>
         </div>
         
         <!-- Bottom Actions -->
@@ -452,6 +456,10 @@
         <button onclick="switchTab('wellness')" id="mob-wellness">
             <i data-lucide="activity" class="w-5 h-5"></i>
             <span>Zen</span>
+        </button>
+        <button onclick="switchTab('download')" id="mob-download">
+            <i data-lucide="download" class="w-5 h-5"></i>
+            <span>Télécharger</span>
         </button>
     </div>
     
@@ -1150,6 +1158,39 @@
                 </div>
             </div>
         </div>
+
+        <!-- DOWNLOAD TAB -->
+        <div id="download" class="tab-pane max-w-4xl mx-auto space-y-8">
+            <div class="glass p-10 text-center">
+                <h2 class="text-3xl font-black uppercase italic mb-6">Installer StudentFlow</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Bouton Android APK -->
+                    <div class="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-3xl space-y-4">
+                        <i data-lucide="android" class="w-12 h-12 mx-auto text-emerald-500"></i>
+                        <h3 class="font-bold uppercase tracking-widest text-xs">Android (Version Directe)</h3>
+                        <p class="text-xs text-slate-400">Installe l'APK directement sur ton smartphone (Autoriser sources inconnues).</p>
+                        <a href="StudentFlow-FINAL.apk" download class="inline-block w-full py-4 bg-emerald-600 rounded-2xl font-black text-[10px] uppercase hover:bg-emerald-500 transition">Télécharger APK</a>
+                    </div>
+
+                    <!-- Bouton iOS / PWA -->
+                    <div class="p-6 bg-blue-500/10 border border-blue-500/20 rounded-3xl space-y-4">
+                        <i data-lucide="apple" class="w-12 h-12 mx-auto text-blue-500"></i>
+                        <h3 class="font-bold uppercase tracking-widest text-xs">iOS (Web App)</h3>
+                        <p class="text-xs text-slate-400">Pour iPhone : Clique sur 'Partager' dans Safari, puis 'Sur l'écran d'accueil'.</p>
+                        <button onclick="showPwaTutorial()" class="w-full py-4 bg-blue-600 rounded-2xl font-black text-[10px] uppercase hover:bg-blue-500 transition">Installer sur iOS</button>
+                    </div>
+                </div>
+                
+                <div class="mt-8 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl">
+                    <p class="text-xs text-slate-300">
+                        <strong>📱 Distribution gratuite et universelle :</strong> 
+                        StudentFlow utilise une stratégie de distribution décentralisée pour garantir un accès total sans frais de store. 
+                        APK direct pour Android et PWA pour iOS - installation instantanée et sécurisée pour tous les étudiants.
+                    </p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- SLOT MODAL -->
@@ -1840,6 +1881,9 @@
         let breathingInterval = null;
         let selectedMood = '😊';
         let draggedSlot = null;
+        let chart = null;
+        let radarChart = null;
+        let trendChart = null;
 
         // ==================== INIT ====================
         window.onload = () => { 
@@ -4233,6 +4277,71 @@
             tags.innerHTML = badges.map(b => 
                 `<span class="px-3 py-1 text-[10px] font-bold rounded-full bg-${b.color}-500/20 text-${b.color}-400">${b.text}</span>`
             ).join('');
+        }
+
+        function showPwaTutorial() {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            
+            if (isIOS) {
+                // Modal spécifique pour iOS
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
+                modal.innerHTML = `
+                    <div class="glass max-w-md w-full p-8 space-y-6 text-center">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto">
+                            <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-black">Installer sur iPhone</h3>
+                        <div class="space-y-4 text-left">
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs font-bold text-white">1</span>
+                                <p class="text-sm">Ouvre cette page dans <strong>Safari</strong></p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs font-bold text-white">2</span>
+                                <p class="text-sm">Clique sur le bouton <strong>Partager</strong> <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m9.032 4.026a9.001 9.001 0 01-7.432 0m9.032-4.026A9.001 9.001 0 0112 3c-4.474 0-8.268 3.12-9.032 7.326m0 0A9.001 9.001 0 0012 21c4.474 0 8.268-3.12 9.032-7.326"></path></svg></p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs font-bold text-white">3</span>
+                                <p class="text-sm">Descends et clique sur <strong>"Sur l'écran d'accueil"</strong></p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs font-bold text-white">4</span>
+                                <p class="text-sm">Clique sur <strong>"Ajouter"</strong> et voilà! 🎉</p>
+                            </div>
+                        </div>
+                        <button onclick="this.closest('.fixed').remove()" class="w-full py-3 bg-blue-600 rounded-xl font-bold text-sm hover:bg-blue-500 transition">
+                            J'ai compris!
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                // Petite attente pour que le DOM soit prêt avant de créer les icônes
+                setTimeout(() => {
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                }, 100);
+            } else {
+                // Message pour autres plateformes
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
+                modal.innerHTML = `
+                    <div class="glass max-w-md w-full p-8 space-y-6 text-center">
+                        <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mx-auto">
+                            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-black">Installation Web App</h3>
+                        <p class="text-sm">Pour installer cette application sur votre appareil, utilisez le bouton de téléchargement Android ou suivez les instructions de votre navigateur pour installer la PWA.</p>
+                        <button onclick="this.closest('.fixed').remove()" class="w-full py-3 bg-indigo-600 rounded-xl font-bold text-sm hover:bg-indigo-500 transition">
+                            Compris!
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
         }
 
         // ==================== NAVIGATION ====================
