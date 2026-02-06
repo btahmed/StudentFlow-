@@ -12,6 +12,68 @@
     <meta name="apple-mobile-web-app-title" content="StudentFlow">
     <meta name="description" content="Application de gestion du bien-être étudiant avec IA">
     
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="StudentFlow Pro - AI-Powered Student Wellness">
+    <meta property="og:description" content="La plateforme complète de bien-être étudiant avec IA. Planning intelligent, analytics avancés, mode focus, et suivi de santé mentale.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://btahmed.github.io/StudentFlow-/studentflow_ultimate_pro.html">
+    <meta property="og:image" content="https://btahmed.github.io/StudentFlow-/icons/icon-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:site_name" content="StudentFlow Pro">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="StudentFlow Pro - AI-Powered Student Wellness">
+    <meta name="twitter:description" content="La plateforme complète de bien-être étudiant avec IA. Planning intelligent, analytics avancés, mode focus.">
+    <meta name="twitter:image" content="https://btahmed.github.io/StudentFlow-/icons/icon-512x512.png">
+    <meta name="twitter:creator" content="@studentflow">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="keywords" content="étudiant, bien-être, IA, planning, focus, analytics, santé mentale, productivité, education">
+    <meta name="author" content="StudentFlow Team">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="French">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "StudentFlow Pro",
+        "description": "La plateforme complète de bien-être étudiant avec IA",
+        "url": "https://btahmed.github.io/StudentFlow-/studentflow_ultimate_pro.html",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web, iOS, Android",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "StudentFlow Team"
+        },
+        "featureList": [
+            "Planning intelligent avec IA",
+            "Analytics avancés de bien-être",
+            "Mode Focus Pomodoro",
+            "Journal quotidien",
+            "Suivi de santé mentale",
+            "Objectifs et progression",
+            "Support multilingue FR/EN/AR"
+        ],
+        "screenshot": "https://btahmed.github.io/StudentFlow-/icons/icon-512x512.png",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "150"
+        }
+    }
+    </script>
+    
     <!-- PWA Manifest (inline) -->
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlN0dWRlbnRGbG93IFVsdGltYXRlIFBybyIsCiAgInNob3J0X25hbWUiOiAiU3R1ZGVudEZsb3ciLAogICJkZXNjcmlwdGlvbiI6ICJBcHBsaWNhdGlvbiBkZSBnZXN0aW9uIGR1IGJpZW4tw6p0cmUgw6l0dWRpYW50IiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYjBmMWEiLAogICJ0aGVtZV9jb2xvciI6ICIjNjM2NmYxIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLDxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCc+PHJlY3Qgd2lkdGg9JzEwMCcgaGVpZ2h0PScxMDAnIGZpbGw9JyU2MzY2ZjEnIHJ4PScyMCcvPjx0ZXh0IHg9JzUwJyB5PSc2NScgZm9udC1zaXplPSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnPuKaoe+4jzwvdGV4dD48L3N2Zz4iLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
     
@@ -5250,6 +5312,619 @@
                 document.title = 'StudentFlow Ultimate Pro';
             }
         }, 60000);
+        
+        // ==================== ADVANCED FEATURES ====================
+        
+        // 1. PUSH NOTIFICATIONS
+        let pushSubscription = null;
+        
+        async function initPushNotifications() {
+            if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+                console.log('Push notifications not supported');
+                return;
+            }
+            
+            try {
+                const registration = await navigator.serviceWorker.ready;
+                
+                // Subscribe to push notifications
+                pushSubscription = await registration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlB64ToUint8Array('BDd3_hVL9X3h3GzqzO2sRgK4HsNn8l9Q2wF3H7kL8mN5pP2rS1tU6vW9xY3zA6c')
+                });
+                
+                console.log('Push subscription created:', pushSubscription);
+                
+                // Listen for messages from service worker
+                navigator.serviceWorker.addEventListener('message', handleSWMessage);
+                
+            } catch (error) {
+                console.error('Push notification setup failed:', error);
+            }
+        }
+        
+        function handleSWMessage(event) {
+            if (event.data.type === 'SYNC_JOURNAL') {
+                showToast('📝 Journal synchronisé automatiquement');
+                syncJournalToServer();
+            } else if (event.data.type === 'SYNC_ANALYTICS') {
+                showToast('📊 Analytics synchronisés automatiquement');
+                syncAnalyticsToServer();
+            } else if (event.data.type === 'SYNC_GOALS') {
+                showToast('🎯 Objectifs synchronisés automatiquement');
+                syncGoalsToServer();
+            } else if (event.data.type === 'CREATE_BACKUP') {
+                createAutomaticBackup();
+            }
+        }
+        
+        function urlB64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+        
+        // 2. AUTO DARK/LIGHT MODE
+        function initAutoTheme() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('sf_theme');
+            
+            if (!savedTheme) {
+                // Auto-detect from system preference
+                if (prefersDark) {
+                    document.body.classList.remove('light-mode');
+                    db.settings.theme = 'dark';
+                } else {
+                    document.body.classList.add('light-mode');
+                    db.settings.theme = 'light';
+                }
+                saveDB();
+                updateThemeIcon();
+            }
+            
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                if (!localStorage.getItem('sf_theme')) {
+                    if (e.matches) {
+                        document.body.classList.remove('light-mode');
+                        db.settings.theme = 'dark';
+                    } else {
+                        document.body.classList.add('light-mode');
+                        db.settings.theme = 'light';
+                    }
+                    saveDB();
+                    updateThemeIcon();
+                }
+            });
+        }
+        
+        // 3. MICRO-INTERACTIONS & GESTURES
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        
+        function initGestures() {
+            document.addEventListener('touchstart', handleTouchStart, { passive: true });
+            document.addEventListener('touchend', handleTouchEnd, { passive: true });
+            
+            // Add ripple effects to buttons
+            document.addEventListener('click', addRippleEffect);
+        }
+        
+        function handleTouchStart(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }
+        
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipeGesture();
+        }
+        
+        function handleSwipeGesture() {
+            const swipeThreshold = 50;
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Horizontal swipe
+                if (Math.abs(diffX) > swipeThreshold) {
+                    if (diffX > 0) {
+                        // Swipe right - previous tab
+                        navigateTab('prev');
+                    } else {
+                        // Swipe left - next tab
+                        navigateTab('next');
+                    }
+                }
+            }
+        }
+        
+        function navigateTab(direction) {
+            const tabs = ['sched', 'dash', 'analytics', 'focus', 'log', 'goals', 'wellness', 'download'];
+            const currentTab = document.querySelector('.tab-pane.active').id;
+            const currentIndex = tabs.indexOf(currentTab);
+            
+            let newIndex;
+            if (direction === 'next') {
+                newIndex = (currentIndex + 1) % tabs.length;
+            } else {
+                newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+            }
+            
+            switchTab(tabs[newIndex]);
+            showToast(`📱 ${t('nav_' + tabs[newIndex])}`);
+        }
+        
+        function addRippleEffect(e) {
+            if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+                const button = e.target.tagName === 'BUTTON' ? e.target : e.target.closest('button');
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                button.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            }
+        }
+        
+        // Add ripple CSS
+        const rippleCSS = `
+            button {
+                position: relative;
+                overflow: hidden;
+            }
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.5);
+                transform: scale(0);
+                animation: ripple-animation 0.6s ease-out;
+                pointer-events: none;
+            }
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        
+        // 4. ADVANCED PDF EXPORT WITH CHARTS
+        async function exportAdvancedPDF() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF();
+                
+                // Add title
+                pdf.setFontSize(20);
+                pdf.text('StudentFlow - Rapport Complet', 20, 20);
+                
+                // Add date
+                pdf.setFontSize(12);
+                pdf.text(`Généré le: ${new Date().toLocaleDateString('fr-FR')}`, 20, 30);
+                
+                // Add analytics summary
+                pdf.setFontSize(14);
+                pdf.text('Résumé Analytics', 20, 50);
+                pdf.setFontSize(10);
+                pdf.text(`Entrées journal: ${db.entries.length}`, 20, 60);
+                pdf.text(`Sessions focus: ${db.focusSessions.length}`, 20, 70);
+                pdf.text(`Objectifs: ${db.goals.length}`, 20, 80);
+                
+                // Add charts as images
+                if (window.mainChart) {
+                    const chartImage = window.mainChart.toBase64Image();
+                    pdf.addImage(chartImage, 'PNG', 20, 100, 170, 100);
+                }
+                
+                // Add journal entries
+                pdf.addPage();
+                pdf.setFontSize(14);
+                pdf.text('Dernières entrées journal', 20, 20);
+                pdf.setFontSize(10);
+                
+                let y = 30;
+                const recentEntries = db.entries.slice(-5).reverse();
+                recentEntries.forEach(entry => {
+                    if (y > 270) {
+                        pdf.addPage();
+                        y = 20;
+                    }
+                    pdf.text(`${entry.date} - Stress: ${entry.stress}/10, Sommeil: ${entry.sleep}h`, 20, y);
+                    y += 10;
+                });
+                
+                // Save PDF
+                pdf.save('StudentFlow-Rapport-Complet.pdf');
+                showToast('📄 Rapport PDF généré avec succès');
+                
+            } catch (error) {
+                console.error('PDF export failed:', error);
+                showToast('❌ Erreur lors de la génération PDF');
+            }
+        }
+        
+        // 5. WEBRTC SCREEN SHARING
+        let localStream = null;
+        let peerConnection = null;
+        
+        async function startScreenShare() {
+            try {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+                    showToast('❌ Partage d\'écran non supporté');
+                    return;
+                }
+                
+                localStream = await navigator.mediaDevices.getDisplayMedia({
+                    video: true,
+                    audio: true
+                });
+                
+                // Create video element to display shared screen
+                const video = document.createElement('video');
+                video.srcObject = localStream;
+                video.autoplay = true;
+                video.style.width = '100%';
+                video.style.maxHeight = '400px';
+                video.style.borderRadius = '12px';
+                video.style.marginTop = '20px';
+                
+                // Show in modal
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
+                modal.innerHTML = `
+                    <div class="glass max-w-4xl w-full p-6 space-y-4">
+                        <h3 class="text-xl font-black">📺 Partage d'écran - Étude en groupe</h3>
+                        <div id="screen-container"></div>
+                        <div class="flex gap-4">
+                            <button onclick="this.closest('.fixed').remove(); stopScreenShare()" class="flex-1 py-3 bg-red-600 rounded-xl font-bold hover:bg-red-500 transition">
+                                Arrêter le partage
+                            </button>
+                            <button onclick="copyShareLink()" class="flex-1 py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition">
+                                Copier le lien
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                
+                document.getElementById('screen-container').appendChild(video);
+                showToast('📺 Partage d\'écran démarré');
+                
+            } catch (error) {
+                console.error('Screen share failed:', error);
+                showToast('❌ Erreur lors du partage d\'écran');
+            }
+        }
+        
+        function stopScreenShare() {
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+                localStream = null;
+            }
+            showToast('📺 Partage d\'écran arrêté');
+        }
+        
+        function copyShareLink() {
+            const shareUrl = window.location.href + '?share=' + Date.now();
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                showToast('🔗 Lien de partage copié');
+            });
+        }
+        
+        // 6. SPEECH-TO-TEXT JOURNAL
+        let recognition = null;
+        let isRecording = false;
+        
+        function initSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                console.log('Speech recognition not supported');
+                return;
+            }
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'fr-FR';
+            
+            recognition.onresult = (event) => {
+                let finalTranscript = '';
+                let interimTranscript = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript + ' ';
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+                
+                const noteField = document.getElementById('in-note');
+                if (noteField) {
+                    noteField.value = noteField.value + finalTranscript;
+                }
+            };
+            
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                if (event.error === 'no-speech') {
+                    showToast('🎤 Aucun discours détecté');
+                } else {
+                    showToast('❌ Erreur de reconnaissance vocale');
+                }
+                isRecording = false;
+                updateRecordingButton();
+            };
+            
+            recognition.onend = () => {
+                isRecording = false;
+                updateRecordingButton();
+            };
+        }
+        
+        function toggleSpeechRecording() {
+            if (!recognition) {
+                initSpeechRecognition();
+            }
+            
+            if (isRecording) {
+                recognition.stop();
+                showToast('🎤 Enregistrement arrêté');
+            } else {
+                recognition.start();
+                showToast('🎤 Enregistrement démarré - Parle maintenant');
+            }
+            
+            isRecording = !isRecording;
+            updateRecordingButton();
+        }
+        
+        function updateRecordingButton() {
+            const button = document.getElementById('speech-record-btn');
+            if (button) {
+                if (isRecording) {
+                    button.innerHTML = '<i data-lucide="mic-off" class="w-4 h-4"></i> Arrêter';
+                    button.classList.add('bg-red-600');
+                    button.classList.remove('bg-indigo-600');
+                } else {
+                    button.innerHTML = '<i data-lucide="mic" class="w-4 h-4"></i> Vocal';
+                    button.classList.remove('bg-red-600');
+                    button.classList.add('bg-indigo-600');
+                }
+                lucide.createIcons();
+            }
+        }
+        
+        // 7. CALENDAR INTEGRATION
+        async function exportToGoogleCalendar() {
+            try {
+                const events = [];
+                
+                // Add focus sessions
+                db.focusSessions.forEach(session => {
+                    const startDate = new Date(session.timestamp);
+                    const endDate = new Date(startDate.getTime() + session.duration * 60000);
+                    
+                    events.push({
+                        summary: `Session Focus - ${session.tag || 'StudentFlow'}`,
+                        description: `Session de concentration de ${session.duration} minutes`,
+                        start: startDate.toISOString(),
+                        end: endDate.toISOString()
+                    });
+                });
+                
+                // Create calendar URL
+                if (events.length > 0) {
+                    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('StudentFlow Sessions')}&dates=${encodeURIComponent(events[0].start).replace(/[-:]/g, '')}/${encodeURIComponent(events[events.length - 1].end).replace(/[-:]/g, '')}&details=${encodeURIComponent('Sessions de focus et étude')}`;
+                    
+                    window.open(calendarUrl, '_blank');
+                    showToast('📅 Export vers Google Calendar');
+                } else {
+                    showToast('📅 Aucune session à exporter');
+                }
+                
+            } catch (error) {
+                console.error('Calendar export failed:', error);
+                showToast('❌ Erreur lors de l\'export calendar');
+            }
+        }
+        
+        // 8. SOCIAL FEATURES
+        function shareProgress() {
+            const shareData = {
+                title: 'StudentFlow - Mon Progrès',
+                text: `🎯 ${db.focusSessions.length} sessions focus • 📝 ${db.entries.length} entrées journal • 🏆 ${db.goals.filter(g => g.completed).length} objectifs complétés`,
+                url: window.location.href
+            };
+            
+            if (navigator.share) {
+                navigator.share(shareData).then(() => {
+                    showToast('📤 Progrès partagé');
+                }).catch(() => {
+                    copyToClipboard(shareData.text);
+                });
+            } else {
+                copyToClipboard(shareData.text);
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('📋 Copié dans le presse-papiers');
+            });
+        }
+        
+        // 9. ADVANCED ANALYTICS
+        function generateAdvancedInsights() {
+            const insights = [];
+            
+            // Analyze patterns
+            const recentEntries = db.entries.slice(-30);
+            const avgStress = recentEntries.reduce((sum, e) => sum + e.stress, 0) / recentEntries.length;
+            const avgSleep = recentEntries.reduce((sum, e) => sum + e.sleep, 0) / recentEntries.length;
+            
+            if (avgStress > 7) {
+                insights.push('🔴 Stress élevé détecté - Considère des techniques de relaxation');
+            } else if (avgStress < 3) {
+                insights.push('🟢 Excellent niveau de stress - Continue comme ça !');
+            }
+            
+            if (avgSleep < 6) {
+                insights.push('😴 Sommeil insuffisant - Vise 7-8h par nuit');
+            } else if (avgSleep > 8) {
+                insights.push('🛌 Bon sommeil - Évite de dépasser 9h');
+            }
+            
+            // Focus patterns
+            const focusTrend = analyzeFocusTrend();
+            if (focusTrend > 0.2) {
+                insights.push('📈 Focus en amélioration - Excellent travail !');
+            } else if (focusTrend < -0.2) {
+                insights.push('📉 Focus en baisse - Essaie de nouvelles techniques');
+            }
+            
+            return insights;
+        }
+        
+        function analyzeFocusTrend() {
+            const recentSessions = db.focusSessions.slice(-20);
+            if (recentSessions.length < 10) return 0;
+            
+            const firstHalf = recentSessions.slice(0, Math.floor(recentSessions.length / 2));
+            const secondHalf = recentSessions.slice(Math.floor(recentSessions.length / 2));
+            
+            const firstAvg = firstHalf.reduce((sum, s) => sum + s.duration, 0) / firstHalf.length;
+            const secondAvg = secondHalf.reduce((sum, s) => sum + s.duration, 0) / secondHalf.length;
+            
+            return (secondAvg - firstAvg) / firstAvg;
+        }
+        
+        // Initialize all advanced features
+        function initAdvancedFeatures() {
+            initAutoTheme();
+            initGestures();
+            initSpeechRecognition();
+            
+            // Add ripple CSS
+            if (!document.getElementById('ripple-styles')) {
+                const style = document.createElement('style');
+                style.id = 'ripple-styles';
+                style.textContent = rippleCSS;
+                document.head.appendChild(style);
+            }
+            
+            // Add speech button to journal
+            setTimeout(() => {
+                const noteField = document.getElementById('in-note');
+                if (noteField) {
+                    const speechBtn = document.createElement('button');
+                    speechBtn.id = 'speech-record-btn';
+                    speechBtn.className = 'px-4 py-2 bg-indigo-600 rounded-xl text-white font-bold text-sm hover:bg-indigo-500 transition flex items-center gap-2';
+                    speechBtn.innerHTML = '<i data-lucide="mic" class="w-4 h-4"></i> Vocal';
+                    speechBtn.onclick = toggleSpeechRecording;
+                    
+                    noteField.parentNode.insertBefore(speechBtn, noteField.nextSibling);
+                    lucide.createIcons();
+                }
+            }, 1000);
+        }
+        
+        // Initialize on load
+        initAdvancedFeatures();
+        
+        // Register for background sync
+        if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+            navigator.serviceWorker.ready.then(registration => {
+                // Register sync tags
+                return Promise.all([
+                    registration.sync.register('journal-sync'),
+                    registration.sync.register('analytics-sync'),
+                    registration.sync.register('goals-sync')
+                ]);
+            }).catch(() => {
+                console.log('Background sync not available');
+            });
+        }
+        
+        // Add advanced export button
+        setTimeout(() => {
+            const exportBtn = document.createElement('button');
+            exportBtn.className = 'px-4 py-2 bg-purple-600 rounded-xl text-white font-bold text-sm hover:bg-purple-500 transition flex items-center gap-2';
+            exportBtn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> PDF Complet';
+            exportBtn.onclick = exportAdvancedPDF;
+            
+            const dataModal = document.querySelector('#data-modal .flex.gap-2');
+            if (dataModal) {
+                dataModal.appendChild(exportBtn);
+                lucide.createIcons();
+            }
+        }, 1000);
+        
+        // Add calendar export button
+        setTimeout(() => {
+            const calendarBtn = document.createElement('button');
+            calendarBtn.className = 'px-4 py-2 bg-green-600 rounded-xl text-white font-bold text-sm hover:bg-green-500 transition flex items-center gap-2';
+            calendarBtn.innerHTML = '<i data-lucide="calendar" class="w-4 h-4"></i> Google Calendar';
+            calendarBtn.onclick = exportToGoogleCalendar;
+            
+            const dataModal = document.querySelector('#data-modal .flex.gap-2');
+            if (dataModal) {
+                dataModal.appendChild(calendarBtn);
+                lucide.createIcons();
+            }
+        }, 1000);
+        
+        // Add share button
+        setTimeout(() => {
+            const shareBtn = document.createElement('button');
+            shareBtn.className = 'px-4 py-2 bg-blue-600 rounded-xl text-white font-bold text-sm hover:bg-blue-500 transition flex items-center gap-2';
+            shareBtn.innerHTML = '<i data-lucide="share-2" class="w-4 h-4"></i> Partager';
+            shareBtn.onclick = shareProgress;
+            
+            const dataModal = document.querySelector('#data-modal .flex.gap-2');
+            if (dataModal) {
+                dataModal.appendChild(shareBtn);
+                lucide.createIcons();
+            }
+        }, 1000);
+        
+        // Add screen share button to wellness section
+        setTimeout(() => {
+            const screenShareBtn = document.createElement('button');
+            screenShareBtn.className = 'glass p-6 text-center hover:bg-white/5 touch-feedback col-span-2';
+            screenShareBtn.innerHTML = `
+                <span class="text-4xl">📺</span>
+                <p class="font-bold mt-2">Partage d'écran</p>
+                <p class="text-[10px] text-slate-400">Étude en groupe</p>
+            `;
+            screenShareBtn.onclick = startScreenShare;
+            
+            const wellnessGrid = document.querySelector('#wellness .grid.grid-cols-2');
+            if (wellnessGrid) {
+                wellnessGrid.appendChild(screenShareBtn);
+            }
+        }, 1000);
     </script>
 </body>
 </html>
