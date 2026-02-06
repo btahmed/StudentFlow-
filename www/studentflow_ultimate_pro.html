@@ -939,7 +939,6 @@
                 <!-- Quick Timers -->
                 <div class="grid grid-cols-4 gap-3">
                     <button onclick="setCustomTimer(15)" class="glass p-3 text-center hover:bg-white/5 touch-feedback">
-                        <p class="text-xl font-black">15</p>
                         <p class="text-[8px] text-slate-400">quick</p>
                     </button>
                     <button onclick="setCustomTimer(25)" class="glass p-3 text-center hover:bg-white/5 touch-feedback border-indigo-500/50">
@@ -973,6 +972,112 @@
                             <p class="text-[8px]" data-i18n="exam_concours">Concours</p>
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="glass sticky top-0 z-50 backdrop-blur-xl">
+            <div class="max-w-7xl mx-auto px-4 py-4">
+                <div class="flex justify-between items-center">
+                    <!-- Logo & Title -->
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-black text-white">
+                            SF
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">StudentFlow Pro</h1>
+                            <p class="text-[10px] text-slate-400" data-i18n="subtitle">AI-Powered Wellness Platform</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats Widget -->
+                    <div class="hidden md:flex items-center gap-6 px-4">
+                        <div class="text-center">
+                            <div class="text-xs font-bold text-indigo-400" id="header-focus-count">0</div>
+                            <div class="text-[8px] text-slate-500">Focus</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-xs font-bold text-emerald-400" id="header-streak">0</div>
+                            <div class="text-[8px] text-slate-500">Streak</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-xs font-bold text-purple-400" id="header-wisdom">0</div>
+                            <div class="text-[8px] text-slate-500">Wisdom</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="flex items-center gap-2">
+                        <button onclick="toggleQuickWidget()" class="p-2 hover:bg-white/10 rounded-xl transition" title="Quick Widget">
+                            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="requestNotificationPermission()" class="p-2 hover:bg-white/10 rounded-xl transition" title="Notifications">
+                            <i data-lucide="bell" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="openNotesModal()" class="glass px-4 py-2 text-xs font-bold flex items-center gap-2 hover:bg-white/10 touch-feedback">
+                            <i data-lucide="sticky-note" class="w-4 h-4"></i>
+                            <span class="hidden sm:inline" data-i18n="btn_my_notes">Mes Notes</span>
+                        </button>
+                        <button onclick="toggleTheme()" class="p-2 hover:bg-white/10 rounded-xl transition" title="Theme">
+                            <i data-lucide="moon" id="theme-icon" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="toggleSound()" class="p-2 hover:bg-white/10 rounded-xl transition" title="Sound">
+                            <i data-lucide="volume-2" id="sound-icon" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="showShortcutsInfo()" class="p-2 hover:bg-white/10 rounded-xl transition" title="Shortcuts">
+                            <i data-lucide="keyboard" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="openDataModal()" class="p-2 hover:bg-white/10 rounded-xl transition" title="Data">
+                            <i data-lucide="database" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Quick Widget Panel -->
+        <div id="quick-widget" class="hidden fixed top-20 right-4 w-80 glass rounded-xl p-4 z-40 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-sm">Quick Dashboard</h3>
+                <button onclick="toggleQuickWidget()" class="p-1 hover:bg-white/10 rounded">
+                    <i data-lucide="x" class="w-3 h-3"></i>
+                </button>
+            </div>
+            
+            <!-- Today's Summary -->
+            <div class="bg-white/5 rounded-lg p-3">
+                <div class="text-xs font-bold text-slate-400 mb-2">Aujourd'hui</div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="text-center">
+                        <div class="text-lg font-bold text-indigo-400" id="widget-focus-today">0</div>
+                        <div class="text-[8px] text-slate-500">Focus (min)</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg font-bold text-emerald-400" id="widget-tasks-today">0</div>
+                        <div class="text-[8px] text-slate-500">Tâches</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="space-y-2">
+                <button onclick="startQuickFocus()" class="w-full py-2 bg-indigo-600 rounded-lg text-xs font-bold hover:bg-indigo-500 transition">
+                    ⚡ Quick Focus (25 min)
+                </button>
+                <button onclick="openAddNoteModal()" class="w-full py-2 bg-purple-600 rounded-lg text-xs font-bold hover:bg-purple-500 transition">
+                    📝 Quick Note
+                </button>
+                <button onclick="openQuickGoalModal()" class="w-full py-2 bg-emerald-600 rounded-lg text-xs font-bold hover:bg-emerald-500 transition">
+                    🎯 Quick Goal
+                </button>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="bg-white/5 rounded-lg p-3">
+                <div class="text-xs font-bold text-slate-400 mb-2">Activité récente</div>
+                <div id="widget-recent-activity" class="space-y-1 text-xs text-slate-300">
+                    <!-- Will be populated dynamically -->
                 </div>
             </div>
         </div>
@@ -1436,22 +1541,85 @@
 
     <!-- ADD NOTE MODAL -->
     <div id="add-note-modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[110] hidden items-center justify-center p-4">
-        <div class="glass max-w-md w-full p-6 space-y-4">
-            <h3 class="text-xl font-black">✏️ Nouvelle Note</h3>
-            <textarea id="new-note-text" rows="4" placeholder="Écris ta note ici..."
-                class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-indigo-500 resize-none"></textarea>
-            <div>
-                <p class="text-[10px] font-bold text-slate-400 mb-2">CATÉGORIE</p>
-                <div class="flex gap-2 flex-wrap">
-                    <button onclick="selectNoteCategory('📚')" class="new-note-cat px-4 py-2 rounded-xl text-sm font-bold bg-indigo-500/20 text-indigo-400 border-2 border-transparent hover:border-indigo-500" data-cat="📚">📚 Études</button>
-                    <button onclick="selectNoteCategory('💡')" class="new-note-cat px-4 py-2 rounded-xl text-sm font-bold bg-amber-500/20 text-amber-400 border-2 border-transparent hover:border-amber-500" data-cat="💡">💡 Idées</button>
-                    <button onclick="selectNoteCategory('❤️')" class="new-note-cat px-4 py-2 rounded-xl text-sm font-bold bg-pink-500/20 text-pink-400 border-2 border-transparent hover:border-pink-500" data-cat="❤️">❤️ Perso</button>
-                    <button onclick="selectNoteCategory('⚡')" class="new-note-cat px-4 py-2 rounded-xl text-sm font-bold bg-emerald-500/20 text-emerald-400 border-2 border-transparent hover:border-emerald-500" data-cat="⚡">⚡ Urgent</button>
+        <div class="glass max-w-lg w-full p-6 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-black">✏️ Nouvelle Note</h3>
+                <div class="flex gap-2">
+                    <button id="note-speech-btn" onclick="toggleNoteSpeechRecording()" class="px-3 py-2 bg-indigo-600 rounded-xl text-white font-bold text-sm hover:bg-indigo-500 transition flex items-center gap-2">
+                        <i data-lucide="mic" class="w-4 h-4"></i>
+                        <span>Vocal</span>
+                    </button>
+                    <button onclick="closeAddNoteModal()" class="p-2 hover:bg-white/10 rounded-xl">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
                 </div>
             </div>
+            
+            <!-- Title Input -->
+            <div>
+                <input type="text" id="new-note-title" placeholder="Titre de la note (optionnel)..."
+                    class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-500">
+            </div>
+            
+            <!-- Text Area with Voice -->
+            <div class="relative">
+                <textarea id="new-note-text" rows="4" placeholder="Écris ta note ici ou utilise le micro 🎤..."
+                    class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-indigo-500 resize-none"></textarea>
+                <div id="note-recording-indicator" class="hidden absolute top-2 right-2 px-2 py-1 bg-red-600 rounded-full text-xs text-white flex items-center gap-1">
+                    <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                    Enregistrement...
+                </div>
+            </div>
+            
+            <!-- Advanced Options -->
+            <div class="space-y-3">
+                <!-- Priority -->
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 mb-2">PRIORITÉ</p>
+                    <div class="flex gap-2">
+                        <button onclick="selectNotePriority('low')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-green-500/20 text-green-400 border-2 border-transparent" data-priority="low">🟢 Basse</button>
+                        <button onclick="selectNotePriority('medium')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-yellow-500/20 text-yellow-400 border-2 border-transparent" data-priority="medium">🟡 Moyenne</button>
+                        <button onclick="selectNotePriority('high')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-red-500/20 text-red-400 border-2 border-transparent" data-priority="high">🔴 Haute</button>
+                    </div>
+                </div>
+                
+                <!-- Category -->
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 mb-2">CATÉGORIE</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <button onclick="selectNoteCategory('📚')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-indigo-500/20 text-indigo-400 border-2 border-transparent hover:border-indigo-500" data-cat="📚">📚 Études</button>
+                        <button onclick="selectNoteCategory('💡')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-amber-500/20 text-amber-400 border-2 border-transparent hover:border-amber-500" data-cat="💡">💡 Idées</button>
+                        <button onclick="selectNoteCategory('❤️')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-pink-500/20 text-pink-400 border-2 border-transparent hover:border-pink-500" data-cat="❤️">❤️ Perso</button>
+                        <button onclick="selectNoteCategory('⚡')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-emerald-500/20 text-emerald-400 border-2 border-transparent hover:border-emerald-500" data-cat="⚡">⚡ Urgent</button>
+                        <button onclick="selectNoteCategory('🎯')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-purple-500/20 text-purple-400 border-2 border-transparent hover:border-purple-500" data-cat="🎯">🎯 Objectifs</button>
+                        <button onclick="selectNoteCategory('📝')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-blue-500/20 text-blue-400 border-2 border-transparent hover:border-blue-500" data-cat="📝">📝 Meeting</button>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 mb-2">TAGS (sépare par des virgules)</p>
+                    <input type="text" id="new-note-tags" placeholder="ex: maths, révision, important..."
+                        class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-500">
+                </div>
+                
+                <!-- Reminder -->
+                <div>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="new-note-reminder" class="rounded">
+                        <span class="text-sm">Ajouter un rappel</span>
+                    </label>
+                    <input type="datetime-local" id="new-note-reminder-time" class="hidden w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-500 mt-2">
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
             <div class="flex gap-2">
                 <button onclick="saveNewNote()" class="flex-1 py-3 bg-indigo-600 rounded-xl font-bold text-sm hover:bg-indigo-500 touch-feedback">
                     💾 Enregistrer
+                </button>
+                <button onclick="saveNoteAsTemplate()" class="px-4 py-3 bg-purple-600 rounded-xl font-bold text-sm hover:bg-purple-500 touch-feedback">
+                    📋 Template
                 </button>
                 <button onclick="closeAddNoteModal()" class="px-6 py-3 bg-white/5 rounded-xl font-bold text-sm hover:bg-white/10 touch-feedback">
                     Annuler
@@ -5023,6 +5191,9 @@
             document.getElementById('add-note-modal').style.display = 'none';
         }
         
+        // Advanced Notes System
+        let currentNotePriority = 'medium';
+        
         function selectNoteCategory(cat) {
             currentNoteCategory = cat;
             document.querySelectorAll('.new-note-cat').forEach(btn => {
@@ -5030,26 +5201,313 @@
                 if (btn.dataset.cat === cat) btn.classList.add('border-white', 'border-2');
             });
         }
+        let noteSpeechRecognition = null;
+        let isNoteRecording = false;
+        
+        function selectNotePriority(priority) {
+            currentNotePriority = priority;
+            document.querySelectorAll('.note-priority-btn').forEach(btn => {
+                btn.classList.remove('border-white', 'border-2');
+                if (btn.dataset.priority === priority) btn.classList.add('border-white', 'border-2');
+            });
+        }
+        
+        function toggleNoteSpeechRecording() {
+            if (!noteSpeechRecognition) {
+                initNoteSpeechRecognition();
+            }
+            
+            if (isNoteRecording) {
+                noteSpeechRecognition.stop();
+                showToast('🎤 Enregistrement arrêté');
+            } else {
+                noteSpeechRecognition.start();
+                showToast('🎤 Enregistrement démarré - Parle maintenant');
+            }
+            
+            isNoteRecording = !isNoteRecording;
+            updateNoteRecordingButton();
+        }
+        
+        function initNoteSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                showToast('❌ Reconnaissance vocale non supportée');
+                return;
+            }
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            noteSpeechRecognition = new SpeechRecognition();
+            
+            noteSpeechRecognition.continuous = true;
+            noteSpeechRecognition.interimResults = true;
+            noteSpeechRecognition.lang = 'fr-FR';
+            
+            noteSpeechRecognition.onresult = (event) => {
+                let finalTranscript = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript + ' ';
+                    }
+                }
+                
+                const noteField = document.getElementById('new-note-text');
+                if (noteField && finalTranscript) {
+                    noteField.value = noteField.value + finalTranscript;
+                }
+            };
+            
+            noteSpeechRecognition.onerror = (event) => {
+                console.error('Note speech recognition error:', event.error);
+                showToast('❌ Erreur de reconnaissance vocale');
+                isNoteRecording = false;
+                updateNoteRecordingButton();
+            };
+            
+            noteSpeechRecognition.onend = () => {
+                isNoteRecording = false;
+                updateNoteRecordingButton();
+            };
+        }
+        
+        function updateNoteRecordingButton() {
+            const button = document.getElementById('note-speech-btn');
+            const indicator = document.getElementById('note-recording-indicator');
+            
+            if (button) {
+                if (isNoteRecording) {
+                    button.innerHTML = '<i data-lucide="mic-off" class="w-4 h-4"></i><span>Arrêter</span>';
+                    button.classList.add('bg-red-600');
+                    button.classList.remove('bg-indigo-600');
+                    if (indicator) indicator.classList.remove('hidden');
+                } else {
+                    button.innerHTML = '<i data-lucide="mic" class="w-4 h-4"></i><span>Vocal</span>';
+                    button.classList.remove('bg-red-600');
+                    button.classList.add('bg-indigo-600');
+                    if (indicator) indicator.classList.add('hidden');
+                }
+                lucide.createIcons();
+            }
+        }
         
         function saveNewNote() {
+            const title = document.getElementById('new-note-title').value.trim();
             const text = document.getElementById('new-note-text').value.trim();
+            const tags = document.getElementById('new-note-tags').value.trim();
+            const hasReminder = document.getElementById('new-note-reminder').checked;
+            const reminderTime = document.getElementById('new-note-reminder-time').value;
+            
             if (!text) {
                 playAlertSound();
                 showToast('⚠️ Note vide!');
                 return;
             }
             
-            db.notes.push({ 
-                text: text, 
+            const note = {
+                id: Date.now().toString(),
+                title: title || 'Note sans titre',
+                text: text,
                 category: currentNoteCategory,
-                date: new Date().toISOString() 
-            });
+                priority: currentNotePriority,
+                tags: tags ? tags.split(',').map(t => t.trim()).filter(t => t) : [],
+                date: new Date().toISOString(),
+                reminder: hasReminder && reminderTime ? {
+                    time: reminderTime,
+                    sent: false
+                } : null
+            };
+            
+            db.notes.push(note);
             save();
             playNotificationSound();
-            showToast('📝 Note enregistrée');
+            showToast('📝 Note enregistrée avec succès');
+            
+            // Schedule reminder if set
+            if (note.reminder) {
+                scheduleNoteReminder(note);
+            }
+            
             closeAddNoteModal();
             renderNotes();
         }
+        
+        function scheduleNoteReminder(note) {
+            const reminderTime = new Date(note.reminder.time).getTime();
+            const now = Date.now();
+            const delay = reminderTime - now;
+            
+            if (delay > 0) {
+                setTimeout(() => {
+                    if (!note.reminder.sent) {
+                        sendNotification('📝 Rappel Note', `${note.title}: ${note.text.substring(0, 50)}...`, {
+                            tag: `note-reminder-${note.id}`,
+                            requireInteraction: true
+                        });
+                        note.reminder.sent = true;
+                        save();
+                    }
+                }, delay);
+            }
+        }
+        
+        function saveNoteAsTemplate() {
+            const title = document.getElementById('new-note-title').value.trim();
+            const text = document.getElementById('new-note-text').value.trim();
+            const tags = document.getElementById('new-note-tags').value.trim();
+            
+            if (!text) {
+                playAlertSound();
+                showToast('⚠️ Note vide!');
+                return;
+            }
+            
+            const template = {
+                id: Date.now().toString(),
+                name: title || 'Template sans nom',
+                text: text,
+                category: currentNoteCategory,
+                priority: currentNotePriority,
+                tags: tags ? tags.split(',').map(t => t.trim()).filter(t => t) : [],
+                createdAt: new Date().toISOString()
+            };
+            
+            if (!db.templates) db.templates = {};
+            db.templates[template.id] = template;
+            save();
+            
+            playNotificationSound();
+            showToast('📋 Template enregistré');
+            closeAddNoteModal();
+        }
+        
+        function loadNoteTemplate(templateId) {
+            const template = db.templates[templateId];
+            if (!template) return;
+            
+            document.getElementById('new-note-title').value = '';
+            document.getElementById('new-note-text').value = template.text;
+            document.getElementById('new-note-tags').value = template.tags.join(', ');
+            
+            selectNoteCategory(template.category);
+            selectNotePriority(template.priority);
+            
+            openAddNoteModal();
+            showToast('📋 Template chargé');
+        }
+        
+        function deleteNote(noteId) {
+            if (confirm('Supprimer cette note?')) {
+                db.notes = db.notes.filter(n => n.id !== noteId);
+                save();
+                playNotificationSound();
+                showToast('🗑️ Note supprimée');
+                renderNotes();
+            }
+        }
+        
+        function editNote(noteId) {
+            const note = db.notes.find(n => n.id === noteId);
+            if (!note) return;
+            
+            document.getElementById('new-note-title').value = note.title;
+            document.getElementById('new-note-text').value = note.text;
+            document.getElementById('new-note-tags').value = note.tags.join(', ');
+            
+            selectNoteCategory(note.category);
+            selectNotePriority(note.priority);
+            
+            // Delete old note and open modal for editing
+            db.notes = db.notes.filter(n => n.id !== noteId);
+            save();
+            
+            openAddNoteModal();
+            showToast('✏️ Mode édition');
+        }
+        
+        function duplicateNote(noteId) {
+            const note = db.notes.find(n => n.id === noteId);
+            if (!note) return;
+            
+            const duplicatedNote = {
+                ...note,
+                id: Date.now().toString(),
+                title: note.title + ' (copie)',
+                date: new Date().toISOString()
+            };
+            
+            db.notes.push(duplicatedNote);
+            save();
+            playNotificationSound();
+            showToast('📋 Note dupliquée');
+            renderNotes();
+        }
+        
+        function exportNotes() {
+            const notesData = {
+                exportDate: new Date().toISOString(),
+                notes: db.notes,
+                templates: db.templates || {}
+            };
+            
+            const blob = new Blob([JSON.stringify(notesData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `studentflow-notes-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('📤 Notes exportées');
+        }
+        
+        function importNotes(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (data.notes && Array.isArray(data.notes)) {
+                        data.notes.forEach(note => {
+                            if (!note.id) note.id = Date.now().toString() + Math.random();
+                        });
+                        db.notes = [...db.notes, ...data.notes];
+                    }
+                    
+                    if (data.templates && typeof data.templates === 'object') {
+                        db.templates = { ...db.templates, ...data.templates };
+                    }
+                    
+                    save();
+                    playNotificationSound();
+                    showToast('📥 Notes importées avec succès');
+                    renderNotes();
+                } catch (error) {
+                    showToast('❌ Erreur lors de l\'import');
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        // Handle reminder checkbox
+        document.addEventListener('change', (e) => {
+            if (e.target.id === 'new-note-reminder') {
+                const timeInput = document.getElementById('new-note-reminder-time');
+                if (e.target.checked) {
+                    timeInput.classList.remove('hidden');
+                    // Set default time to tomorrow 9am
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    tomorrow.setHours(9, 0, 0, 0);
+                    timeInput.value = tomorrow.toISOString().slice(0, 16);
+                } else {
+                    timeInput.classList.add('hidden');
+                }
+            }
+        });
         
         function openNotesModal() {
             currentFilterCategory = 'all';
