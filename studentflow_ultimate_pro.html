@@ -423,6 +423,26 @@
                 position: fixed !important;
             }
             
+            /* Touch optimization for Quick Widget */
+            #quick-widget button {
+                touch-action: manipulation;
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            #quick-widget button:active {
+                transform: scale(0.95);
+                transition: transform 0.1s ease;
+            }
+            
+            /* Prevent event bubbling on mobile */
+            #quick-widget {
+                touch-action: pan-y pinch-zoom;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+            
             /* Form inputs mobile */
             input, textarea, select {
                 font-size: 16px !important; /* Prevent zoom on iOS */
@@ -7431,9 +7451,32 @@
         // Quick Widget Functions
         function toggleQuickWidget() {
             const widget = document.getElementById('quick-widget');
-            widget.classList.toggle('hidden');
-            if (!widget.classList.contains('hidden')) {
+            const isVisible = !widget.classList.contains('hidden');
+            
+            // Fermer le widget
+            if (isVisible) {
+                widget.classList.add('hidden');
+                // Retirer le focus de tous les éléments
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            } else {
+                // Ouvrir le widget
+                widget.classList.remove('hidden');
                 updateQuickWidget();
+                
+                // Ajouter un écouteur d'événements pour fermer au clic extérieur
+                setTimeout(() => {
+                    const closeWidget = (e) => {
+                        if (!widget.contains(e.target) && !e.target.closest('[onclick*="toggleQuickWidget"]')) {
+                            widget.classList.add('hidden');
+                            document.removeEventListener('click', closeWidget);
+                            document.removeEventListener('touchstart', closeWidget);
+                        }
+                    };
+                    document.addEventListener('click', closeWidget);
+                    document.addEventListener('touchstart', closeWidget);
+                }, 100);
             }
         }
         
@@ -7484,7 +7527,16 @@
             // Set 25 minute timer and start
             setCustomTimer(25);
             startPomodoro();
-            toggleQuickWidget();
+            
+            // Fermer le widget avec un délai pour mobile
+            setTimeout(() => {
+                const widget = document.getElementById('quick-widget');
+                widget.classList.add('hidden');
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            }, 200);
+            
             showToast('⚡ Quick Focus démarré - 25 minutes');
         }
         
@@ -7520,7 +7572,15 @@
             
             addGoal(text);
             document.querySelector('.fixed').remove();
-            toggleQuickWidget();
+            
+            // Fermer le widget avec un délai pour mobile
+            setTimeout(() => {
+                const widget = document.getElementById('quick-widget');
+                widget.classList.add('hidden');
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            }, 200);
         }
         
         // Auto-update widget every 30 seconds
