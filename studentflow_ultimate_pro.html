@@ -333,6 +333,35 @@
                 background: rgba(255, 255, 255, 0.3);
             }
             
+            /* Add note modal mobile scroll fix */
+            #add-note-modal .glass {
+                height: 95vh !important;
+                max-height: 95vh !important;
+            }
+            
+            #add-note-modal .flex-1.overflow-y-auto {
+                -webkit-overflow-scrolling: touch !important;
+                overscroll-behavior: contain !important;
+            }
+            
+            #add-note-modal .flex-1.overflow-y-auto::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            #add-note-modal .flex-1.overflow-y-auto::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 3px;
+            }
+            
+            #add-note-modal .flex-1.overflow-y-auto::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 3px;
+            }
+            
+            #add-note-modal .flex-1.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+            
             /* Form inputs mobile */
             input, textarea, select {
                 font-size: 16px !important; /* Prevent zoom on iOS */
@@ -1809,8 +1838,8 @@
 
     <!-- ADD NOTE MODAL -->
     <div id="add-note-modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[110] hidden items-center justify-center p-4">
-        <div class="glass max-w-lg w-full p-6 space-y-4">
-            <div class="flex justify-between items-center">
+        <div class="glass max-w-lg w-full h-[85vh] max-h-[85vh] flex flex-col p-6">
+            <div class="flex justify-between items-center flex-shrink-0">
                 <h3 class="text-xl font-black">✏️ Nouvelle Note</h3>
                 <div class="flex gap-2">
                     <button id="note-speech-btn" onclick="toggleNoteSpeechRecording()" class="px-3 py-2 bg-indigo-600 rounded-xl text-white font-bold text-sm hover:bg-indigo-500 transition flex items-center gap-2">
@@ -1823,66 +1852,68 @@
                 </div>
             </div>
             
-            <!-- Title Input -->
-            <div>
-                <input type="text" id="new-note-title" placeholder="Titre de la note (optionnel)..."
-                    class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-500">
-            </div>
-            
-            <!-- Text Area with Voice -->
-            <div class="relative">
-                <textarea id="new-note-text" rows="4" placeholder="Écris ta note ici ou utilise le micro 🎤..."
-                    class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-indigo-500 resize-none"></textarea>
-                <div id="note-recording-indicator" class="hidden absolute top-2 right-2 px-2 py-1 bg-red-600 rounded-full text-xs text-white flex items-center gap-1">
-                    <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-                    Enregistrement...
-                </div>
-            </div>
-            
-            <!-- Advanced Options -->
-            <div class="space-y-3">
-                <!-- Priority -->
+            <div class="flex-1 overflow-y-auto min-h-0 space-y-4 mt-4">
+                <!-- Title Input -->
                 <div>
-                    <p class="text-[10px] font-bold text-slate-400 mb-2">PRIORITÉ</p>
-                    <div class="flex gap-2">
-                        <button onclick="selectNotePriority('low')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-green-500/20 text-green-400 border-2 border-transparent" data-priority="low">🟢 Basse</button>
-                        <button onclick="selectNotePriority('medium')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-yellow-500/20 text-yellow-400 border-2 border-transparent" data-priority="medium">🟡 Moyenne</button>
-                        <button onclick="selectNotePriority('high')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-red-500/20 text-red-400 border-2 border-transparent" data-priority="high">🔴 Haute</button>
-                    </div>
-                </div>
-                
-                <!-- Category -->
-                <div>
-                    <p class="text-[10px] font-bold text-slate-400 mb-2">CATÉGORIE</p>
-                    <div class="flex gap-2 flex-wrap">
-                        <button onclick="selectNoteCategory('📚')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-indigo-500/20 text-indigo-400 border-2 border-transparent hover:border-indigo-500" data-cat="📚">📚 Études</button>
-                        <button onclick="selectNoteCategory('💡')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-amber-500/20 text-amber-400 border-2 border-transparent hover:border-amber-500" data-cat="💡">💡 Idées</button>
-                        <button onclick="selectNoteCategory('❤️')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-pink-500/20 text-pink-400 border-2 border-transparent hover:border-pink-500" data-cat="❤️">❤️ Perso</button>
-                        <button onclick="selectNoteCategory('⚡')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-emerald-500/20 text-emerald-400 border-2 border-transparent hover:border-emerald-500" data-cat="⚡">⚡ Urgent</button>
-                        <button onclick="selectNoteCategory('🎯')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-purple-500/20 text-purple-400 border-2 border-transparent hover:border-purple-500" data-cat="🎯">🎯 Objectifs</button>
-                        <button onclick="selectNoteCategory('📝')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-blue-500/20 text-blue-400 border-2 border-transparent hover:border-blue-500" data-cat="📝">📝 Meeting</button>
-                    </div>
-                </div>
-                
-                <!-- Tags -->
-                <div>
-                    <p class="text-[10px] font-bold text-slate-400 mb-2">TAGS (sépare par des virgules)</p>
-                    <input type="text" id="new-note-tags" placeholder="ex: maths, révision, important..."
+                    <input type="text" id="new-note-title" placeholder="Titre de la note (optionnel)..."
                         class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-500">
                 </div>
                 
-                <!-- Reminder -->
-                <div>
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" id="new-note-reminder" class="rounded">
-                        <span class="text-sm">Ajouter un rappel</span>
-                    </label>
-                    <input type="datetime-local" id="new-note-reminder-time" class="hidden w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-500 mt-2">
+                <!-- Text Area with Voice -->
+                <div class="relative">
+                    <textarea id="new-note-text" rows="4" placeholder="Écris ta note ici ou utilise le micro 🎤..."
+                        class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-indigo-500 resize-none"></textarea>
+                    <div id="note-recording-indicator" class="hidden absolute top-2 right-2 px-2 py-1 bg-red-600 rounded-full text-xs text-white flex items-center gap-1">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        Enregistrement...
+                    </div>
+                </div>
+                
+                <!-- Advanced Options -->
+                <div class="space-y-3">
+                    <!-- Priority -->
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 mb-2">PRIORITÉ</p>
+                        <div class="flex gap-2">
+                            <button onclick="selectNotePriority('low')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-green-500/20 text-green-400 border-2 border-transparent" data-priority="low">🟢 Basse</button>
+                            <button onclick="selectNotePriority('medium')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-yellow-500/20 text-yellow-400 border-2 border-transparent" data-priority="medium">🟡 Moyenne</button>
+                            <button onclick="selectNotePriority('high')" class="note-priority-btn px-3 py-1 rounded-lg text-xs font-bold bg-red-500/20 text-red-400 border-2 border-transparent" data-priority="high">🔴 Haute</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Category -->
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 mb-2">CATÉGORIE</p>
+                        <div class="flex gap-2 flex-wrap">
+                            <button onclick="selectNoteCategory('📚')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-indigo-500/20 text-indigo-400 border-2 border-transparent hover:border-indigo-500" data-cat="📚">📚 Études</button>
+                            <button onclick="selectNoteCategory('💡')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-amber-500/20 text-amber-400 border-2 border-transparent hover:border-amber-500" data-cat="💡">💡 Idées</button>
+                            <button onclick="selectNoteCategory('❤️')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-pink-500/20 text-pink-400 border-2 border-transparent hover:border-pink-500" data-cat="❤️">❤️ Perso</button>
+                            <button onclick="selectNoteCategory('⚡')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-emerald-500/20 text-emerald-400 border-2 border-transparent hover:border-emerald-500" data-cat="⚡">⚡ Urgent</button>
+                            <button onclick="selectNoteCategory('🎯')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-purple-500/20 text-purple-400 border-2 border-transparent hover:border-purple-500" data-cat="🎯">🎯 Objectifs</button>
+                            <button onclick="selectNoteCategory('📝')" class="new-note-cat px-3 py-2 rounded-xl text-sm font-bold bg-blue-500/20 text-blue-400 border-2 border-transparent hover:border-blue-500" data-cat="📝">📝 Meeting</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 mb-2">TAGS (sépare par des virgules)</p>
+                        <input type="text" id="new-note-tags" placeholder="ex: maths, révision, important..."
+                            class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-500">
+                    </div>
+                    
+                    <!-- Reminder -->
+                    <div>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="new-note-reminder" class="rounded">
+                            <span class="text-sm">Ajouter un rappel</span>
+                        </label>
+                        <input type="datetime-local" id="new-note-reminder-time" class="hidden w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-500 mt-2">
+                    </div>
                 </div>
             </div>
             
             <!-- Action Buttons -->
-            <div class="flex gap-2">
+            <div class="flex gap-2 flex-shrink-0 mt-4">
                 <button onclick="saveNewNote()" class="flex-1 py-3 bg-indigo-600 rounded-xl font-bold text-sm hover:bg-indigo-500 touch-feedback">
                     💾 Enregistrer
                 </button>
