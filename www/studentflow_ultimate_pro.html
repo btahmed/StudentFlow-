@@ -5798,41 +5798,69 @@
             }
         }
         
-        function editNote(noteId) {
-            const note = db.notes.find(n => n.id === noteId);
-            if (!note) return;
+        function editNote(index) {
+            const allNotes = [
+                ...db.notes.map(note => ({ ...note, source: 'quick' })),
+                ...db.logs.filter(log => log.note && log.note.trim()).map(log => ({ ...log, source: 'journal' }))
+            ];
             
-            document.getElementById('new-note-title').value = note.title;
-            document.getElementById('new-note-text').value = note.text;
-            document.getElementById('new-note-tags').value = note.tags.join(', ');
+            const noteToEdit = allNotes[index];
             
-            selectNoteCategory(note.category);
-            selectNotePriority(note.priority);
+            // On ne peut éditer que les notes rapides
+            if (noteToEdit.source !== 'quick') {
+                showToast('ℹ️ Les notes du journal ne sont pas éditables');
+                return;
+            }
             
-            // Delete old note and open modal for editing
-            db.notes = db.notes.filter(n => n.id !== noteId);
-            save();
-            
-            openAddNoteModal();
-            showToast('✏️ Mode édition');
+            const realIndex = db.notes.findIndex(n => n.id === noteToEdit.id);
+            if (realIndex >= 0 && realIndex < db.notes.length) {
+                const note = db.notes[realIndex];
+                document.getElementById('new-note-title').value = note.title;
+                document.getElementById('new-note-text').value = note.text;
+                document.getElementById('new-note-tags').value = note.tags.join(', ');
+                
+                selectNoteCategory(note.category);
+                selectNotePriority(note.priority);
+                
+                // Delete old note and open modal for editing
+                db.notes.splice(realIndex, 1);
+                save();
+                
+                openAddNoteModal();
+                showToast('✏️ Mode édition');
+            }
         }
         
-        function duplicateNote(noteId) {
-            const note = db.notes.find(n => n.id === noteId);
-            if (!note) return;
+        function duplicateNote(index) {
+            const allNotes = [
+                ...db.notes.map(note => ({ ...note, source: 'quick' })),
+                ...db.logs.filter(log => log.note && log.note.trim()).map(log => ({ ...log, source: 'journal' }))
+            ];
             
-            const duplicatedNote = {
-                ...note,
-                id: Date.now().toString(),
-                title: note.title + ' (copie)',
-                date: new Date().toISOString()
-            };
+            const noteToDuplicate = allNotes[index];
             
-            db.notes.push(duplicatedNote);
-            save();
-            playNotificationSound();
-            showToast('📋 Note dupliquée');
-            renderNotes();
+            // On ne peut dupliquer que les notes rapides
+            if (noteToDuplicate.source !== 'quick') {
+                showToast('ℹ️ Les notes du journal ne sont pas dupliquables');
+                return;
+            }
+            
+            const realIndex = db.notes.findIndex(n => n.id === noteToDuplicate.id);
+            if (realIndex >= 0 && realIndex < db.notes.length) {
+                const note = db.notes[realIndex];
+                const duplicatedNote = {
+                    ...note,
+                    id: Date.now().toString(),
+                    title: note.title + ' (copie)',
+                    date: new Date().toISOString()
+                };
+                
+                db.notes.push(duplicatedNote);
+                save();
+                playNotificationSound();
+                showToast('📋 Note dupliquée');
+                renderNotes();
+            }
         }
         
         function exportNotes() {
@@ -5939,19 +5967,48 @@
             
             const searchTerm = (document.getElementById('notes-search')?.value || '').toLowerCase();
             
+            // Combiner les notes rapides (db.notes) et les notes du journal (db.logs)
+            const allNotes = [
+                // Notes rapides
+                ...db.notes.map(note => ({
+                    ...note,
+                    source: 'quick',
+                    category: note.category || '📝',
+                    title: note.title || 'Note rapide'
+                })),
+                // Notes du journal
+                ...db.logs.filter(log => log.note && log.note.trim()).map(log => ({
+                    id: log.id,
+                    text: log.note,
+                    title: 'Note du journal',
+                    category: '📖',
+                    priority: 'medium',
+                    tags: [],
+                    date: log.date,
+                    source: 'journal',
+                    mood: log.mood,
+                    stress: log.stress,
+                    sleep: log.sleep
+                }))
+            ];
+            
             // Filter notes
-            let filteredNotes = db.notes.filter(note => {
-                const matchesSearch = note.text.toLowerCase().includes(searchTerm);
+            let filteredNotes = allNotes.filter(note => {
+                const matchesSearch = note.text.toLowerCase().includes(searchTerm) || 
+                                   note.title.toLowerCase().includes(searchTerm);
                 const matchesCategory = currentFilterCategory === 'all' || note.category === currentFilterCategory;
                 return matchesSearch && matchesCategory;
             });
             
             if (filteredNotes.length === 0) {
+                const hasJournalNotes = db.logs.some(log => log.note && log.note.trim());
+                const hasQuickNotes = db.notes.length > 0;
+                
                 container.innerHTML = `
                     <div class="text-center py-12 text-slate-400">
                         <i data-lucide="sticky-note" class="w-16 h-16 mx-auto mb-4 opacity-30"></i>
-                        <p class="font-bold">${db.notes.length === 0 ? 'Aucune note' : 'Aucun résultat'}</p>
-                        <p class="text-sm mt-2">${db.notes.length === 0 ? 'Clique sur "Nouvelle Note" pour commencer' : 'Essaie un autre filtre'}</p>
+                        <p class="font-bold">${!hasJournalNotes && !hasQuickNotes ? 'Aucune note' : 'Aucun résultat'}</p>
+                        <p class="text-sm mt-2">${!hasJournalNotes && !hasQuickNotes ? 'Ajoute des notes dans le journal ou via "Nouvelle Note"' : 'Essaie un autre filtre'}</p>
                     </div>
                 `;
                 lucide.createIcons();
@@ -5961,8 +6018,7 @@
             // Afficher les notes de la plus récente à la plus ancienne
             const sortedNotes = [...filteredNotes].reverse();
             
-            container.innerHTML = sortedNotes.map((note) => {
-                const realIndex = db.notes.findIndex(n => n.date === note.date && n.text === note.text);
+            container.innerHTML = sortedNotes.map((note, index) => {
                 const date = new Date(note.date);
                 const dateStr = date.toLocaleDateString('fr-FR', { 
                     day: 'numeric', 
@@ -5975,20 +6031,47 @@
                     '📚': 'bg-indigo-500/20 text-indigo-400',
                     '💡': 'bg-amber-500/20 text-amber-400',
                     '❤️': 'bg-pink-500/20 text-pink-400',
-                    '⚡': 'bg-emerald-500/20 text-emerald-400'
+                    '⚡': 'bg-emerald-500/20 text-emerald-400',
+                    '🎯': 'bg-purple-500/20 text-purple-400',
+                    '📝': 'bg-blue-500/20 text-blue-400',
+                    '📖': 'bg-orange-500/20 text-orange-400'
                 };
                 const catClass = catColors[note.category] || 'bg-white/10';
+                
+                // Ajouter des métadonnées pour les notes du journal
+                const journalMeta = note.source === 'journal' ? `
+                    <div class="flex gap-2 text-xs text-slate-500 mt-1">
+                        ${note.mood ? `<span>${note.mood}</span>` : ''}
+                        ${note.stress ? `<span>Stress: ${note.stress}/10</span>` : ''}
+                        ${note.sleep ? `<span>Sleep: ${note.sleep}h</span>` : ''}
+                    </div>
+                ` : '';
                 
                 return `
                     <div class="glass p-4 hover:bg-white/5 group">
                         <div class="flex justify-between items-start gap-4">
                             <div class="flex-1">
-                                <span class="inline-block px-2 py-1 rounded-full text-[10px] font-bold ${catClass} mb-2">${note.category || '📝'}</span>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="inline-block px-2 py-1 rounded-full text-[10px] font-bold ${catClass}">${note.category}</span>
+                                    ${note.source === 'journal' ? '<span class="text-xs px-2 py-1 bg-orange-500/20 text-orange-400 rounded-full">Journal</span>' : ''}
+                                    ${note.title && note.title !== 'Note rapide' && note.title !== 'Note du journal' ? `<span class="text-xs text-slate-400">${note.title}</span>` : ''}
+                                </div>
                                 <p class="text-sm">${escapeHtml(note.text)}</p>
+                                ${journalMeta}
                             </div>
-                            <button onclick="deleteNote(${realIndex})" class="opacity-0 group-hover:opacity-100 p-2 hover:bg-red-500/20 rounded-lg text-red-400 transition touch-feedback">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
+                            <div class="flex gap-1">
+                                ${note.source === 'quick' ? `
+                                    <button onclick="editNote(${index})" class="opacity-0 group-hover:opacity-100 p-2 hover:bg-indigo-500/20 rounded-lg text-indigo-400 transition touch-feedback">
+                                        <i data-lucide="edit" class="w-4 h-4"></i>
+                                    </button>
+                                    <button onclick="duplicateNote(${index})" class="opacity-0 group-hover:opacity-100 p-2 hover:bg-blue-500/20 rounded-lg text-blue-400 transition touch-feedback">
+                                        <i data-lucide="copy" class="w-4 h-4"></i>
+                                    </button>
+                                ` : ''}
+                                <button onclick="deleteNote(${index})" class="opacity-0 group-hover:opacity-100 p-2 hover:bg-red-500/20 rounded-lg text-red-400 transition touch-feedback">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
                         </div>
                         <p class="text-[10px] text-slate-500 mt-2">${dateStr}</p>
                     </div>
@@ -5999,20 +6082,63 @@
         }
         
         function deleteNote(index) {
-            if (index < 0 || index >= db.notes.length) return;
-            db.notes.splice(index, 1);
+            const allNotes = [
+                ...db.notes.map(note => ({ ...note, source: 'quick' })),
+                ...db.logs.filter(log => log.note && log.note.trim()).map(log => ({ ...log, source: 'journal' }))
+            ];
+            
+            const noteToDelete = allNotes[index];
+            
+            if (noteToDelete.source === 'quick') {
+                // Supprimer une note rapide
+                const realIndex = db.notes.findIndex(n => n.id === noteToDelete.id);
+                if (realIndex >= 0 && realIndex < db.notes.length) {
+                    db.notes.splice(realIndex, 1);
+                }
+            } else if (noteToDelete.source === 'journal') {
+                // Supprimer la note du journal (mettre note à vide)
+                const realIndex = db.logs.findIndex(log => log.id === noteToDelete.id);
+                if (realIndex >= 0 && realIndex < db.logs.length) {
+                    db.logs[realIndex].note = '';
+                }
+            }
+            
             save();
             renderNotes();
             showToast('🗑️ Note supprimée');
         }
         
         function clearAllNotes() {
-            if (db.notes.length === 0) {
+            const hasQuickNotes = db.notes.length > 0;
+            const hasJournalNotes = db.logs.some(log => log.note && log.note.trim());
+            
+            if (!hasQuickNotes && !hasJournalNotes) {
                 showToast('Aucune note à supprimer');
                 return;
             }
-            if (!confirm('Supprimer toutes les notes ?')) return;
-            db.notes = [];
+            
+            const message = hasQuickNotes && hasJournalNotes 
+                ? 'Supprimer toutes les notes rapides ET les notes du journal ?' 
+                : hasQuickNotes 
+                    ? 'Supprimer toutes les notes rapides ?' 
+                    : 'Supprimer toutes les notes du journal ?';
+            
+            if (!confirm(message)) return;
+            
+            // Supprimer les notes rapides
+            if (hasQuickNotes) {
+                db.notes = [];
+            }
+            
+            // Supprimer les notes du journal
+            if (hasJournalNotes) {
+                db.logs.forEach(log => {
+                    if (log.note && log.note.trim()) {
+                        log.note = '';
+                    }
+                });
+            }
+            
             save();
             renderNotes();
             showToast('🗑️ Toutes les notes supprimées');
