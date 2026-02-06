@@ -6110,11 +6110,25 @@
         
         function openAddNoteModal() {
             document.getElementById('new-note-text').value = '';
+            document.getElementById('new-note-title').value = '';
+            document.getElementById('new-note-tags').value = '';
             currentNoteCategory = '📚';
+            currentNotePriority = 'medium';
             document.querySelectorAll('.new-note-cat').forEach(btn => {
                 btn.classList.remove('border-white', 'border-2');
                 if (btn.dataset.cat === '📚') btn.classList.add('border-white', 'border-2');
             });
+            document.querySelectorAll('.note-priority-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-white');
+                if (btn.dataset.priority === 'medium') btn.classList.add('ring-2', 'ring-white');
+            });
+            document.getElementById('add-note-modal').style.display = 'flex';
+            document.getElementById('new-note-text').focus();
+            lucide.createIcons();
+        }
+        
+        function openEditNoteModal() {
+            // Ne vide pas les champs, ouvre directement le modal
             document.getElementById('add-note-modal').style.display = 'flex';
             document.getElementById('new-note-text').focus();
             lucide.createIcons();
@@ -6356,9 +6370,11 @@
             const realIndex = db.notes.findIndex(n => n.id === noteToEdit.id);
             if (realIndex >= 0 && realIndex < db.notes.length) {
                 const note = db.notes[realIndex];
-                document.getElementById('new-note-title').value = note.title;
-                document.getElementById('new-note-text').value = note.text;
-                document.getElementById('new-note-tags').value = note.tags.join(', ');
+                
+                // Remplir les champs avec les données de la note
+                document.getElementById('new-note-title').value = note.title || '';
+                document.getElementById('new-note-text').value = note.text || '';
+                document.getElementById('new-note-tags').value = note.tags ? note.tags.join(', ') : '';
                 
                 selectNoteCategory(note.category);
                 selectNotePriority(note.priority);
@@ -6367,7 +6383,7 @@
                 db.notes.splice(realIndex, 1);
                 save();
                 
-                openAddNoteModal();
+                openEditNoteModal();
                 showToast('✏️ Mode édition');
             }
         }
