@@ -3242,19 +3242,84 @@
             radarChart = new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['Énergie', 'Focus', 'Planning', 'Régularité', 'Repos'],
+                    labels: ['Énergie\n(10-stress)', 'Focus\n(sessions)', 'Planning\n(tâches)', 'Régularité\n(streak)', 'Repos\n(sommeil/10)'],
                     datasets: [{
+                        label: 'Ton Profil',
                         data: [10 - avgStress, focusScore, planningScore, streakScore, avgSleep],
                         backgroundColor: 'rgba(99, 102, 241, 0.2)',
                         borderColor: '#6366f1',
-                        borderWidth: 2
+                        borderWidth: 2,
+                        pointBackgroundColor: '#6366f1',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#6366f1'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    scales: { r: { beginAtZero: true, max: 10, ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.1)' } } },
-                    plugins: { legend: { display: false } }
+                    scales: { 
+                        r: { 
+                            beginAtZero: true, 
+                            max: 10, 
+                            ticks: { 
+                                display: true,
+                                color: '#94a3b8',
+                                backdropColor: 'transparent',
+                                stepSize: 2
+                            }, 
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            pointLabels: {
+                                color: '#e2e8f0',
+                                font: {
+                                    size: 11,
+                                    weight: 'bold'
+                                }
+                            }
+                        } 
+                    },
+                    plugins: { 
+                        legend: { 
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                color: '#e2e8f0',
+                                font: {
+                                    size: 12
+                                },
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const labels = ['Énergie', 'Focus', 'Planning', 'Régularité', 'Repos'];
+                                    const label = labels[context.dataIndex];
+                                    let explanation = '';
+                                    
+                                    switch(label) {
+                                        case 'Énergie':
+                                            explanation = `Basé sur ton stress moyen: ${avgStress.toFixed(1)}/10`;
+                                            break;
+                                        case 'Focus':
+                                            explanation = `${db.focusSessions.length} sessions focus`;
+                                            break;
+                                        case 'Planning':
+                                            explanation = `${Object.keys(db.timetable).length} tâches planifiées`;
+                                            break;
+                                        case 'Régularité':
+                                            explanation = `${db.gamification.streak} jours consécutifs`;
+                                            break;
+                                        case 'Repos':
+                                            explanation = `Sommeil moyen: ${avgSleep.toFixed(1)}h`;
+                                            break;
+                                    }
+                                    
+                                    return `${label}: ${context.parsed.r}/10\n${explanation}`;
+                                }
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -3270,22 +3335,115 @@
             trendChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: last30.map((l, i) => i + 1),
+                    labels: last30.map(l => {
+                        const date = new Date(l.date);
+                        return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+                    }),
                     datasets: [
-                        { label: 'Stress', data: last30.map(l => l.stress), borderColor: '#f43f5e', tension: 0.4, borderWidth: 2 },
-                        { label: 'Sommeil', data: last30.map(l => l.sleep), borderColor: '#6366f1', tension: 0.4, borderWidth: 2 }
+                        { 
+                            label: 'Stress (/10)', 
+                            data: last30.map(l => l.stress), 
+                            borderColor: '#f43f5e', 
+                            backgroundColor: 'rgba(244, 63, 94, 0.1)',
+                            tension: 0.4, 
+                            borderWidth: 2,
+                            fill: true,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        { 
+                            label: 'Sommeil (heures)', 
+                            data: last30.map(l => l.sleep), 
+                            borderColor: '#6366f1', 
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            tension: 0.4, 
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: true,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom' } },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const log = last30[index];
+                            showDayProfile(log);
+                        }
+                    },
+                    plugins: { 
+                        legend: { 
+                            position: 'bottom',
+                            labels: {
+                                color: '#e2e8f0',
+                                font: { size: 12 },
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    const log = last30[context[0].dataIndex];
+                                    const date = new Date(log.date);
+                                    return `📅 ${date.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
+                                },
+                                label: function(context) {
+                                    const log = last30[context.dataIndex];
+                                    if (context.datasetIndex === 0) {
+                                        return `Stress: ${log.stress}/10\n${getStressDescription(log.stress)}`;
+                                    } else {
+                                        return `Sommeil: ${log.sleep}h\n${getSleepDescription(log.sleep)}`;
+                                    }
+                                },
+                                footer: function() {
+                                    return '👆 Clique pour voir le profil complet';
+                                }
+                            }
+                        }
+                    },
                     scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } },
-                        x: { grid: { display: false } }
+                        y: { 
+                            beginAtZero: true, 
+                            max: 10,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#94a3b8' },
+                            title: {
+                                display: true,
+                                text: 'Score',
+                                color: '#e2e8f0'
+                            }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8' },
+                            title: {
+                                display: true,
+                                text: 'Date',
+                                color: '#e2e8f0'
+                            }
+                        }
                     }
                 }
             });
+        }
+        
+        function getStressDescription(stress) {
+            if (stress <= 3) return '😌 Très détendu';
+            if (stress <= 5) return '😊 Détendu';
+            if (stress <= 7) return '😐 Tendu';
+            return '😰 Stressé';
+        }
+        
+        function getSleepDescription(sleep) {
+            if (sleep < 6) return '😴 Insuffisant';
+            if (sleep < 7) return '😐 Limité';
+            if (sleep <= 8) return '😊 Bon';
+            return '🛌 Excessif';
         }
 
         function updateAnalyticsStats() {
@@ -4939,22 +5097,256 @@
             chart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: last7.map(l => l.day || '?'),
+                    labels: last7.map(l => {
+                        const date = new Date(l.date);
+                        return date.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
+                    }),
                     datasets: [
-                        { label: 'Stress', data: last7.map(l => l.stress), borderColor: '#f43f5e', backgroundColor: 'rgba(244, 63, 94, 0.1)', fill: true, tension: 0.4 },
-                        { label: 'Sommeil', data: last7.map(l => l.sleep), borderColor: '#6366f1', tension: 0.4, borderDash: [5, 5] }
+                        { 
+                            label: 'Stress (/10)', 
+                            data: last7.map(l => l.stress), 
+                            borderColor: '#f43f5e', 
+                            backgroundColor: 'rgba(244, 63, 94, 0.1)', 
+                            fill: true, 
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        },
+                        { 
+                            label: 'Sommeil (heures)', 
+                            data: last7.map(l => l.sleep), 
+                            borderColor: '#6366f1', 
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            tension: 0.4, 
+                            borderDash: [5, 5],
+                            borderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const log = last7[index];
+                            showDayProfile(log);
+                        }
+                    },
+                    plugins: { 
+                        legend: { 
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                color: '#e2e8f0',
+                                font: { size: 12 },
+                                usePointStyle: true,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    const log = last7[context[0].dataIndex];
+                                    const date = new Date(log.date);
+                                    return `📅 ${date.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
+                                },
+                                label: function(context) {
+                                    const log = last7[context.dataIndex];
+                                    if (context.datasetIndex === 0) {
+                                        return `Stress: ${log.stress}/10\n${getStressDescription(log.stress)}\n${log.mood ? `Humeur: ${log.mood}` : ''}`;
+                                    } else {
+                                        return `Sommeil: ${log.sleep}h\n${getSleepDescription(log.sleep)}\nQualité: ${log.sleepQuality || 'N/A'}/5`;
+                                    }
+                                },
+                                footer: function() {
+                                    return '👆 Clique pour voir le profil complet du jour';
+                                }
+                            }
+                        }
+                    },
                     scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#475569' } },
-                        x: { grid: { display: false }, ticks: { color: '#475569' } }
+                        y: { 
+                            beginAtZero: true, 
+                            max: 10,
+                            grid: { color: 'rgba(255,255,255,0.05)' }, 
+                            ticks: { color: '#94a3b8' },
+                            title: {
+                                display: true,
+                                text: 'Score',
+                                color: '#e2e8f0'
+                            }
+                        },
+                        x: { 
+                            grid: { display: false }, 
+                            ticks: { color: '#94a3b8' },
+                            title: {
+                                display: true,
+                                text: 'Derniers 7 jours',
+                                color: '#e2e8f0'
+                            }
+                        }
                     }
                 }
             });
+        }
+        
+        function showDayProfile(log) {
+            const date = new Date(log.date);
+            const dayOfWeek = date.toLocaleDateString('fr-FR', { weekday: 'long' });
+            const dateStr = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+            
+            // Calculer les focus sessions de ce jour
+            const dayFocusSessions = db.focusSessions.filter(s => s.timestamp.startsWith(log.date));
+            const totalFocusMinutes = dayFocusSessions.reduce((sum, s) => sum + s.duration, 0);
+            
+            // Trouver les notes du jour
+            const dayNotes = db.notes.filter(n => n.date.startsWith(log.date));
+            
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="glass max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 space-y-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-2xl font-black">📊 Profil du ${dayOfWeek}</h3>
+                            <p class="text-slate-400">${dateStr}</p>
+                        </div>
+                        <button onclick="this.closest('.fixed').remove()" class="p-2 hover:bg-white/10 rounded-xl">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Scores principaux -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="glass p-4 text-center">
+                            <div class="text-2xl font-black text-red-400">${log.stress}/10</div>
+                            <div class="text-xs text-slate-400">Stress</div>
+                            <div class="text-xs mt-1">${getStressDescription(log.stress)}</div>
+                        </div>
+                        <div class="glass p-4 text-center">
+                            <div class="text-2xl font-black text-blue-400">${log.sleep}h</div>
+                            <div class="text-xs text-slate-400">Sommeil</div>
+                            <div class="text-xs mt-1">${getSleepDescription(log.sleep)}</div>
+                        </div>
+                        <div class="glass p-4 text-center">
+                            <div class="text-2xl font-black text-purple-400">${log.mood || '😊'}</div>
+                            <div class="text-xs text-slate-400">Humeur</div>
+                        </div>
+                        <div class="glass p-4 text-center">
+                            <div class="text-2xl font-black text-green-400">${totalFocusMinutes}min</div>
+                            <div class="text-xs text-slate-400">Focus</div>
+                            <div class="text-xs mt-1">${dayFocusSessions.length} sessions</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Métriques détaillées -->
+                    <div class="glass p-4">
+                        <h4 class="font-bold mb-3">📈 Métriques détaillées</h4>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <span class="text-slate-400">Qualité sommeil:</span>
+                                <span class="ml-2 font-bold">${log.sleepQuality || 'N/A'}/5</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400">Caféine:</span>
+                                <span class="ml-2 font-bold">${log.caffeine || 0} tasses</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400">Activité:</span>
+                                <span class="ml-2 font-bold">${log.exercise || 'none'}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400">Screen time:</span>
+                                <span class="ml-2 font-bold">${log.screenTime || 0}h</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Focus sessions -->
+                    ${dayFocusSessions.length > 0 ? `
+                    <div class="glass p-4">
+                        <h4 class="font-bold mb-3">🎯 Sessions Focus</h4>
+                        <div class="space-y-2">
+                            ${dayFocusSessions.map(session => `
+                                <div class="flex justify-between items-center p-2 bg-white/5 rounded">
+                                    <span class="text-sm">${session.tag || 'Sans tag'}</span>
+                                    <span class="text-sm font-bold">${session.duration}min</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="mt-2 text-xs text-slate-400">
+                            Total: ${totalFocusMinutes} minutes de concentration
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    <!-- Notes du jour -->
+                    ${dayNotes.length > 0 ? `
+                    <div class="glass p-4">
+                        <h4 class="font-bold mb-3">📝 Notes du jour</h4>
+                        <div class="space-y-2">
+                            ${dayNotes.map(note => `
+                                <div class="p-2 bg-white/5 rounded">
+                                    <div class="flex justify-between items-start">
+                                        <span class="text-xs px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-400">${note.category}</span>
+                                        <span class="text-xs text-slate-400">${new Date(note.date).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
+                                    </div>
+                                    <p class="text-sm mt-1">${note.text}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    <!-- Note journalière -->
+                    ${log.note ? `
+                    <div class="glass p-4">
+                        <h4 class="font-bold mb-3">📖 Note journalière</h4>
+                        <p class="text-sm">${log.note}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <!-- Recommandations -->
+                    <div class="glass p-4 bg-gradient-to-br from-indigo-500/10 to-transparent">
+                        <h4 class="font-bold mb-3">💡 Recommandations</h4>
+                        <div class="space-y-2 text-sm">
+                            ${getDayRecommendations(log)}
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            lucide.createIcons();
+        }
+        
+        function getDayRecommendations(log) {
+            const recommendations = [];
+            
+            if (log.stress > 7) {
+                recommendations.push('🧘‍♀️ Stress élevé: Essaie la méditation ou respiration profonde');
+            }
+            if (log.sleep < 6) {
+                recommendations.push('😴 Sommeil insuffisant: Vise 7-8h pour une meilleure récupération');
+            }
+            if (log.sleep > 9) {
+                recommendations.push('⏰ Sommeil excessif: Trop de sommeil peut affecter ton énergie');
+            }
+            if (log.caffeine > 3) {
+                recommendations.push('☕ Trop de caféine: Réduis pour améliorer ton sommeil');
+            }
+            if (log.exercise === 'none') {
+                recommendations.push('🏃‍♀️ Aucune activité: Une petite marche pourrait aider');
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push('✅ Excellente journée! Continue comme ça!');
+            }
+            
+            return recommendations.map(rec => `<div>• ${rec}</div>`).join('');
         }
 
         function analyzeChronotype() {
