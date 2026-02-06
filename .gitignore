@@ -12,7 +12,9 @@ yarn-error.log*
 android/.gradle/
 android/build/
 android/app/build/
+# APK sauf le fichier final
 *.apk
+!StudentFlow-FINAL.apk
 
 # iOS (Fichiers temporaires Xcode)
 ios/App/build/
