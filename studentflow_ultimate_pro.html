@@ -398,6 +398,45 @@
                 background: rgba(255, 255, 255, 0.3);
             }
             
+            /* Notes mobile width fix */
+            #notes-list .glass {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+            }
+            
+            #notes-list .flex.justify-between {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            #notes-list .flex-1 {
+                width: 100%;
+                flex: 1;
+            }
+            
+            #notes-list .flex.gap-1 {
+                align-self: flex-end;
+                margin-top: 8px;
+            }
+            
+            #notes-list .text-sm {
+                font-size: 14px;
+                line-height: 1.4;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            #notes-list .items-center.gap-2 {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            #notes-list .inline-block.px-2 {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+            
             /* Quick Widget scrollbar */
             #quick-widget::-webkit-scrollbar {
                 width: 6px;
@@ -548,6 +587,38 @@
             
             #quick-widget .rounded-xl {
                 border-radius: 0.75rem;
+            }
+            
+            /* Notes mobile small */
+            #notes-list .glass {
+                padding: 12px;
+            }
+            
+            #notes-list .flex.justify-between {
+                gap: 10px;
+            }
+            
+            #notes-list .text-sm {
+                font-size: 13px;
+            }
+            
+            #notes-list .flex.gap-1 {
+                gap: 4px;
+            }
+            
+            #notes-list .flex.gap-1 button {
+                padding: 8px;
+                min-width: 36px;
+                min-height: 36px;
+            }
+            
+            #notes-list .inline-block.px-2 {
+                padding: 3px 6px;
+                font-size: 9px;
+            }
+            
+            #notes-list .text-\[10px\] {
+                font-size: 9px;
             }
             
             /* Timer mobile small */
