@@ -14,3 +14,9 @@ android/app/build/
 # OS
 .DS_Store
 Thumbs.db
+*.apk
+
+android/app/release/
+android/keystore/
+StudentFlow-*.apk
+FICHE_METHODE_APK.md

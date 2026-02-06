@@ -18,6 +18,9 @@
     <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" href="./icons/icon-152x152.png">
     
+    <!-- Capacitor Core (MUST be first for native app) -->
+    <script type="module" src="capacitor.js"></script>
+    
     <!-- BUNDLED LIBRARIES (offline-first) -->
     <script src="./tailwind.min.js"></script>
     <script src="./chart.min.js"></script>
@@ -1843,6 +1846,11 @@
         let breathingInterval = null;
         let selectedMood = '😊';
         let draggedSlot = null;
+        
+        // Chart.js instances
+        let chart = null;
+        let radarChart = null;
+        let trendChart = null;
 
         // ==================== INIT ====================
         window.onload = () => { 
@@ -2435,6 +2443,11 @@
             const ctx = document.getElementById('radar-chart');
             if (!ctx || db.logs.length === 0) return;
             
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded');
+                return;
+            }
+            
             if (radarChart) radarChart.destroy();
             
             const avgStress = db.logs.reduce((a,b) => a + b.stress, 0) / db.logs.length;
@@ -2466,6 +2479,11 @@
         function updateTrendChart() {
             const ctx = document.getElementById('trend-chart');
             if (!ctx || db.logs.length < 2) return;
+            
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded');
+                return;
+            }
             
             if (trendChart) trendChart.destroy();
             
@@ -4136,6 +4154,12 @@
         function updateChart() {
             const ctx = document.getElementById('main-chart');
             if (!ctx) return;
+            
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded');
+                return;
+            }
+            
             if (chart) chart.destroy();
             
             const last7 = db.logs.slice(-7);
@@ -4255,8 +4279,12 @@
             const mobBtn = document.getElementById('mob-' + id);
             if (mobBtn) mobBtn.classList.add('active');
             
-            if (id === 'dash') refreshAll();
-            if (id === 'analytics') updateAnalytics();
+            if (id === 'dash') {
+                setTimeout(() => refreshAll(), 50);
+            }
+            if (id === 'analytics') {
+                setTimeout(() => updateAnalytics(), 50);
+            }
             
             lucide.createIcons();
         }

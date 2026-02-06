@@ -15,6 +15,9 @@
     <!-- PWA Manifest (inline) -->
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlN0dWRlbnRGbG93IFVsdGltYXRlIFBybyIsCiAgInNob3J0X25hbWUiOiAiU3R1ZGVudEZsb3ciLAogICJkZXNjcmlwdGlvbiI6ICJBcHBsaWNhdGlvbiBkZSBnZXN0aW9uIGR1IGJpZW4tw6p0cmUgw6l0dWRpYW50IiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYjBmMWEiLAogICJ0aGVtZV9jb2xvciI6ICIjNjM2NmYxIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLDxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCc+PHJlY3Qgd2lkdGg9JzEwMCcgaGVpZ2h0PScxMDAnIGZpbGw9JyU2MzY2ZjEnIHJ4PScyMCcvPjx0ZXh0IHg9JzUwJyB5PSc2NScgZm9udC1zaXplPSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnPuKaoe+4jzwvdGV4dD48L3N2Zz4iLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
     
+    <!-- Capacitor Core (MUST be first for native app) -->
+    <script type="module" src="capacitor.js"></script>
+    
     <!-- BUNDLED LIBRARIES (offline-first) -->
     <script src="./tailwind.min.js"></script>
     <script src="./chart.min.js"></script>
@@ -1881,6 +1884,11 @@
         let breathingInterval = null;
         let selectedMood = '😊';
         let draggedSlot = null;
+        
+        // Chart.js instances
+        let chart = null;
+        let radarChart = null;
+        let trendChart = null;
 
         // ==================== INIT ====================
         window.onload = () => { 
@@ -2473,6 +2481,12 @@
             const ctx = document.getElementById('radar-chart');
             if (!ctx || db.logs.length === 0) return;
             
+            // Vérifier que Chart.js est chargé
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded');
+                return;
+            }
+            
             if (radarChart) radarChart.destroy();
             
             const avgStress = db.logs.reduce((a,b) => a + b.stress, 0) / db.logs.length;
@@ -2504,6 +2518,12 @@
         function updateTrendChart() {
             const ctx = document.getElementById('trend-chart');
             if (!ctx || db.logs.length < 2) return;
+            
+            // Vérifier que Chart.js est chargé
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded');
+                return;
+            }
             
             if (trendChart) trendChart.destroy();
             
@@ -4174,6 +4194,13 @@
         function updateChart() {
             const ctx = document.getElementById('main-chart');
             if (!ctx) return;
+            
+            // Vérifier que Chart.js est chargé
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded');
+                return;
+            }
+            
             if (chart) chart.destroy();
             
             const last7 = db.logs.slice(-7);
@@ -4293,8 +4320,13 @@
             const mobBtn = document.getElementById('mob-' + id);
             if (mobBtn) mobBtn.classList.add('active');
             
-            if (id === 'dash') refreshAll();
-            if (id === 'analytics') updateAnalytics();
+            // Attendre que le DOM soit mis à jour avant de créer les graphiques
+            if (id === 'dash') {
+                setTimeout(() => refreshAll(), 50);
+            }
+            if (id === 'analytics') {
+                setTimeout(() => updateAnalytics(), 50);
+            }
             
             lucide.createIcons();
         }
