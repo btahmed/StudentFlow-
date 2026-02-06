@@ -432,6 +432,14 @@
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                 <span class="hidden md:block">Reset</span>
             </button>
+            <button onclick="showShortcutsInfo()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl text-slate-400 hover:bg-white/5 text-xs font-bold touch-feedback">
+                <i data-lucide="info" class="w-4 h-4"></i>
+                <span class="hidden md:block">Raccourcis</span>
+            </button>
+            <button onclick="showLangModal()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl text-slate-400 hover:bg-white/5 text-xs font-bold touch-feedback">
+                <i data-lucide="languages" class="w-4 h-4"></i>
+                <span class="hidden md:block">Langue</span>
+            </button>
         </div>
     </nav>
 
@@ -453,29 +461,41 @@
             <i data-lucide="heart" class="w-5 h-5"></i>
             <span>Journal</span>
         </button>
-        <button onclick="switchTab('wellness')" id="mob-wellness">
-            <i data-lucide="activity" class="w-5 h-5"></i>
-            <span>Zen</span>
+        <button onclick="switchTab('analytics')" id="mob-analytics">
+            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+            <span>Analytics</span>
         </button>
-        <button onclick="switchTab('download')" id="mob-download">
-            <i data-lucide="download" class="w-5 h-5"></i>
-            <span>Télécharger</span>
+        <button onclick="toggleMobileMore()" id="mob-more">
+            <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+            <span>Plus</span>
         </button>
     </div>
     
     <!-- Mobile More Menu -->
     <div id="mobile-more-menu" class="hidden fixed bottom-20 right-4 glass p-4 z-[101] space-y-2" style="border-radius: 16px;">
-        <button onclick="switchTab('analytics'); closeMobileMore()" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
-            <i data-lucide="bar-chart-3" class="w-5 h-5 text-indigo-500"></i>
-            <span class="font-bold text-sm">Analytics</span>
+        <button onclick="switchTab('wellness'); closeMobileMore()" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
+            <i data-lucide="activity" class="w-5 h-5 text-emerald-500"></i>
+            <span class="font-bold text-sm">Bio-Hack</span>
         </button>
         <button onclick="switchTab('goals'); closeMobileMore()" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="flag" class="w-5 h-5 text-amber-500"></i>
             <span class="font-bold text-sm">Objectifs</span>
         </button>
+        <button onclick="switchTab('download'); closeMobileMore()" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
+            <i data-lucide="download" class="w-5 h-5 text-blue-500"></i>
+            <span class="font-bold text-sm">Télécharger</span>
+        </button>
         <button onclick="openDataModal(); closeMobileMore()" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
-            <i data-lucide="database" class="w-5 h-5 text-emerald-500"></i>
+            <i data-lucide="database" class="w-5 h-5 text-purple-500"></i>
             <span class="font-bold text-sm">Données</span>
+        </button>
+        <button onclick="showShortcutsInfo(); closeMobileMore()" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
+            <i data-lucide="info" class="w-5 h-5 text-cyan-500"></i>
+            <span class="font-bold text-sm">Raccourcis</span>
+        </button>
+        <button onclick="showLangModal(); closeMobileMore()" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
+            <i data-lucide="languages" class="w-5 h-5 text-violet-500"></i>
+            <span class="font-bold text-sm">Langue</span>
         </button>
     </div>
 
@@ -1884,6 +1904,126 @@
         let chart = null;
         let radarChart = null;
         let trendChart = null;
+        let currentLang = localStorage.getItem('sf_lang') || 'fr';
+
+        // ==================== TRADUCTIONS ====================
+        const TRANSLATIONS = {
+            fr: {
+                shortcuts_title: 'Raccourcis Clavier',
+                shortcut_planning: 'Planning', shortcut_analytics: 'Analytics', shortcut_focus: 'Mode Focus',
+                shortcut_journal: 'Journal', shortcut_note: 'Nouvelle note', shortcut_theme: 'Changer thème',
+                shortcut_pomodoro: 'Start/Pause Pomodoro', shortcut_sound: 'Son ambiant (Focus)',
+                shortcut_close: 'Fermer les modals', understood: "J'ai compris!",
+                nav_planning: 'Planning', nav_dashboard: 'Dashboard', nav_analytics: 'Analytics',
+                nav_focus: 'Focus', nav_journal: 'Journal', nav_goals: 'Objectifs', nav_biohack: 'Bio-Hack',
+                nav_download: 'Télécharger', nav_data: 'Données', nav_reset: 'Reset', nav_shortcuts: 'Raccourcis',
+                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'Plus',
+                lang_title: 'Langue', lang_current: 'Français'
+            },
+            en: {
+                shortcuts_title: 'Keyboard Shortcuts',
+                shortcut_planning: 'Planning', shortcut_analytics: 'Analytics', shortcut_focus: 'Focus Mode',
+                shortcut_journal: 'Journal', shortcut_note: 'New note', shortcut_theme: 'Toggle theme',
+                shortcut_pomodoro: 'Start/Pause Pomodoro', shortcut_sound: 'Ambient sound (Focus)',
+                shortcut_close: 'Close modals', understood: 'Got it!',
+                nav_planning: 'Planning', nav_dashboard: 'Dashboard', nav_analytics: 'Analytics',
+                nav_focus: 'Focus', nav_journal: 'Journal', nav_goals: 'Goals', nav_biohack: 'Bio-Hack',
+                nav_download: 'Download', nav_data: 'Data', nav_reset: 'Reset', nav_shortcuts: 'Shortcuts',
+                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'More',
+                lang_title: 'Language', lang_current: 'English'
+            },
+            ar: {
+                shortcuts_title: 'اختصارات لوحة المفاتيح',
+                shortcut_planning: 'التخطيط', shortcut_analytics: 'التحليلات', shortcut_focus: 'وضع التركيز',
+                shortcut_journal: 'اليوميات', shortcut_note: 'ملاحظة جديدة', shortcut_theme: 'تغيير المظهر',
+                shortcut_pomodoro: 'بدء/إيقاف بومودورو', shortcut_sound: 'صوت محيط (تركيز)',
+                shortcut_close: 'إغلاق النوافذ', understood: 'فهمت!',
+                nav_planning: 'التخطيط', nav_dashboard: 'لوحة القيادة', nav_analytics: 'التحليلات',
+                nav_focus: 'تركيز', nav_journal: 'يوميات', nav_goals: 'أهداف', nav_biohack: 'بيو-هاك',
+                nav_download: 'تحميل', nav_data: 'بيانات', nav_reset: 'إعادة', nav_shortcuts: 'اختصارات',
+                nav_stats: 'إحصائيات', nav_zen: 'زن', nav_more: 'المزيد',
+                lang_title: 'اللغة', lang_current: 'العربية'
+            }
+        };
+
+        function t(key) {
+            return TRANSLATIONS[currentLang]?.[key] || TRANSLATIONS['fr'][key] || key;
+        }
+
+        function switchLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('sf_lang', lang);
+            document.documentElement.lang = lang;
+            if (lang === 'ar') {
+                document.documentElement.dir = 'rtl';
+            } else {
+                document.documentElement.dir = 'ltr';
+            }
+            updateNavLabels();
+            showToast(lang === 'fr' ? '🇫🇷 Français' : lang === 'en' ? '🇬🇧 English' : '🇸🇦 العربية');
+        }
+
+        function updateNavLabels() {
+            const map = {
+                'btn-sched': 'nav_planning', 'btn-dash': 'nav_dashboard', 'btn-analytics': 'nav_analytics',
+                'btn-focus': 'nav_focus', 'btn-log': 'nav_journal', 'btn-goals': 'nav_goals',
+                'btn-wellness': 'nav_biohack', 'btn-download': 'nav_download'
+            };
+            for (const [id, key] of Object.entries(map)) {
+                const el = document.getElementById(id);
+                if (el) { const span = el.querySelector('span'); if (span) span.textContent = t(key); }
+            }
+            const mobMap = {
+                'mob-sched': 'nav_planning', 'mob-dash': 'nav_stats', 'mob-focus': 'nav_focus',
+                'mob-log': 'nav_journal', 'mob-analytics': 'nav_analytics', 'mob-more': 'nav_more'
+            };
+            for (const [id, key] of Object.entries(mobMap)) {
+                const el = document.getElementById(id);
+                if (el) { const span = el.querySelector('span'); if (span) span.textContent = t(key); }
+            }
+        }
+
+        function showLangModal() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="glass max-w-sm w-full p-8 space-y-5 text-center">
+                    <div class="w-14 h-14 bg-violet-500/20 rounded-2xl flex items-center justify-center mx-auto">
+                        <svg class="w-7 h-7 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black">${t('lang_title')}</h3>
+                    <div class="space-y-3">
+                        <button onclick="switchLang('fr'); this.closest('.fixed').remove()" class="w-full p-4 rounded-xl text-left flex items-center gap-4 ${currentLang === 'fr' ? 'bg-violet-500/20 border border-violet-500' : 'bg-white/5 hover:bg-white/10'} transition">
+                            <span class="text-2xl">🇫🇷</span>
+                            <div>
+                                <p class="font-bold">Français</p>
+                                <p class="text-xs text-slate-400">Langue par défaut</p>
+                            </div>
+                        </button>
+                        <button onclick="switchLang('en'); this.closest('.fixed').remove()" class="w-full p-4 rounded-xl text-left flex items-center gap-4 ${currentLang === 'en' ? 'bg-violet-500/20 border border-violet-500' : 'bg-white/5 hover:bg-white/10'} transition">
+                            <span class="text-2xl">🇬🇧</span>
+                            <div>
+                                <p class="font-bold">English</p>
+                                <p class="text-xs text-slate-400">English version</p>
+                            </div>
+                        </button>
+                        <button onclick="switchLang('ar'); this.closest('.fixed').remove()" class="w-full p-4 rounded-xl text-left flex items-center gap-4 ${currentLang === 'ar' ? 'bg-violet-500/20 border border-violet-500' : 'bg-white/5 hover:bg-white/10'} transition">
+                            <span class="text-2xl">🇸🇦</span>
+                            <div>
+                                <p class="font-bold">العربية</p>
+                                <p class="text-xs text-slate-400">النسخة العربية</p>
+                            </div>
+                        </button>
+                    </div>
+                    <button onclick="this.closest('.fixed').remove()" class="w-full py-3 bg-violet-600 rounded-xl font-bold text-sm hover:bg-violet-500 transition">
+                        ${t('understood')}
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
 
         // ==================== INIT ====================
         window.onload = () => { 
@@ -1903,6 +2043,10 @@
             
             // Update sound icon
             updateSoundIcon();
+            
+            // Apply saved language
+            if (currentLang !== 'fr') switchLang(currentLang);
+            updateNavLabels();
             
             renderGrid(); 
             refreshAll(); 
@@ -4352,6 +4496,64 @@
         
         function closeMobileMore() {
             document.getElementById('mobile-more-menu').classList.add('hidden');
+        }
+
+        // ==================== SHORTCUTS INFO ====================
+        function showShortcutsInfo() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="glass max-w-md w-full p-8 space-y-5 text-center max-h-[90vh] overflow-y-auto">
+                    <div class="w-14 h-14 bg-cyan-500/20 rounded-2xl flex items-center justify-center mx-auto">
+                        <svg class="w-7 h-7 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black">${t('shortcuts_title')}</h3>
+                    <div class="space-y-2 text-left">
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_planning')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">P</kbd>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_analytics')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">A</kbd>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_focus')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">F</kbd>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_journal')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">J</kbd>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_note')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">N</kbd>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_theme')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">T</kbd>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_pomodoro')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">Space</kbd>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_sound')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">S</kbd>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm">${t('shortcut_close')}</span>
+                            <kbd class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-bold">Esc</kbd>
+                        </div>
+                    </div>
+                    <button onclick="this.closest('.fixed').remove()" class="w-full py-3 bg-cyan-600 rounded-xl font-bold text-sm hover:bg-cyan-500 transition">
+                        ${t('understood')}
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
         }
 
         // ==================== UTILITIES ====================
