@@ -2465,52 +2465,227 @@
         }
         
 
-        // ==================== NOTIFICATIONS ====================
+        // ==================== UNIVERSAL NOTIFICATIONS ====================
+        let notificationPermission = 'default';
+        
         function requestNotificationPermission() {
-            if (!('Notification' in window)) {
+            // Detect platform
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            
+            if (isIOS || isSafari) {
+                requestIOSNotificationPermission();
+            } else if (isAndroid) {
+                requestAndroidNotificationPermission();
+            } else {
+                requestWebNotificationPermission();
+            }
+        }
+        
+        function requestIOSNotificationPermission() {
+            // iOS Safari: Check if we're in standalone mode (PWA)
+            const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
+            
+            if (!isInStandaloneMode) {
+                showToast('📱 Pour les notifications iOS: Ajoutez à l\'écran accueil');
+                return;
+            }
+            
+            // iOS Safari notifications
+            if ('Notification' in window) {
+                Notification.requestPermission().then(perm => {
+                    notificationPermission = perm;
+                    if (perm === 'granted') {
+                        db.settings.notifications = true;
+                        save();
+                        showToast('✅ Notifications iOS activées');
+                        sendNotification('StudentFlow', 'Notifications activées !');
+                    } else {
+                        showToast('⚠️ Notifications iOS refusées');
+                    }
+                });
+            } else {
+                showToast('❌ Notifications non supportées sur cet iOS');
+            }
+        }
+        
+        function requestAndroidNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(perm => {
+                    notificationPermission = perm;
+                    if (perm === 'granted') {
+                        db.settings.notifications = true;
+                        save();
+                        showToast('✅ Notifications Android activées');
+                        sendNotification('StudentFlow', 'Notifications activées !');
+                        
+                        // Initialize push notifications for Android
+                        initPushNotifications();
+                    } else {
+                        showToast('⚠️ Notifications Android refusées');
+                    }
+                });
+            } else {
+                showToast('❌ Notifications non supportées sur cet Android');
+            }
+        }
+        
+        function requestWebNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(perm => {
+                    notificationPermission = perm;
+                    if (perm === 'granted') {
+                        db.settings.notifications = true;
+                        save();
+                        showToast('✅ Notifications web activées');
+                        sendNotification('StudentFlow', 'Notifications activées !');
+                    } else {
+                        showToast('⚠️ Notifications web refusées');
+                    }
+                });
+            } else {
                 showToast('❌ Notifications non supportées');
-                return;
             }
+        }
+        
+        function sendNotification(title, body, options = {}) {
+            // Don't send if notifications are disabled
+            if (!db.settings.notifications) return;
             
-            // Check if already granted
-            if (Notification.permission === 'granted') {
-                db.settings.notifications = true;
-                save();
-                showToast('✅ Notifications déjà activées');
-                return;
+            // Platform-specific notification
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            if (isIOS) {
+                sendIOSNotification(title, body, options);
+            } else if (isAndroid) {
+                sendAndroidNotification(title, body, options);
+            } else {
+                sendWebNotification(title, body, options);
             }
-            
-            // Check if already denied (don't spam)
-            if (Notification.permission === 'denied') {
-                showToast('⚠️ Notifications bloquées dans le navigateur');
-                return;
-            }
-            
-            // Check if we already asked (stored in db)
-            if (db.settings.notificationAsked && Notification.permission === 'default') {
-                showToast('💡 Activez les notifications dans les paramètres du navigateur');
-                return;
-            }
-            
-            // First time asking
-            db.settings.notificationAsked = true;
-            save();
-            
-            Notification.requestPermission().then(perm => {
-                if (perm === 'granted') {
-                    db.settings.notifications = true;
-                    save();
-                    showToast('✅ Notifications activées');
-                    new Notification('StudentFlow', { body: 'Notifications activées!' });
-                } else {
-                    showToast('❌ Notifications refusées');
+        }
+        
+        function sendIOSNotification(title, body, options = {}) {
+            // iOS Safari: Use basic notification
+            if (notificationPermission === 'granted' && 'Notification' in window) {
+                try {
+                    const notification = new Notification(title, {
+                        body: body,
+                        icon: options.icon || '🎯',
+                        badge: options.badge || '🎯',
+                        tag: options.tag || 'studentflow',
+                        requireInteraction: options.requireInteraction || false,
+                        silent: options.silent || false
+                    });
+                    
+                    // Auto-close after 5 seconds for iOS
+                    setTimeout(() => {
+                        notification.close();
+                    }, 5000);
+                    
+                } catch (error) {
+                    console.warn('iOS notification failed:', error);
+                    // Fallback to toast
+                    showToast(`${title}: ${body}`);
                 }
+            } else {
+                // Fallback to toast
+                showToast(`${title}: ${body}`);
+            }
+        }
+        
+        function sendAndroidNotification(title, body, options = {}) {
+            // Android Chrome: Full notification support
+            if (notificationPermission === 'granted' && 'Notification' in window) {
+                try {
+                    const notification = new Notification(title, {
+                        body: body,
+                        icon: options.icon || '🎯',
+                        badge: options.badge || '🎯',
+                        tag: options.tag || 'studentflow',
+                        requireInteraction: options.requireInteraction || false,
+                        silent: options.silent || false,
+                        vibrate: options.vibrate || [200, 100, 200],
+                        actions: options.actions || []
+                    });
+                    
+                    // Play notification sound if enabled
+                    if (db.settings.sound) {
+                        playNotificationSound();
+                    }
+                    
+                } catch (error) {
+                    console.warn('Android notification failed:', error);
+                    showToast(`${title}: ${body}`);
+                }
+            } else {
+                showToast(`${title}: ${body}`);
+            }
+        }
+        
+        function sendWebNotification(title, body, options = {}) {
+            // Web browsers: Standard notification
+            if (notificationPermission === 'granted' && 'Notification' in window) {
+                try {
+                    const notification = new Notification(title, {
+                        body: body,
+                        icon: options.icon || '🎯',
+                        badge: options.badge || '🎯',
+                        tag: options.tag || 'studentflow',
+                        requireInteraction: options.requireInteraction || false
+                    });
+                    
+                    // Auto-close after 4 seconds
+                    setTimeout(() => {
+                        notification.close();
+                    }, 4000);
+                    
+                } catch (error) {
+                    console.warn('Web notification failed:', error);
+                    showToast(`${title}: ${body}`);
+                }
+            } else {
+                showToast(`${title}: ${body}`);
+            }
+        }
+        
+        // Enhanced notification functions for different use cases
+        function sendFocusReminder() {
+            sendNotification('⏰ Focus', 'Temps de faire une pause focus !', {
+                icon: '🎯',
+                tag: 'focus-reminder',
+                requireInteraction: true
             });
         }
         
-        function sendNotification(title, body) {
-            if (!db.settings.notifications || Notification.permission !== 'granted') return;
-            new Notification(title, { body, icon: '🎯' });
+        function sendWaterReminder() {
+            sendNotification('💧 Hydratation', 'Pense à boire un verre d\'eau !', {
+                icon: '💧',
+                tag: 'water-reminder'
+            });
+        }
+        
+        function sendEyesReminder() {
+            sendNotification('👀 Pause yeux', 'Regarde au loin pendant 20 secondes !', {
+                icon: '👀',
+                tag: 'eyes-reminder'
+            });
+        }
+        
+        function sendGoalReminder(goal) {
+            sendNotification('🎯 Objectif', `N\'oublie: ${goal}`, {
+                icon: '🎯',
+                tag: 'goal-reminder',
+                requireInteraction: true
+            });
+        }
+        
+        function sendWellnessTip(tip) {
+            sendNotification('💡 Bien-être', tip, {
+                icon: '💡',
+                tag: 'wellness-tip'
+            });
         }
 
         // ==================== GAMIFICATION ====================
@@ -5845,8 +6020,34 @@
             // Speech button is now directly in HTML
         }
         
+        // Initialize notification permission on load
+        function initNotificationSystem() {
+            // Detect and store platform
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            
+            // Store permission state
+            if ('Notification' in window) {
+                notificationPermission = Notification.permission;
+            }
+            
+            // Auto-initialize for Android if already granted
+            if (isAndroid && notificationPermission === 'granted') {
+                initPushNotifications();
+            }
+            
+            console.log('Platform detected:', {
+                isIOS,
+                isAndroid,
+                isSafari,
+                notificationPermission
+            });
+        }
+        
         // Initialize on load
         initAdvancedFeatures();
+        initNotificationSystem();
         
         // Register for background sync
         if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
