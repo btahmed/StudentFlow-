@@ -390,35 +390,35 @@
         <div class="flex flex-col gap-2 w-full px-4 flex-1">
             <button onclick="switchTab('sched')" id="btn-sched" class="nav-active flex items-center gap-4 p-4 rounded-2xl w-full touch-feedback">
                 <i data-lucide="calendar" class="w-5 h-5"></i> 
-                <span class="hidden md:block font-bold uppercase text-[10px]">Planning</span>
+                <span class="hidden md:block font-bold uppercase text-[10px]" data-i18n="nav_planning">Planning</span>
             </button>
             <button onclick="switchTab('dash')" id="btn-dash" class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
                 <i data-lucide="layout-grid" class="w-5 h-5"></i> 
-                <span class="hidden md:block font-bold uppercase text-[10px]">Dashboard</span>
+                <span class="hidden md:block font-bold uppercase text-[10px]" data-i18n="nav_dashboard">Dashboard</span>
             </button>
             <button onclick="switchTab('analytics')" id="btn-analytics" class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
                 <i data-lucide="bar-chart-3" class="w-5 h-5"></i> 
-                <span class="hidden md:block font-bold uppercase text-[10px]">Analytics</span>
+                <span class="hidden md:block font-bold uppercase text-[10px]" data-i18n="nav_analytics">Analytics</span>
             </button>
             <button onclick="switchTab('focus')" id="btn-focus" class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
                 <i data-lucide="target" class="w-5 h-5"></i> 
-                <span class="hidden md:block font-bold uppercase text-[10px]">Focus</span>
+                <span class="hidden md:block font-bold uppercase text-[10px]" data-i18n="nav_focus">Focus</span>
             </button>
             <button onclick="switchTab('log')" id="btn-log" class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
                 <i data-lucide="heart" class="w-5 h-5"></i> 
-                <span class="hidden md:block font-bold uppercase text-[10px]">Journal</span>
+                <span class="hidden md:block font-bold uppercase text-[10px]" data-i18n="nav_journal">Journal</span>
             </button>
             <button onclick="switchTab('goals')" id="btn-goals" class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
                 <i data-lucide="flag" class="w-5 h-5"></i> 
-                <span class="hidden md:block font-bold uppercase text-[10px]">Objectifs</span>
+                <span class="hidden md:block font-bold uppercase text-[10px]" data-i18n="nav_goals">Objectifs</span>
             </button>
             <button onclick="switchTab('wellness')" id="btn-wellness" class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
                 <i data-lucide="activity" class="w-5 h-5"></i> 
-                <span class="hidden md:block font-bold uppercase text-[10px]">Bio-Hack</span>
+                <span class="hidden md:block font-bold uppercase text-[10px]" data-i18n="nav_biohack">Bio-Hack</span>
             </button>
             <button onclick="switchTab('download')" id="btn-download" class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
                 <i data-lucide="download" class="w-5 h-5"></i> 
-                <span class="hidden md:block font-bold uppercase text-[10px]">Télécharger</span>
+                <span class="hidden md:block font-bold uppercase text-[10px]" data-i18n="nav_download">Télécharger</span>
             </button>
         </div>
         
@@ -426,19 +426,19 @@
         <div class="px-4 space-y-2">
             <button onclick="openDataModal()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl text-slate-400 hover:bg-white/5 text-xs font-bold touch-feedback">
                 <i data-lucide="database" class="w-4 h-4"></i>
-                <span class="hidden md:block">Données</span>
+                <span class="hidden md:block" data-i18n="nav_data">Données</span>
             </button>
             <button onclick="resetAll()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl text-slate-400 hover:text-red-500 text-xs font-bold touch-feedback">
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
-                <span class="hidden md:block">Reset</span>
+                <span class="hidden md:block" data-i18n="nav_reset">Reset</span>
             </button>
             <button onclick="showShortcutsInfo()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl text-slate-400 hover:bg-white/5 text-xs font-bold touch-feedback">
                 <i data-lucide="info" class="w-4 h-4"></i>
-                <span class="hidden md:block">Raccourcis</span>
+                <span class="hidden md:block" data-i18n="nav_shortcuts">Raccourcis</span>
             </button>
             <button onclick="showLangModal()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl text-slate-400 hover:bg-white/5 text-xs font-bold touch-feedback">
                 <i data-lucide="languages" class="w-4 h-4"></i>
-                <span class="hidden md:block">Langue</span>
+                <span class="hidden md:block" data-i18n="nav_lang">Langue</span>
             </button>
         </div>
     </nav>
@@ -447,27 +447,27 @@
     <div class="mobile-nav">
         <button onclick="switchTab('sched')" id="mob-sched" class="active">
             <i data-lucide="calendar" class="w-5 h-5"></i>
-            <span>Planning</span>
+            <span data-i18n="nav_planning">Planning</span>
         </button>
         <button onclick="switchTab('dash')" id="mob-dash">
             <i data-lucide="layout-grid" class="w-5 h-5"></i>
-            <span>Stats</span>
+            <span data-i18n="nav_stats">Stats</span>
         </button>
         <button onclick="switchTab('focus')" id="mob-focus">
             <i data-lucide="target" class="w-5 h-5"></i>
-            <span>Focus</span>
+            <span data-i18n="nav_focus">Focus</span>
         </button>
         <button onclick="switchTab('log')" id="mob-log">
             <i data-lucide="heart" class="w-5 h-5"></i>
-            <span>Journal</span>
+            <span data-i18n="nav_journal">Journal</span>
         </button>
         <button onclick="switchTab('analytics')" id="mob-analytics">
             <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-            <span>Analytics</span>
+            <span data-i18n="nav_analytics">Analytics</span>
         </button>
         <button onclick="toggleMobileMore()" id="mob-more">
             <i data-lucide="more-horizontal" class="w-5 h-5"></i>
-            <span>Plus</span>
+            <span data-i18n="nav_more">Plus</span>
         </button>
     </div>
     
@@ -503,20 +503,20 @@
         <header class="mb-8 flex flex-wrap justify-between items-start gap-4">
             <div>
                 <h2 class="text-3xl md:text-4xl font-black italic">StudentFlow Pro</h2>
-                <p class="text-slate-500 font-bold uppercase text-[10px]">AI-Powered Wellness Platform</p>
+                <p class="text-slate-500 font-bold uppercase text-[10px]" data-i18n="subtitle">AI-Powered Wellness Platform</p>
             </div>
             <div class="flex gap-2">
                 <button onclick="requestNotificationPermission()" class="glass px-4 py-2 text-xs font-bold flex items-center gap-2 hover:bg-white/10 touch-feedback">
                     <i data-lucide="bell" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">Notifs</span>
+                    <span class="hidden sm:inline" data-i18n="btn_notifs">Notifs</span>
                 </button>
                 <button onclick="quickNote()" class="glass px-4 py-2 text-xs font-bold flex items-center gap-2 hover:bg-white/10 touch-feedback">
                     <i data-lucide="sticky-note" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">Note</span>
+                    <span class="hidden sm:inline" data-i18n="btn_note">Note</span>
                 </button>
                 <button onclick="openNotesModal()" class="glass px-4 py-2 text-xs font-bold flex items-center gap-2 hover:bg-white/10 touch-feedback">
                     <i data-lucide="book-open" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">Mes Notes</span>
+                    <span class="hidden sm:inline" data-i18n="btn_my_notes">Mes Notes</span>
                 </button>
             </div>
         </header>
@@ -530,8 +530,8 @@
                         <i data-lucide="sparkles" class="w-8 h-8 text-purple-400"></i>
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-xl font-black mb-2">🔮 Prédiction IA</h3>
-                        <p id="prediction-text" class="text-slate-300 text-sm">Analyse en cours...</p>
+                        <h3 class="text-xl font-black mb-2" data-i18n="ai_prediction">🔮 Prédiction IA</h3>
+                        <p id="prediction-text" class="text-slate-300 text-sm" data-i18n="prediction_loading">Analyse en cours...</p>
                     </div>
                 </div>
             </div>
@@ -539,43 +539,43 @@
             <!-- Planning Grid -->
             <div class="glass p-4 md:p-8">
                 <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
-                    <h2 class="text-2xl font-black">📅 Planning Semaine</h2>
+                    <h2 class="text-2xl font-black" data-i18n="planning_title">📅 Planning Semaine</h2>
                     <div class="flex gap-2 flex-wrap">
                         <div class="relative">
                             <button onclick="toggleTemplateMenu()" class="px-4 py-2 bg-indigo-500/20 text-indigo-400 font-bold text-[10px] uppercase rounded-xl hover:bg-indigo-500/30 touch-feedback flex items-center gap-1">
                                 <i data-lucide="layout-template" class="w-3 h-3"></i>
-                                Templates
+                                <span data-i18n="btn_templates">Templates</span>
                             </button>
                             <div id="template-menu" class="hidden absolute top-full right-0 mt-2 glass p-2 z-50 min-w-[150px]" style="border-radius: 12px;">
-                                <button onclick="applyTemplate('normal'); toggleTemplateMenu();" class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg">📚 Semaine Type</button>
-                                <button onclick="applyTemplate('exam'); toggleTemplateMenu();" class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg">📝 Semaine Examens</button>
-                                <button onclick="applyTemplate('light'); toggleTemplateMenu();" class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg">🌴 Semaine Light</button>
+                                <button onclick="applyTemplate('normal'); toggleTemplateMenu();" class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg" data-i18n="tpl_normal">📚 Semaine Type</button>
+                                <button onclick="applyTemplate('exam'); toggleTemplateMenu();" class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg" data-i18n="tpl_exam">📝 Semaine Examens</button>
+                                <button onclick="applyTemplate('light'); toggleTemplateMenu();" class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg" data-i18n="tpl_light">🌴 Semaine Light</button>
                                 <hr class="border-white/10 my-2">
-                                <button onclick="saveAsTemplate(); toggleTemplateMenu();" class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg text-amber-400">💾 Sauvegarder actuel</button>
+                                <button onclick="saveAsTemplate(); toggleTemplateMenu();" class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg text-amber-400" data-i18n="tpl_save">💾 Sauvegarder actuel</button>
                             </div>
                         </div>
                         <button onclick="addDemoData()" class="px-4 py-2 bg-white/10 text-white font-bold text-[10px] uppercase rounded-xl hover:bg-white hover:text-black transition touch-feedback">
-                            Démo
+                            <span data-i18n="btn_demo">Démo</span>
                         </button>
                         <button onclick="clearPlanning()" class="px-4 py-2 bg-red-500/10 text-red-400 font-bold text-[10px] uppercase rounded-xl hover:bg-red-500/20 touch-feedback">
-                            Vider
+                            <span data-i18n="btn_clear">Vider</span>
                         </button>
                     </div>
                 </div>
                 
                 <!-- Raccourcis clavier hint -->
-                <p class="text-[10px] text-slate-500 mb-4 hidden md:block">💡 Raccourcis: N=Note, F=Focus, J=Journal, P=Planning, A=Analytics, T=Thème, S=Son (focus), Espace=Pomodoro, Esc=Fermer</p>
+                <p class="text-[10px] text-slate-500 mb-4 hidden md:block" data-i18n="shortcuts_hint">💡 Raccourcis: N=Note, F=Focus, J=Journal, P=Planning, A=Analytics, T=Thème, S=Son (focus), Espace=Pomodoro, Esc=Fermer</p>
                 
                 <div class="overflow-x-auto -mx-4 px-4">
                     <div class="min-w-[800px] grid grid-cols-8 gap-2 p-4 bg-white/[0.02] rounded-2xl">
                         <div class="h-10"></div>
-                        <div class="text-center font-black text-[10px] text-slate-500">LUN</div>
-                        <div class="text-center font-black text-[10px] text-slate-500">MAR</div>
-                        <div class="text-center font-black text-[10px] text-slate-500">MER</div>
-                        <div class="text-center font-black text-[10px] text-slate-500">JEU</div>
-                        <div class="text-center font-black text-[10px] text-slate-500">VEN</div>
-                        <div class="text-center font-black text-[10px] text-amber-400">SAM</div>
-                        <div class="text-center font-black text-[10px] text-amber-400">DIM</div>
+                        <div class="text-center font-black text-[10px] text-slate-500" data-i18n="day_mon">LUN</div>
+                        <div class="text-center font-black text-[10px] text-slate-500" data-i18n="day_tue">MAR</div>
+                        <div class="text-center font-black text-[10px] text-slate-500" data-i18n="day_wed">MER</div>
+                        <div class="text-center font-black text-[10px] text-slate-500" data-i18n="day_thu">JEU</div>
+                        <div class="text-center font-black text-[10px] text-slate-500" data-i18n="day_fri">VEN</div>
+                        <div class="text-center font-black text-[10px] text-amber-400" data-i18n="day_sat">SAM</div>
+                        <div class="text-center font-black text-[10px] text-amber-400" data-i18n="day_sun">DIM</div>
                         <div id="grid-root" class="contents"></div>
                     </div>
                 </div>
@@ -584,15 +584,15 @@
                 <div class="flex flex-wrap gap-4 mt-6 justify-center">
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 rounded bg-gradient-to-r from-indigo-600 to-indigo-800"></div>
-                        <span class="text-xs text-slate-400">Cours</span>
+                        <span class="text-xs text-slate-400" data-i18n="legend_cours">Cours</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 rounded bg-gradient-to-r from-amber-500 to-amber-700"></div>
-                        <span class="text-xs text-slate-400">Révision</span>
+                        <span class="text-xs text-slate-400" data-i18n="legend_revision">Révision</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 rounded bg-gradient-to-r from-emerald-500 to-emerald-700"></div>
-                        <span class="text-xs text-slate-400">Repos</span>
+                        <span class="text-xs text-slate-400" data-i18n="legend_repos">Repos</span>
                     </div>
                 </div>
             </div>
@@ -603,26 +603,26 @@
             <!-- Stats Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="glass p-6 text-center">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Charge</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2" data-i18n="stat_charge">Charge</p>
                     <span id="h-count" class="text-4xl md:text-5xl font-black stat-number">0</span>
-                    <p class="text-[10px] text-slate-500 mt-1">heures</p>
+                    <p class="text-[10px] text-slate-500 mt-1" data-i18n="stat_hours">heures</p>
                 </div>
                 <div class="glass p-6 text-center">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Stress</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2" data-i18n="stat_stress">Stress</p>
                     <span id="s-count" class="text-4xl md:text-5xl font-black stat-number">--</span>
                     <div class="w-full bg-slate-800 h-1 rounded-full mt-2">
                         <div id="stress-bar" class="h-full bg-pink-500 rounded-full transition-all" style="width: 0%"></div>
                     </div>
                 </div>
                 <div class="glass p-6 text-center">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Sommeil</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2" data-i18n="stat_sleep">Sommeil</p>
                     <span id="sleep-avg" class="text-4xl md:text-5xl font-black stat-number">--</span>
-                    <p class="text-[10px] text-slate-500 mt-1">h/nuit</p>
+                    <p class="text-[10px] text-slate-500 mt-1" data-i18n="stat_sleep_unit">h/nuit</p>
                 </div>
                 <div class="glass p-6 text-center bg-gradient-to-br from-amber-500/10">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Sagesse</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2" data-i18n="stat_wisdom">Sagesse</p>
                     <span id="wisdom-display" class="text-4xl md:text-5xl font-black text-amber-500">0</span>
-                    <p class="text-[10px] text-slate-500 mt-1">points</p>
+                    <p class="text-[10px] text-slate-500 mt-1" data-i18n="stat_points">points</p>
                 </div>
             </div>
 
@@ -630,7 +630,7 @@
             <div class="glass p-6 border-indigo-500/30">
                 <div class="flex items-center gap-3 mb-4">
                     <i data-lucide="brain" class="w-6 h-6 text-indigo-500"></i>
-                    <h3 class="text-lg font-black uppercase">🧠 Chronotype</h3>
+                    <h3 class="text-lg font-black uppercase" data-i18n="chronotype_title">🧠 Chronotype</h3>
                 </div>
                 <div id="chronotype-analysis" class="text-slate-400 text-sm">
                     Remplis 3 jours pour analyse...
@@ -640,15 +640,15 @@
             <!-- Charts Row -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 glass p-6 h-[350px]">
-                    <h4 class="text-sm font-bold mb-4 text-slate-400">Évolution 7 jours</h4>
+                    <h4 class="text-sm font-bold mb-4 text-slate-400" data-i18n="chart_7days">Évolution 7 jours</h4>
                     <canvas id="main-chart"></canvas>
                 </div>
                 <div class="glass p-6 flex flex-col">
                     <div class="flex items-center gap-3 mb-4">
                         <i data-lucide="sparkles" class="w-5 h-5 text-indigo-500"></i> 
-                        <span class="font-black text-xs uppercase">IA Coach</span>
+                        <span class="font-black text-xs uppercase" data-i18n="ai_coach">IA Coach</span>
                     </div>
-                    <p id="ai-insight" class="text-slate-300 text-sm mb-4 flex-1">En attente de données...</p>
+                    <p id="ai-insight" class="text-slate-300 text-sm mb-4 flex-1" data-i18n="ai_waiting">En attente de données...</p>
                     <div id="ai-tags" class="flex flex-wrap gap-2"></div>
                 </div>
             </div>
@@ -657,10 +657,10 @@
         <!-- ANALYTICS TAB -->
         <div id="analytics" class="tab-pane space-y-6">
             <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
-                <h2 class="text-2xl font-black">📊 Analytics Avancés</h2>
+                <h2 class="text-2xl font-black" data-i18n="analytics_title">📊 Analytics Avancés</h2>
                 <button onclick="shareStats()" class="glass px-4 py-2 text-xs font-bold flex items-center gap-2 hover:bg-white/10 touch-feedback">
                     <i data-lucide="share-2" class="w-4 h-4"></i>
-                    Partager
+                    <span data-i18n="btn_share">Partager</span>
                 </button>
             </div>
             
@@ -668,35 +668,35 @@
             <div class="glass p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border-indigo-500/30">
                 <div class="flex items-center gap-3 mb-4">
                     <i data-lucide="calendar-days" class="w-6 h-6 text-indigo-500"></i>
-                    <h3 class="font-black uppercase text-sm">Bilan du Mois</h3>
+                    <h3 class="font-black uppercase text-sm" data-i18n="monthly_summary">Bilan du Mois</h3>
                     <span class="ml-auto text-xs text-slate-400" id="current-month">--</span>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div class="text-center">
                         <p class="text-3xl font-black text-indigo-500" id="month-entries">0</p>
-                        <p class="text-[10px] text-slate-400">Entrées Journal</p>
+                        <p class="text-[10px] text-slate-400" data-i18n="journal_entries">Entrées Journal</p>
                     </div>
                     <div class="text-center">
                         <p class="text-3xl font-black text-emerald-500" id="month-focus">0h</p>
-                        <p class="text-[10px] text-slate-400">Focus Total</p>
+                        <p class="text-[10px] text-slate-400" data-i18n="total_focus">Focus Total</p>
                     </div>
                     <div class="text-center">
                         <p class="text-3xl font-black text-amber-500" id="month-avg-stress">--</p>
-                        <p class="text-[10px] text-slate-400">Stress Moy.</p>
+                        <p class="text-[10px] text-slate-400" data-i18n="avg_stress">Stress Moy.</p>
                     </div>
                     <div class="text-center">
                         <p class="text-3xl font-black text-pink-500" id="month-avg-sleep">--</p>
-                        <p class="text-[10px] text-slate-400">Sommeil Moy.</p>
+                        <p class="text-[10px] text-slate-400" data-i18n="avg_sleep">Sommeil Moy.</p>
                     </div>
                     <div class="text-center">
                         <p class="text-3xl font-black text-purple-500" id="month-score">--</p>
-                        <p class="text-[10px] text-slate-400">Score Santé</p>
+                        <p class="text-[10px] text-slate-400" data-i18n="health_score">Score Santé</p>
                     </div>
                 </div>
                 <!-- Progress Bar -->
                 <div class="mt-4">
                     <div class="flex justify-between text-[10px] text-slate-400 mb-1">
-                        <span>Score Santé Global</span>
+                        <span data-i18n="health_score_global">Score Santé Global</span>
                         <span id="health-score-percent">0%</span>
                     </div>
                     <div class="h-3 bg-white/10 rounded-full overflow-hidden">
@@ -708,7 +708,7 @@
             <!-- Performance Radar -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="glass p-6">
-                    <h3 class="text-sm font-bold mb-4 text-slate-400">Radar de Performance</h3>
+                    <h3 class="text-sm font-bold mb-4 text-slate-400" data-i18n="radar_title">Radar de Performance</h3>
                     <div class="h-[300px]">
                         <canvas id="radar-chart"></canvas>
                     </div>
@@ -716,17 +716,17 @@
                 
                 <!-- Weekly Heatmap -->
                 <div class="glass p-6">
-                    <h3 class="text-sm font-bold mb-4 text-slate-400">Heatmap Activité</h3>
+                    <h3 class="text-sm font-bold mb-4 text-slate-400" data-i18n="heatmap_title">Heatmap Activité</h3>
                     <div id="heatmap" class="grid grid-cols-7 gap-1"></div>
                     <!-- Mood Calendar -->
-                    <h4 class="text-sm font-bold mt-6 mb-3 text-slate-400">Humeurs du Mois</h4>
+                    <h4 class="text-sm font-bold mt-6 mb-3 text-slate-400" data-i18n="mood_calendar">Humeurs du Mois</h4>
                     <div id="mood-calendar" class="grid grid-cols-7 gap-1"></div>
                 </div>
             </div>
             
             <!-- Trends -->
             <div class="glass p-6">
-                <h3 class="text-sm font-bold mb-4 text-slate-400">Tendances 30 jours</h3>
+                <h3 class="text-sm font-bold mb-4 text-slate-400" data-i18n="trends_30">Tendances 30 jours</h3>
                 <div class="h-[250px]">
                     <canvas id="trend-chart"></canvas>
                 </div>
@@ -734,10 +734,10 @@
             
             <!-- Comparisons -->
             <div class="glass p-6">
-                <h3 class="text-sm font-bold mb-4 text-slate-400">Comparaison Semaines</h3>
+                <h3 class="text-sm font-bold mb-4 text-slate-400" data-i18n="week_compare">Comparaison Semaines</h3>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="p-4 bg-white/5 rounded-xl">
-                        <p class="text-[10px] text-slate-400 uppercase mb-2">Cette Semaine</p>
+                        <p class="text-[10px] text-slate-400 uppercase mb-2" data-i18n="this_week">Cette Semaine</p>
                         <div class="flex items-center gap-2">
                             <span class="text-2xl font-black" id="this-week-stress">--</span>
                             <span class="text-sm text-slate-400">stress moy.</span>
@@ -748,7 +748,7 @@
                         </div>
                     </div>
                     <div class="p-4 bg-white/5 rounded-xl">
-                        <p class="text-[10px] text-slate-400 uppercase mb-2">Semaine Précédente</p>
+                        <p class="text-[10px] text-slate-400 uppercase mb-2" data-i18n="last_week">Semaine Précédente</p>
                         <div class="flex items-center gap-2">
                             <span class="text-2xl font-black" id="last-week-stress">--</span>
                             <span class="text-sm text-slate-400">stress moy.</span>
@@ -767,19 +767,19 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="glass p-4 text-center">
                     <p class="text-3xl font-black text-indigo-500" id="stat-best-day">--</p>
-                    <p class="text-[10px] text-slate-400 uppercase">Meilleur jour</p>
+                    <p class="text-[10px] text-slate-400 uppercase" data-i18n="best_day">Meilleur jour</p>
                 </div>
                 <div class="glass p-4 text-center">
                     <p class="text-3xl font-black text-emerald-500" id="stat-total-focus">0</p>
-                    <p class="text-[10px] text-slate-400 uppercase">Sessions Focus</p>
+                    <p class="text-[10px] text-slate-400 uppercase" data-i18n="focus_sessions">Sessions Focus</p>
                 </div>
                 <div class="glass p-4 text-center">
                     <p class="text-3xl font-black text-amber-500" id="stat-avg-sleep">--</p>
-                    <p class="text-[10px] text-slate-400 uppercase">Sommeil moy.</p>
+                    <p class="text-[10px] text-slate-400 uppercase" data-i18n="avg_sleep_stat">Sommeil moy.</p>
                 </div>
                 <div class="glass p-4 text-center">
                     <p class="text-3xl font-black text-pink-500" id="stat-stress-trend">--</p>
-                    <p class="text-[10px] text-slate-400 uppercase">Tendance stress</p>
+                    <p class="text-[10px] text-slate-400 uppercase" data-i18n="stress_trend">Tendance stress</p>
                 </div>
             </div>
         </div>
@@ -788,12 +788,12 @@
         <div id="focus" class="tab-pane">
             <div class="max-w-2xl mx-auto space-y-6">
                 <div class="glass p-8 md:p-12 text-center">
-                    <h2 class="text-3xl font-black mb-2">🎯 FOCUS MODE</h2>
-                    <p id="focus-mode-label" class="text-slate-400 text-sm mb-4">Technique Pomodoro</p>
+                    <h2 class="text-3xl font-black mb-2" data-i18n="focus_title">🎯 FOCUS MODE</h2>
+                    <p id="focus-mode-label" class="text-slate-400 text-sm mb-4" data-i18n="pomodoro_technique">Technique Pomodoro</p>
                     
                     <!-- Session Tag -->
                     <div class="mb-6">
-                        <input type="text" id="focus-tag" placeholder="Tag: Maths, Projet..." 
+                        <input type="text" id="focus-tag" placeholder="Tag: Maths, Projet..." data-i18n="focus_tag_placeholder" 
                             class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-center text-sm outline-none focus:border-indigo-500 w-48">
                     </div>
                     
@@ -805,7 +805,7 @@
                         </svg>
                         <div class="absolute inset-0 flex flex-col items-center justify-center">
                             <span class="text-5xl md:text-6xl font-black" id="timer-display">25:00</span>
-                            <span id="timer-phase" class="text-xs text-slate-500 mt-2">TRAVAIL</span>
+                            <span id="timer-phase" class="text-xs text-slate-500 mt-2" data-i18n="timer_work">TRAVAIL</span>
                         </div>
                     </div>
                     
@@ -815,7 +815,7 @@
                         <div id="session-dot-2" class="w-3 h-3 rounded-full bg-slate-700"></div>
                         <div id="session-dot-3" class="w-3 h-3 rounded-full bg-slate-700"></div>
                         <div id="session-dot-4" class="w-3 h-3 rounded-full bg-slate-700"></div>
-                        <span class="text-xs text-slate-500 ml-2">→ Long break</span>
+                        <span class="text-xs text-slate-500 ml-2" data-i18n="long_break">→ Long break</span>
                     </div>
                     
                     <!-- Timer Controls -->
@@ -834,12 +834,12 @@
                     <!-- Session Counter -->
                     <div class="mt-8 flex items-center justify-center gap-4 flex-wrap">
                         <div class="flex gap-2">
-                            <span class="text-xs text-slate-400">Aujourd'hui:</span>
+                            <span class="text-xs text-slate-400" data-i18n="today_label">Aujourd'hui:</span>
                             <span id="today-sessions" class="text-xs font-bold text-indigo-400">0</span>
                         </div>
                         <button onclick="openFocusHistory()" class="px-4 py-2 bg-white/5 rounded-xl text-xs font-bold hover:bg-white/10 touch-feedback flex items-center gap-2">
                             <i data-lucide="history" class="w-4 h-4"></i>
-                            Historique
+                            <span data-i18n="btn_history">Historique</span>
                         </button>
                     </div>
                 </div>
@@ -847,7 +847,7 @@
                 <!-- Ambient Sound -->
                 <div class="glass p-4">
                     <div class="flex items-center justify-between mb-3">
-                        <span class="text-sm font-bold">🎧 Son Ambiant</span>
+                        <span class="text-sm font-bold" data-i18n="ambient_sound">🎧 Son Ambiant</span>
                         <button onclick="toggleAmbientSound()" id="ambient-toggle" class="px-4 py-2 bg-white/5 rounded-xl text-xs font-bold hover:bg-white/10 touch-feedback">
                             OFF
                         </button>
@@ -855,19 +855,19 @@
                     <div class="flex gap-2">
                         <button onclick="setAmbientSound('rain')" class="ambient-btn flex-1 p-3 rounded-xl text-center hover:bg-white/10 touch-feedback" data-sound="rain">
                             <span class="text-xl">🌧️</span>
-                            <p class="text-[10px] mt-1">Pluie</p>
+                            <p class="text-[10px] mt-1" data-i18n="sound_rain">Pluie</p>
                         </button>
                         <button onclick="setAmbientSound('forest')" class="ambient-btn flex-1 p-3 rounded-xl text-center hover:bg-white/10 touch-feedback" data-sound="forest">
                             <span class="text-xl">🌲</span>
-                            <p class="text-[10px] mt-1">Forêt</p>
+                            <p class="text-[10px] mt-1" data-i18n="sound_forest">Forêt</p>
                         </button>
                         <button onclick="setAmbientSound('cafe')" class="ambient-btn flex-1 p-3 rounded-xl text-center hover:bg-white/10 touch-feedback" data-sound="cafe">
                             <span class="text-xl">☕</span>
-                            <p class="text-[10px] mt-1">Café</p>
+                            <p class="text-[10px] mt-1" data-i18n="sound_cafe">Café</p>
                         </button>
                         <button onclick="setAmbientSound('white')" class="ambient-btn flex-1 p-3 rounded-xl text-center hover:bg-white/10 touch-feedback" data-sound="white">
                             <span class="text-xl">📻</span>
-                            <p class="text-[10px] mt-1">Blanc</p>
+                            <p class="text-[10px] mt-1" data-i18n="sound_white">Blanc</p>
                         </button>
                     </div>
                 </div>
@@ -894,19 +894,19 @@
                 
                 <!-- Exam Mode -->
                 <div class="glass p-4">
-                    <h3 class="text-sm font-bold mb-3">📝 Mode Examen</h3>
+                    <h3 class="text-sm font-bold mb-3" data-i18n="exam_mode">📝 Mode Examen</h3>
                     <div class="grid grid-cols-3 gap-3">
                         <button onclick="startExamMode(60)" class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-center hover:bg-amber-500/30 touch-feedback">
                             <p class="text-xl font-black">1h</p>
-                            <p class="text-[8px]">Contrôle</p>
+                            <p class="text-[8px]" data-i18n="exam_control">Contrôle</p>
                         </button>
                         <button onclick="startExamMode(120)" class="p-3 bg-orange-500/20 text-orange-400 rounded-xl text-center hover:bg-orange-500/30 touch-feedback">
                             <p class="text-xl font-black">2h</p>
-                            <p class="text-[8px]">Partiel</p>
+                            <p class="text-[8px]" data-i18n="exam_partial">Partiel</p>
                         </button>
                         <button onclick="startExamMode(240)" class="p-3 bg-red-500/20 text-red-400 rounded-xl text-center hover:bg-red-500/30 touch-feedback">
                             <p class="text-xl font-black">4h</p>
-                            <p class="text-[8px]">Concours</p>
+                            <p class="text-[8px]" data-i18n="exam_concours">Concours</p>
                         </button>
                     </div>
                 </div>
@@ -917,14 +917,14 @@
         <div id="log" class="tab-pane max-w-xl mx-auto">
             <div class="glass p-6 md:p-8 space-y-6">
                 <div class="text-center">
-                    <h2 class="text-2xl font-black italic uppercase">Journal Quotidien</h2>
-                    <p class="text-xs text-slate-400 mt-2">Synchronise tes métriques de bien-être</p>
+                    <h2 class="text-2xl font-black italic uppercase" data-i18n="journal_title">Journal Quotidien</h2>
+                    <p class="text-xs text-slate-400 mt-2" data-i18n="journal_subtitle">Synchronise tes métriques de bien-être</p>
                 </div>
                 
                 <div class="space-y-6">
                     <!-- Quick Stress Buttons -->
                     <div>
-                        <label class="block text-center text-[10px] font-black uppercase mb-3 text-slate-400">Stress (clic rapide)</label>
+                        <label class="block text-center text-[10px] font-black uppercase mb-3 text-slate-400" data-i18n="stress_quick">Stress (clic rapide)</label>
                         <div class="flex gap-2 justify-center flex-wrap">
                             <button onclick="setQuickStress(1)" class="quick-stress px-4 py-2 rounded-xl text-sm font-bold bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30">1-2</button>
                             <button onclick="setQuickStress(3)" class="quick-stress px-4 py-2 rounded-xl text-sm font-bold bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30">3-4</button>
@@ -942,7 +942,7 @@
                     
                     <!-- Quick Sleep Buttons -->
                     <div>
-                        <label class="block text-center text-[10px] font-black uppercase mb-3 text-slate-400">Sommeil (clic rapide)</label>
+                        <label class="block text-center text-[10px] font-black uppercase mb-3 text-slate-400" data-i18n="sleep_quick">Sommeil (clic rapide)</label>
                         <div class="flex gap-2 justify-center flex-wrap mb-3">
                             <button onclick="setQuickSleep(5)" class="quick-sleep px-4 py-2 rounded-xl text-sm font-bold bg-red-500/20 text-red-400 hover:bg-red-500/30">5h</button>
                             <button onclick="setQuickSleep(6)" class="quick-sleep px-4 py-2 rounded-xl text-sm font-bold bg-orange-500/20 text-orange-400 hover:bg-orange-500/30">6h</button>
@@ -956,7 +956,7 @@
                     
                     <!-- Sleep Quality -->
                     <div>
-                        <label class="block text-center text-[10px] font-black uppercase mb-3 text-slate-400">Qualité Sommeil</label>
+                        <label class="block text-center text-[10px] font-black uppercase mb-3 text-slate-400" data-i18n="sleep_quality">Qualité Sommeil</label>
                         <div class="flex justify-center gap-2">
                             <button onclick="setSleepQuality(1)" class="sleep-qual w-10 h-10 rounded-xl text-lg hover:bg-white/10" data-val="1">😫</button>
                             <button onclick="setSleepQuality(2)" class="sleep-qual w-10 h-10 rounded-xl text-lg hover:bg-white/10" data-val="2">😕</button>
@@ -968,7 +968,7 @@
                     
                     <!-- Mood Selector -->
                     <div>
-                        <label class="block text-center text-[10px] font-black uppercase mb-3 text-slate-400">Humeur</label>
+                        <label class="block text-center text-[10px] font-black uppercase mb-3 text-slate-400" data-i18n="mood_label">Humeur</label>
                         <div class="flex justify-center gap-3">
                             <button onclick="selectMood('😢')" class="mood-btn text-2xl p-2 rounded-xl hover:bg-white/10 transition">😢</button>
                             <button onclick="selectMood('😐')" class="mood-btn text-2xl p-2 rounded-xl hover:bg-white/10 transition">😐</button>
@@ -980,11 +980,11 @@
                     
                     <!-- Additional Metrics (collapsed by default) -->
                     <details class="glass p-4 rounded-xl">
-                        <summary class="cursor-pointer text-sm font-bold text-slate-400">📊 Métriques Avancées</summary>
+                        <summary class="cursor-pointer text-sm font-bold text-slate-400" data-i18n="advanced_metrics">📊 Métriques Avancées</summary>
                         <div class="mt-4 space-y-4">
                             <!-- Caffeine -->
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-400 mb-2">☕ Caféine (tasses)</label>
+                                <label class="block text-[10px] font-bold text-slate-400 mb-2" data-i18n="caffeine_label">☕ Caféine (tasses)</label>
                                 <div class="flex gap-2">
                                     <button onclick="setCaffeine(0)" class="caffeine-btn flex-1 py-2 rounded-lg text-sm font-bold bg-white/5 hover:bg-white/10" data-val="0">0</button>
                                     <button onclick="setCaffeine(1)" class="caffeine-btn flex-1 py-2 rounded-lg text-sm font-bold bg-white/5 hover:bg-white/10" data-val="1">1</button>
@@ -995,30 +995,30 @@
                             
                             <!-- Exercise -->
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-400 mb-2">🏃 Activité Physique</label>
+                                <label class="block text-[10px] font-bold text-slate-400 mb-2" data-i18n="exercise_label">🏃 Activité Physique</label>
                                 <div class="flex gap-2">
-                                    <button onclick="setExercise('none')" class="exercise-btn flex-1 py-2 rounded-lg text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="none">Aucune</button>
-                                    <button onclick="setExercise('light')" class="exercise-btn flex-1 py-2 rounded-lg text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="light">Légère</button>
-                                    <button onclick="setExercise('moderate')" class="exercise-btn flex-1 py-2 rounded-lg text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="moderate">Modérée</button>
-                                    <button onclick="setExercise('intense')" class="exercise-btn flex-1 py-2 rounded-lg text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="intense">Intense</button>
+                                    <button onclick="setExercise('none')" class="exercise-btn flex-1 py-2 rounded-lg text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="none" data-i18n="exercise_none">Aucune</button>
+                                    <button onclick="setExercise('light')" class="exercise-btn flex-1 py-2 rounded-lg text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="light" data-i18n="exercise_light">Légère</button>
+                                    <button onclick="setExercise('moderate')" class="exercise-btn flex-1 py-2 rounded-lg text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="moderate" data-i18n="exercise_moderate">Modérée</button>
+                                    <button onclick="setExercise('intense')" class="exercise-btn flex-1 py-2 rounded-lg text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="intense" data-i18n="exercise_intense">Intense</button>
                                 </div>
                             </div>
                             
                             <!-- Screen Time -->
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-400 mb-2">📱 Screen Time (heures)</label>
+                                <label class="block text-[10px] font-bold text-slate-400 mb-2" data-i18n="screen_time">📱 Screen Time (heures)</label>
                                 <input type="number" id="in-screen" placeholder="4" min="0" max="24" step="0.5"
                                     class="w-full bg-white/5 border border-white/10 p-2 rounded-lg text-sm outline-none focus:border-indigo-500">
                             </div>
                             
                             <!-- Symptoms -->
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-400 mb-2">🩺 Symptômes</label>
+                                <label class="block text-[10px] font-bold text-slate-400 mb-2" data-i18n="symptoms_label">🩺 Symptômes</label>
                                 <div class="flex flex-wrap gap-2">
-                                    <button onclick="toggleSymptom('headache')" class="symptom-btn px-3 py-1 rounded-full text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="headache">🤕 Mal de tête</button>
-                                    <button onclick="toggleSymptom('fatigue')" class="symptom-btn px-3 py-1 rounded-full text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="fatigue">😩 Fatigue</button>
-                                    <button onclick="toggleSymptom('anxiety')" class="symptom-btn px-3 py-1 rounded-full text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="anxiety">😰 Anxiété</button>
-                                    <button onclick="toggleSymptom('backpain')" class="symptom-btn px-3 py-1 rounded-full text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="backpain">🦴 Mal de dos</button>
+                                    <button onclick="toggleSymptom('headache')" class="symptom-btn px-3 py-1 rounded-full text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="headache" data-i18n="symptom_headache">🤕 Mal de tête</button>
+                                    <button onclick="toggleSymptom('fatigue')" class="symptom-btn px-3 py-1 rounded-full text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="fatigue" data-i18n="symptom_fatigue">😩 Fatigue</button>
+                                    <button onclick="toggleSymptom('anxiety')" class="symptom-btn px-3 py-1 rounded-full text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="anxiety" data-i18n="symptom_anxiety">😰 Anxiété</button>
+                                    <button onclick="toggleSymptom('backpain')" class="symptom-btn px-3 py-1 rounded-full text-[10px] font-bold bg-white/5 hover:bg-white/10" data-val="backpain" data-i18n="symptom_backpain">🦴 Mal de dos</button>
                                 </div>
                             </div>
                         </div>
@@ -1026,8 +1026,8 @@
                     
                     <!-- Quick Note -->
                     <div>
-                        <label class="block text-center text-[10px] font-black uppercase mb-2 text-slate-400">Note (optionnel)</label>
-                        <textarea id="in-note" rows="2" placeholder="Comment s'est passée ta journée ?" 
+                        <label class="block text-center text-[10px] font-black uppercase mb-2 text-slate-400" data-i18n="note_optional">Note (optionnel)</label>
+                        <textarea id="in-note" rows="2" placeholder="Comment s'est passée ta journée ?" data-i18n="note_placeholder" 
                             class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-indigo-600 resize-none"></textarea>
                     </div>
                     
@@ -1037,7 +1037,7 @@
                     </div>
                     
                     <button onclick="saveEntry()" class="w-full bg-indigo-600 py-4 rounded-2xl font-black text-sm uppercase hover:bg-indigo-500 transition touch-feedback">
-                        💾 Synchroniser
+                        <span data-i18n="btn_sync">💾 Synchroniser</span>
                     </button>
                 </div>
             </div>
@@ -1046,9 +1046,9 @@
         <!-- GOALS TAB -->
         <div id="goals" class="tab-pane max-w-2xl mx-auto space-y-6">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-black">🎯 Objectifs</h2>
+                <h2 class="text-2xl font-black" data-i18n="goals_title">🎯 Objectifs</h2>
                 <button onclick="addGoal()" class="glass px-4 py-2 text-sm font-bold hover:bg-white/10 touch-feedback">
-                    + Ajouter
+                    <span data-i18n="btn_add">+ Ajouter</span>
                 </button>
             </div>
             
@@ -1058,19 +1058,19 @@
             
             <!-- Weekly Summary -->
             <div class="glass p-6 bg-gradient-to-br from-emerald-500/10 to-transparent">
-                <h3 class="font-bold mb-4">📈 Résumé Hebdomadaire</h3>
+                <h3 class="font-bold mb-4" data-i18n="weekly_summary">📈 Résumé Hebdomadaire</h3>
                 <div class="grid grid-cols-3 gap-4 text-center">
                     <div>
                         <p class="text-2xl font-black text-emerald-500" id="goals-completed">0</p>
-                        <p class="text-[10px] text-slate-400">Complétés</p>
+                        <p class="text-[10px] text-slate-400" data-i18n="completed">Complétés</p>
                     </div>
                     <div>
                         <p class="text-2xl font-black text-amber-500" id="goals-progress">0</p>
-                        <p class="text-[10px] text-slate-400">En cours</p>
+                        <p class="text-[10px] text-slate-400" data-i18n="in_progress">En cours</p>
                     </div>
                     <div>
                         <p class="text-2xl font-black text-indigo-500" id="goals-total">0</p>
-                        <p class="text-[10px] text-slate-400">Total</p>
+                        <p class="text-[10px] text-slate-400" data-i18n="total">Total</p>
                     </div>
                 </div>
             </div>
@@ -1079,17 +1079,17 @@
         <!-- WELLNESS/BIO-HACK TAB -->
         <div id="wellness" class="tab-pane">
             <div class="max-w-2xl mx-auto space-y-6">
-                <h2 class="text-2xl font-black">💆 Centre Bio-Hack</h2>
+                <h2 class="text-2xl font-black" data-i18n="wellness_title">💆 Centre Bio-Hack</h2>
                 
                 <!-- Rappels Programmés -->
                 <div class="glass p-6 border-amber-500/30">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="font-bold flex items-center gap-2">
                             <i data-lucide="bell" class="w-5 h-5 text-amber-500"></i>
-                            Rappels Automatiques
+                            <span data-i18n="auto_reminders">Rappels Automatiques</span>
                         </h3>
                         <button onclick="toggleReminders()" id="reminder-toggle" class="px-4 py-2 bg-amber-500/20 text-amber-400 rounded-xl text-xs font-bold hover:bg-amber-500/30 touch-feedback">
-                            Activer
+                            <span data-i18n="btn_activate">Activer</span>
                         </button>
                     </div>
                     <div class="space-y-3" id="reminders-list">
@@ -1097,8 +1097,8 @@
                             <div class="flex items-center gap-3">
                                 <span class="text-xl">💧</span>
                                 <div>
-                                    <p class="font-bold text-sm">Hydratation</p>
-                                    <p class="text-[10px] text-slate-400">Toutes les 45 min</p>
+                                    <p class="font-bold text-sm" data-i18n="remind_water">Hydratation</p>
+                                    <p class="text-[10px] text-slate-400" data-i18n="remind_water_freq">Toutes les 45 min</p>
                                 </div>
                             </div>
                             <input type="checkbox" id="remind-water" class="w-5 h-5 rounded accent-amber-500" checked>
@@ -1107,8 +1107,8 @@
                             <div class="flex items-center gap-3">
                                 <span class="text-xl">👀</span>
                                 <div>
-                                    <p class="font-bold text-sm">Pause Yeux</p>
-                                    <p class="text-[10px] text-slate-400">Toutes les 20 min</p>
+                                    <p class="font-bold text-sm" data-i18n="remind_eyes">Pause Yeux</p>
+                                    <p class="text-[10px] text-slate-400" data-i18n="remind_eyes_freq">Toutes les 20 min</p>
                                 </div>
                             </div>
                             <input type="checkbox" id="remind-eyes" class="w-5 h-5 rounded accent-amber-500" checked>
@@ -1117,8 +1117,8 @@
                             <div class="flex items-center gap-3">
                                 <span class="text-xl">🧘</span>
                                 <div>
-                                    <p class="font-bold text-sm">Étirement</p>
-                                    <p class="text-[10px] text-slate-400">Toutes les heures</p>
+                                    <p class="font-bold text-sm" data-i18n="remind_stretch">Étirement</p>
+                                    <p class="text-[10px] text-slate-400" data-i18n="remind_stretch_freq">Toutes les heures</p>
                                 </div>
                             </div>
                             <input type="checkbox" id="remind-stretch" class="w-5 h-5 rounded accent-amber-500">
@@ -1127,33 +1127,33 @@
                             <div class="flex items-center gap-3">
                                 <span class="text-xl">📝</span>
                                 <div>
-                                    <p class="font-bold text-sm">Journal</p>
-                                    <p class="text-[10px] text-slate-400">Chaque soir à 21h</p>
+                                    <p class="font-bold text-sm" data-i18n="remind_journal">Journal</p>
+                                    <p class="text-[10px] text-slate-400" data-i18n="remind_journal_freq">Chaque soir à 21h</p>
                                 </div>
                             </div>
                             <input type="checkbox" id="remind-journal" class="w-5 h-5 rounded accent-amber-500" checked>
                         </div>
                     </div>
-                    <p id="reminder-status" class="text-[10px] text-slate-500 mt-3 text-center">Rappels désactivés</p>
+                    <p id="reminder-status" class="text-[10px] text-slate-500 mt-3 text-center" data-i18n="reminders_off">Rappels désactivés</p>
                 </div>
                 
                 <!-- Recommendations -->
                 <div class="glass p-6">
-                    <h3 class="font-bold mb-4">Recommandations IA</h3>
+                    <h3 class="font-bold mb-4" data-i18n="ai_recommendations">Recommandations IA</h3>
                     <div id="wellness-recommendations" class="space-y-4">
-                        <p class="text-slate-400">Remplis ton journal pour des conseils personnalisés...</p>
+                        <p class="text-slate-400" data-i18n="ai_reco_placeholder">Remplis ton journal pour des conseils personnalisés...</p>
                     </div>
                 </div>
                 
                 <!-- Breathing Exercise -->
                 <div class="glass p-8 text-center">
-                    <h3 class="text-xl font-black mb-2">🫁 Cohérence Cardiaque</h3>
-                    <p class="text-sm text-slate-400 mb-6">5 secondes inspir, 5 secondes expir</p>
+                    <h3 class="text-xl font-black mb-2" data-i18n="breathing_title">🫁 Cohérence Cardiaque</h3>
+                    <p class="text-sm text-slate-400 mb-6" data-i18n="breathing_desc">5 secondes inspir, 5 secondes expir</p>
                     <div id="breathing-circle" class="w-32 h-32 mx-auto rounded-full bg-indigo-500/20 border-4 border-indigo-500 flex items-center justify-center mb-6 transition-all duration-[5000ms]">
-                        <span id="breathing-text" class="font-bold">Prêt</span>
+                        <span id="breathing-text" class="font-bold" data-i18n="breathing_ready">Prêt</span>
                     </div>
                     <button onclick="startBreathing()" id="breathing-btn" class="px-8 py-4 bg-indigo-600 rounded-2xl font-black uppercase text-sm hover:bg-indigo-500 transition touch-feedback">
-                        Commencer
+                        <span data-i18n="btn_begin">Commencer</span>
                     </button>
                 </div>
                 
@@ -1161,19 +1161,19 @@
                 <div class="grid grid-cols-2 gap-4">
                     <button onclick="showTip('stretching')" class="glass p-6 text-center hover:bg-white/5 touch-feedback">
                         <span class="text-4xl">🧘</span>
-                        <p class="font-bold mt-2">Étirements</p>
+                        <p class="font-bold mt-2" data-i18n="tip_stretching">Étirements</p>
                     </button>
                     <button onclick="showTip('hydration')" class="glass p-6 text-center hover:bg-white/5 touch-feedback">
                         <span class="text-4xl">💧</span>
-                        <p class="font-bold mt-2">Hydratation</p>
+                        <p class="font-bold mt-2" data-i18n="tip_hydration">Hydratation</p>
                     </button>
                     <button onclick="showTip('eyes')" class="glass p-6 text-center hover:bg-white/5 touch-feedback">
                         <span class="text-4xl">👀</span>
-                        <p class="font-bold mt-2">Repos yeux</p>
+                        <p class="font-bold mt-2" data-i18n="tip_eyes">Repos yeux</p>
                     </button>
                     <button onclick="showTip('walk')" class="glass p-6 text-center hover:bg-white/5 touch-feedback">
                         <span class="text-4xl">🚶</span>
-                        <p class="font-bold mt-2">Micro-marche</p>
+                        <p class="font-bold mt-2" data-i18n="tip_walk">Micro-marche</p>
                     </button>
                 </div>
             </div>
@@ -1182,23 +1182,23 @@
         <!-- DOWNLOAD TAB -->
         <div id="download" class="tab-pane max-w-4xl mx-auto space-y-8">
             <div class="glass p-10 text-center">
-                <h2 class="text-3xl font-black uppercase italic mb-6">Installer StudentFlow</h2>
+                <h2 class="text-3xl font-black uppercase italic mb-6" data-i18n="install_title">Installer StudentFlow</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
                     <!-- Bouton Android APK -->
                     <div class="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-3xl space-y-4">
                         <i data-lucide="android" class="w-12 h-12 mx-auto text-emerald-500"></i>
-                        <h3 class="font-bold uppercase tracking-widest text-xs">Android (Version Directe)</h3>
-                        <p class="text-xs text-slate-400">Installe l'APK directement sur ton smartphone (Autoriser sources inconnues).</p>
-                        <a href="StudentFlow-FINAL.apk" download class="inline-block w-full py-4 bg-emerald-600 rounded-2xl font-black text-[10px] uppercase hover:bg-emerald-500 transition">Télécharger APK</a>
+                        <h3 class="font-bold uppercase tracking-widest text-xs" data-i18n="android_title">Android (Version Directe)</h3>
+                        <p class="text-xs text-slate-400" data-i18n="android_desc">Installe l'APK directement sur ton smartphone (Autoriser sources inconnues).</p>
+                        <a href="StudentFlow-FINAL.apk" download class="inline-block w-full py-4 bg-emerald-600 rounded-2xl font-black text-[10px] uppercase hover:bg-emerald-500 transition" data-i18n="btn_download_apk">Télécharger APK</a>
                     </div>
 
                     <!-- Bouton iOS / PWA -->
                     <div class="p-6 bg-blue-500/10 border border-blue-500/20 rounded-3xl space-y-4">
                         <i data-lucide="apple" class="w-12 h-12 mx-auto text-blue-500"></i>
-                        <h3 class="font-bold uppercase tracking-widest text-xs">iOS (Web App)</h3>
-                        <p class="text-xs text-slate-400">Pour iPhone : Clique sur 'Partager' dans Safari, puis 'Sur l'écran d'accueil'.</p>
-                        <button onclick="showPwaTutorial()" class="w-full py-4 bg-blue-600 rounded-2xl font-black text-[10px] uppercase hover:bg-blue-500 transition">Installer sur iOS</button>
+                        <h3 class="font-bold uppercase tracking-widest text-xs" data-i18n="ios_title">iOS (Web App)</h3>
+                        <p class="text-xs text-slate-400" data-i18n="ios_desc">Pour iPhone : Clique sur 'Partager' dans Safari, puis 'Sur l'écran d'accueil'.</p>
+                        <button onclick="showPwaTutorial()" class="w-full py-4 bg-blue-600 rounded-2xl font-black text-[10px] uppercase hover:bg-blue-500 transition" data-i18n="btn_install_ios">Installer sur iOS</button>
                     </div>
                 </div>
                 
@@ -1909,40 +1909,244 @@
         // ==================== TRADUCTIONS ====================
         const TRANSLATIONS = {
             fr: {
+                // Nav
+                nav_planning: 'Planning', nav_dashboard: 'Dashboard', nav_analytics: 'Analytics',
+                nav_focus: 'Focus', nav_journal: 'Journal', nav_goals: 'Objectifs', nav_biohack: 'Bio-Hack',
+                nav_download: 'Télécharger', nav_data: 'Données', nav_reset: 'Reset', nav_shortcuts: 'Raccourcis',
+                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'Plus', nav_lang: 'Langue',
+                // Header
+                subtitle: 'AI-Powered Wellness Platform', btn_notifs: 'Notifs', btn_note: 'Note', btn_my_notes: 'Mes Notes',
+                // Planning
+                ai_prediction: '🔮 Prédiction IA', prediction_loading: 'Analyse en cours...',
+                planning_title: '📅 Planning Semaine', btn_templates: 'Templates',
+                tpl_normal: '📚 Semaine Type', tpl_exam: '📝 Semaine Examens', tpl_light: '🌴 Semaine Light',
+                tpl_save: '💾 Sauvegarder actuel', btn_demo: 'Démo', btn_clear: 'Vider',
+                shortcuts_hint: '💡 Raccourcis: N=Note, F=Focus, J=Journal, P=Planning, A=Analytics, T=Thème, S=Son (focus), Espace=Pomodoro, Esc=Fermer',
+                day_mon: 'LUN', day_tue: 'MAR', day_wed: 'MER', day_thu: 'JEU', day_fri: 'VEN', day_sat: 'SAM', day_sun: 'DIM',
+                legend_cours: 'Cours', legend_revision: 'Révision', legend_repos: 'Repos',
+                // Dashboard
+                stat_charge: 'Charge', stat_hours: 'heures', stat_stress: 'Stress', stat_sleep: 'Sommeil',
+                stat_sleep_unit: 'h/nuit', stat_wisdom: 'Sagesse', stat_points: 'points',
+                chronotype_title: '🧠 Chronotype', chronotype_loading: 'Remplis 3 jours pour analyse...',
+                chart_7days: 'Évolution 7 jours', ai_coach: 'IA Coach', ai_waiting: 'En attente de données...',
+                // Analytics
+                analytics_title: '📊 Analytics Avancés', btn_share: 'Partager',
+                monthly_summary: 'Bilan du Mois', journal_entries: 'Entrées Journal', total_focus: 'Focus Total',
+                avg_stress: 'Stress Moy.', avg_sleep: 'Sommeil Moy.', health_score: 'Score Santé',
+                health_score_global: 'Score Santé Global',
+                radar_title: 'Radar de Performance', heatmap_title: 'Heatmap Activité',
+                mood_calendar: 'Humeurs du Mois', trends_30: 'Tendances 30 jours',
+                week_compare: 'Comparaison Semaines', this_week: 'Cette Semaine', last_week: 'Semaine Précédente',
+                stress_avg: 'stress moy.', sleep_avg_unit: 'h sommeil moy.',
+                best_day: 'Meilleur jour', focus_sessions: 'Sessions Focus',
+                avg_sleep_stat: 'Sommeil moy.', stress_trend: 'Tendance stress',
+                // Focus
+                focus_title: '🎯 FOCUS MODE', pomodoro_technique: 'Technique Pomodoro',
+                focus_tag_placeholder: 'Tag: Maths, Projet...', timer_work: 'TRAVAIL',
+                long_break: '→ Long break', btn_start: 'Start', btn_pause: 'Pause', btn_reset: 'Reset',
+                today_label: "Aujourd'hui:", btn_history: 'Historique',
+                ambient_sound: '🎧 Son Ambiant', sound_rain: 'Pluie', sound_forest: 'Forêt',
+                sound_cafe: 'Café', sound_white: 'Blanc',
+                exam_mode: '📝 Mode Examen', exam_control: 'Contrôle', exam_partial: 'Partiel', exam_concours: 'Concours',
+                // Journal
+                journal_title: 'Journal Quotidien', journal_subtitle: 'Synchronise tes métriques de bien-être',
+                stress_quick: 'Stress (clic rapide)', sleep_quick: 'Sommeil (clic rapide)',
+                sleep_quality: 'Qualité Sommeil', mood_label: 'Humeur',
+                advanced_metrics: '📊 Métriques Avancées', caffeine_label: '☕ Caféine (tasses)',
+                exercise_label: '🏃 Activité Physique', exercise_none: 'Aucune', exercise_light: 'Légère',
+                exercise_moderate: 'Modérée', exercise_intense: 'Intense',
+                screen_time: '📱 Screen Time (heures)', symptoms_label: '🩺 Symptômes',
+                symptom_headache: '🤕 Mal de tête', symptom_fatigue: '😩 Fatigue',
+                symptom_anxiety: '😰 Anxiété', symptom_backpain: '🦴 Mal de dos',
+                note_optional: 'Note (optionnel)', note_placeholder: 'Comment s\'est passée ta journée ?',
+                btn_sync: '💾 Synchroniser',
+                // Goals
+                goals_title: '🎯 Objectifs', btn_add: '+ Ajouter',
+                weekly_summary: '📈 Résumé Hebdomadaire', completed: 'Complétés', in_progress: 'En cours', total: 'Total',
+                // Wellness
+                wellness_title: '💆 Centre Bio-Hack', auto_reminders: 'Rappels Automatiques', btn_activate: 'Activer',
+                remind_water: 'Hydratation', remind_water_freq: 'Toutes les 45 min',
+                remind_eyes: 'Pause Yeux', remind_eyes_freq: 'Toutes les 20 min',
+                remind_stretch: 'Étirement', remind_stretch_freq: 'Toutes les heures',
+                remind_journal: 'Journal', remind_journal_freq: 'Chaque soir à 21h',
+                reminders_off: 'Rappels désactivés', ai_recommendations: 'Recommandations IA',
+                ai_reco_placeholder: 'Remplis ton journal pour des conseils personnalisés...',
+                breathing_title: '🫁 Cohérence Cardiaque', breathing_desc: '5 secondes inspir, 5 secondes expir',
+                breathing_ready: 'Prêt', btn_begin: 'Commencer',
+                tip_stretching: 'Étirements', tip_hydration: 'Hydratation', tip_eyes: 'Repos yeux', tip_walk: 'Micro-marche',
+                // Download
+                install_title: 'Installer StudentFlow',
+                android_title: 'Android (Version Directe)',
+                android_desc: 'Installe l\'APK directement sur ton smartphone (Autoriser sources inconnues).',
+                btn_download_apk: 'Télécharger APK',
+                ios_title: 'iOS (Web App)',
+                ios_desc: 'Pour iPhone : Clique sur \'Partager\' dans Safari, puis \'Sur l\'écran d\'accueil\'.',
+                btn_install_ios: 'Installer sur iOS',
+                distribution_info: '📱 Distribution gratuite et universelle :',
+                distribution_desc: 'StudentFlow utilise une stratégie de distribution décentralisée pour garantir un accès total sans frais de store. APK direct pour Android et PWA pour iOS - installation instantanée et sécurisée pour tous les étudiants.',
+                // Modal
+                slot_detail: '📝 Détail du Créneau', slot_placeholder: 'Nom (auto si vide)',
+                type_cours: '📚 Cours', type_revision: '✏️ Révision', type_repos: '😴 Repos', type_sport: '🏃 Sport',
+                type_social: '👥 Social', type_admin: '📋 Admin', type_repas: '🍽️ Repas',
+                // Shortcuts modal
                 shortcuts_title: 'Raccourcis Clavier',
                 shortcut_planning: 'Planning', shortcut_analytics: 'Analytics', shortcut_focus: 'Mode Focus',
                 shortcut_journal: 'Journal', shortcut_note: 'Nouvelle note', shortcut_theme: 'Changer thème',
                 shortcut_pomodoro: 'Start/Pause Pomodoro', shortcut_sound: 'Son ambiant (Focus)',
                 shortcut_close: 'Fermer les modals', understood: "J'ai compris!",
-                nav_planning: 'Planning', nav_dashboard: 'Dashboard', nav_analytics: 'Analytics',
-                nav_focus: 'Focus', nav_journal: 'Journal', nav_goals: 'Objectifs', nav_biohack: 'Bio-Hack',
-                nav_download: 'Télécharger', nav_data: 'Données', nav_reset: 'Reset', nav_shortcuts: 'Raccourcis',
-                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'Plus',
-                lang_title: 'Langue', lang_current: 'Français'
+                lang_title: 'Langue'
             },
             en: {
+                nav_planning: 'Planning', nav_dashboard: 'Dashboard', nav_analytics: 'Analytics',
+                nav_focus: 'Focus', nav_journal: 'Journal', nav_goals: 'Goals', nav_biohack: 'Bio-Hack',
+                nav_download: 'Download', nav_data: 'Data', nav_reset: 'Reset', nav_shortcuts: 'Shortcuts',
+                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'More', nav_lang: 'Language',
+                subtitle: 'AI-Powered Wellness Platform', btn_notifs: 'Notifs', btn_note: 'Note', btn_my_notes: 'My Notes',
+                ai_prediction: '🔮 AI Prediction', prediction_loading: 'Analyzing...',
+                planning_title: '📅 Weekly Planning', btn_templates: 'Templates',
+                tpl_normal: '📚 Standard Week', tpl_exam: '📝 Exam Week', tpl_light: '🌴 Light Week',
+                tpl_save: '💾 Save current', btn_demo: 'Demo', btn_clear: 'Clear',
+                shortcuts_hint: '💡 Shortcuts: N=Note, F=Focus, J=Journal, P=Planning, A=Analytics, T=Theme, S=Sound (focus), Space=Pomodoro, Esc=Close',
+                day_mon: 'MON', day_tue: 'TUE', day_wed: 'WED', day_thu: 'THU', day_fri: 'FRI', day_sat: 'SAT', day_sun: 'SUN',
+                legend_cours: 'Class', legend_revision: 'Study', legend_repos: 'Rest',
+                stat_charge: 'Load', stat_hours: 'hours', stat_stress: 'Stress', stat_sleep: 'Sleep',
+                stat_sleep_unit: 'h/night', stat_wisdom: 'Wisdom', stat_points: 'points',
+                chronotype_title: '🧠 Chronotype', chronotype_loading: 'Fill 3 days for analysis...',
+                chart_7days: '7-day Evolution', ai_coach: 'AI Coach', ai_waiting: 'Waiting for data...',
+                analytics_title: '📊 Advanced Analytics', btn_share: 'Share',
+                monthly_summary: 'Monthly Summary', journal_entries: 'Journal Entries', total_focus: 'Total Focus',
+                avg_stress: 'Avg. Stress', avg_sleep: 'Avg. Sleep', health_score: 'Health Score',
+                health_score_global: 'Global Health Score',
+                radar_title: 'Performance Radar', heatmap_title: 'Activity Heatmap',
+                mood_calendar: 'Monthly Moods', trends_30: '30-day Trends',
+                week_compare: 'Week Comparison', this_week: 'This Week', last_week: 'Last Week',
+                stress_avg: 'avg. stress', sleep_avg_unit: 'h avg. sleep',
+                best_day: 'Best day', focus_sessions: 'Focus Sessions',
+                avg_sleep_stat: 'Avg. sleep', stress_trend: 'Stress trend',
+                focus_title: '🎯 FOCUS MODE', pomodoro_technique: 'Pomodoro Technique',
+                focus_tag_placeholder: 'Tag: Math, Project...', timer_work: 'WORK',
+                long_break: '→ Long break', btn_start: 'Start', btn_pause: 'Pause', btn_reset: 'Reset',
+                today_label: 'Today:', btn_history: 'History',
+                ambient_sound: '🎧 Ambient Sound', sound_rain: 'Rain', sound_forest: 'Forest',
+                sound_cafe: 'Café', sound_white: 'White',
+                exam_mode: '📝 Exam Mode', exam_control: 'Quiz', exam_partial: 'Midterm', exam_concours: 'Final',
+                journal_title: 'Daily Journal', journal_subtitle: 'Sync your wellness metrics',
+                stress_quick: 'Stress (quick click)', sleep_quick: 'Sleep (quick click)',
+                sleep_quality: 'Sleep Quality', mood_label: 'Mood',
+                advanced_metrics: '📊 Advanced Metrics', caffeine_label: '☕ Caffeine (cups)',
+                exercise_label: '🏃 Physical Activity', exercise_none: 'None', exercise_light: 'Light',
+                exercise_moderate: 'Moderate', exercise_intense: 'Intense',
+                screen_time: '📱 Screen Time (hours)', symptoms_label: '🩺 Symptoms',
+                symptom_headache: '🤕 Headache', symptom_fatigue: '😩 Fatigue',
+                symptom_anxiety: '😰 Anxiety', symptom_backpain: '🦴 Back pain',
+                note_optional: 'Note (optional)', note_placeholder: 'How was your day?',
+                btn_sync: '💾 Sync',
+                goals_title: '🎯 Goals', btn_add: '+ Add',
+                weekly_summary: '📈 Weekly Summary', completed: 'Completed', in_progress: 'In progress', total: 'Total',
+                wellness_title: '💆 Bio-Hack Center', auto_reminders: 'Auto Reminders', btn_activate: 'Activate',
+                remind_water: 'Hydration', remind_water_freq: 'Every 45 min',
+                remind_eyes: 'Eye Break', remind_eyes_freq: 'Every 20 min',
+                remind_stretch: 'Stretching', remind_stretch_freq: 'Every hour',
+                remind_journal: 'Journal', remind_journal_freq: 'Every evening at 9pm',
+                reminders_off: 'Reminders disabled', ai_recommendations: 'AI Recommendations',
+                ai_reco_placeholder: 'Fill your journal for personalized advice...',
+                breathing_title: '🫁 Cardiac Coherence', breathing_desc: '5 sec inhale, 5 sec exhale',
+                breathing_ready: 'Ready', btn_begin: 'Begin',
+                tip_stretching: 'Stretching', tip_hydration: 'Hydration', tip_eyes: 'Eye rest', tip_walk: 'Micro-walk',
+                install_title: 'Install StudentFlow',
+                android_title: 'Android (Direct Version)',
+                android_desc: 'Install the APK directly on your phone (Allow unknown sources).',
+                btn_download_apk: 'Download APK',
+                ios_title: 'iOS (Web App)',
+                ios_desc: 'For iPhone: Tap \'Share\' in Safari, then \'Add to Home Screen\'.',
+                btn_install_ios: 'Install on iOS',
+                distribution_info: '📱 Free and universal distribution:',
+                distribution_desc: 'StudentFlow uses a decentralized distribution strategy to ensure total access without store fees. Direct APK for Android and PWA for iOS - instant and secure installation for all students.',
+                slot_detail: '📝 Slot Detail', slot_placeholder: 'Name (auto if empty)',
+                type_cours: '📚 Class', type_revision: '✏️ Study', type_repos: '😴 Rest', type_sport: '🏃 Sport',
+                type_social: '👥 Social', type_admin: '📋 Admin', type_repas: '🍽️ Meal',
                 shortcuts_title: 'Keyboard Shortcuts',
                 shortcut_planning: 'Planning', shortcut_analytics: 'Analytics', shortcut_focus: 'Focus Mode',
                 shortcut_journal: 'Journal', shortcut_note: 'New note', shortcut_theme: 'Toggle theme',
                 shortcut_pomodoro: 'Start/Pause Pomodoro', shortcut_sound: 'Ambient sound (Focus)',
                 shortcut_close: 'Close modals', understood: 'Got it!',
-                nav_planning: 'Planning', nav_dashboard: 'Dashboard', nav_analytics: 'Analytics',
-                nav_focus: 'Focus', nav_journal: 'Journal', nav_goals: 'Goals', nav_biohack: 'Bio-Hack',
-                nav_download: 'Download', nav_data: 'Data', nav_reset: 'Reset', nav_shortcuts: 'Shortcuts',
-                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'More',
-                lang_title: 'Language', lang_current: 'English'
+                lang_title: 'Language'
             },
             ar: {
+                nav_planning: 'التخطيط', nav_dashboard: 'لوحة القيادة', nav_analytics: 'التحليلات',
+                nav_focus: 'تركيز', nav_journal: 'يوميات', nav_goals: 'أهداف', nav_biohack: 'بيو-هاك',
+                nav_download: 'تحميل', nav_data: 'بيانات', nav_reset: 'إعادة', nav_shortcuts: 'اختصارات',
+                nav_stats: 'إحصائيات', nav_zen: 'زن', nav_more: 'المزيد', nav_lang: 'اللغة',
+                subtitle: 'منصة رفاهية مدعومة بالذكاء الاصطناعي', btn_notifs: 'إشعارات', btn_note: 'ملاحظة', btn_my_notes: 'ملاحظاتي',
+                ai_prediction: '🔮 توقعات الذكاء الاصطناعي', prediction_loading: 'جاري التحليل...',
+                planning_title: '📅 التخطيط الأسبوعي', btn_templates: 'قوالب',
+                tpl_normal: '📚 أسبوع عادي', tpl_exam: '📝 أسبوع امتحانات', tpl_light: '🌴 أسبوع خفيف',
+                tpl_save: '💾 حفظ الحالي', btn_demo: 'تجريبي', btn_clear: 'مسح',
+                shortcuts_hint: '💡 اختصارات: N=ملاحظة، F=تركيز، J=يوميات، P=تخطيط، A=تحليلات، T=مظهر، S=صوت، مسافة=بومودورو، Esc=إغلاق',
+                day_mon: 'إثن', day_tue: 'ثلا', day_wed: 'أرب', day_thu: 'خمي', day_fri: 'جمع', day_sat: 'سبت', day_sun: 'أحد',
+                legend_cours: 'دروس', legend_revision: 'مراجعة', legend_repos: 'راحة',
+                stat_charge: 'الحمل', stat_hours: 'ساعات', stat_stress: 'التوتر', stat_sleep: 'النوم',
+                stat_sleep_unit: 'س/ليلة', stat_wisdom: 'الحكمة', stat_points: 'نقاط',
+                chronotype_title: '🧠 النمط الزمني', chronotype_loading: 'املأ 3 أيام للتحليل...',
+                chart_7days: 'تطور 7 أيام', ai_coach: 'مدرب ذكي', ai_waiting: 'في انتظار البيانات...',
+                analytics_title: '📊 تحليلات متقدمة', btn_share: 'مشاركة',
+                monthly_summary: 'ملخص الشهر', journal_entries: 'إدخالات اليوميات', total_focus: 'إجمالي التركيز',
+                avg_stress: 'متوسط التوتر', avg_sleep: 'متوسط النوم', health_score: 'نقاط الصحة',
+                health_score_global: 'نقاط الصحة العامة',
+                radar_title: 'رادار الأداء', heatmap_title: 'خريطة النشاط',
+                mood_calendar: 'مزاج الشهر', trends_30: 'اتجاهات 30 يوم',
+                week_compare: 'مقارنة الأسابيع', this_week: 'هذا الأسبوع', last_week: 'الأسبوع الماضي',
+                stress_avg: 'متوسط التوتر', sleep_avg_unit: 'س متوسط النوم',
+                best_day: 'أفضل يوم', focus_sessions: 'جلسات التركيز',
+                avg_sleep_stat: 'متوسط النوم', stress_trend: 'اتجاه التوتر',
+                focus_title: '🎯 وضع التركيز', pomodoro_technique: 'تقنية بومودورو',
+                focus_tag_placeholder: 'وسم: رياضيات، مشروع...', timer_work: 'عمل',
+                long_break: '← استراحة طويلة', btn_start: 'ابدأ', btn_pause: 'إيقاف', btn_reset: 'إعادة',
+                today_label: 'اليوم:', btn_history: 'السجل',
+                ambient_sound: '🎧 صوت محيط', sound_rain: 'مطر', sound_forest: 'غابة',
+                sound_cafe: 'مقهى', sound_white: 'أبيض',
+                exam_mode: '📝 وضع الامتحان', exam_control: 'اختبار', exam_partial: 'امتحان نصفي', exam_concours: 'مسابقة',
+                journal_title: 'اليوميات', journal_subtitle: 'زامن مقاييس رفاهيتك',
+                stress_quick: 'التوتر (نقر سريع)', sleep_quick: 'النوم (نقر سريع)',
+                sleep_quality: 'جودة النوم', mood_label: 'المزاج',
+                advanced_metrics: '📊 مقاييس متقدمة', caffeine_label: '☕ الكافيين (أكواب)',
+                exercise_label: '🏃 النشاط البدني', exercise_none: 'لا شيء', exercise_light: 'خفيف',
+                exercise_moderate: 'معتدل', exercise_intense: 'مكثف',
+                screen_time: '📱 وقت الشاشة (ساعات)', symptoms_label: '🩺 الأعراض',
+                symptom_headache: '🤕 صداع', symptom_fatigue: '😩 إرهاق',
+                symptom_anxiety: '😰 قلق', symptom_backpain: '🦴 ألم الظهر',
+                note_optional: 'ملاحظة (اختياري)', note_placeholder: 'كيف كان يومك؟',
+                btn_sync: '💾 مزامنة',
+                goals_title: '🎯 الأهداف', btn_add: '+ إضافة',
+                weekly_summary: '📈 ملخص أسبوعي', completed: 'مكتمل', in_progress: 'قيد التنفيذ', total: 'المجموع',
+                wellness_title: '💆 مركز بيو-هاك', auto_reminders: 'تذكيرات تلقائية', btn_activate: 'تفعيل',
+                remind_water: 'ترطيب', remind_water_freq: 'كل 45 دقيقة',
+                remind_eyes: 'راحة العينين', remind_eyes_freq: 'كل 20 دقيقة',
+                remind_stretch: 'تمدد', remind_stretch_freq: 'كل ساعة',
+                remind_journal: 'يوميات', remind_journal_freq: 'كل مساء الساعة 9',
+                reminders_off: 'التذكيرات معطلة', ai_recommendations: 'توصيات الذكاء الاصطناعي',
+                ai_reco_placeholder: 'املأ يومياتك للحصول على نصائح مخصصة...',
+                breathing_title: '🫁 تماسك القلب', breathing_desc: '5 ثوان شهيق، 5 ثوان زفير',
+                breathing_ready: 'جاهز', btn_begin: 'ابدأ',
+                tip_stretching: 'تمارين', tip_hydration: 'ترطيب', tip_eyes: 'راحة العينين', tip_walk: 'مشي قصير',
+                install_title: 'تثبيت StudentFlow',
+                android_title: 'أندرويد (نسخة مباشرة)',
+                android_desc: 'ثبّت ملف APK مباشرة على هاتفك (السماح بالمصادر غير المعروفة).',
+                btn_download_apk: 'تحميل APK',
+                ios_title: 'iOS (تطبيق ويب)',
+                ios_desc: 'للآيفون: اضغط على "مشاركة" في Safari، ثم "إضافة إلى الشاشة الرئيسية".',
+                btn_install_ios: 'تثبيت على iOS',
+                distribution_info: '📱 توزيع مجاني وعالمي:',
+                distribution_desc: 'يستخدم StudentFlow استراتيجية توزيع لامركزية لضمان وصول كامل بدون رسوم متجر. APK مباشر لأندرويد و PWA لـ iOS - تثبيت فوري وآمن لجميع الطلاب.',
+                slot_detail: '📝 تفاصيل الخانة', slot_placeholder: 'الاسم (تلقائي إذا فارغ)',
+                type_cours: '📚 دروس', type_revision: '✏️ مراجعة', type_repos: '😴 راحة', type_sport: '🏃 رياضة',
+                type_social: '👥 اجتماعي', type_admin: '📋 إداري', type_repas: '🍽️ وجبة',
                 shortcuts_title: 'اختصارات لوحة المفاتيح',
                 shortcut_planning: 'التخطيط', shortcut_analytics: 'التحليلات', shortcut_focus: 'وضع التركيز',
                 shortcut_journal: 'اليوميات', shortcut_note: 'ملاحظة جديدة', shortcut_theme: 'تغيير المظهر',
                 shortcut_pomodoro: 'بدء/إيقاف بومودورو', shortcut_sound: 'صوت محيط (تركيز)',
                 shortcut_close: 'إغلاق النوافذ', understood: 'فهمت!',
-                nav_planning: 'التخطيط', nav_dashboard: 'لوحة القيادة', nav_analytics: 'التحليلات',
-                nav_focus: 'تركيز', nav_journal: 'يوميات', nav_goals: 'أهداف', nav_biohack: 'بيو-هاك',
-                nav_download: 'تحميل', nav_data: 'بيانات', nav_reset: 'إعادة', nav_shortcuts: 'اختصارات',
-                nav_stats: 'إحصائيات', nav_zen: 'زن', nav_more: 'المزيد',
-                lang_title: 'اللغة', lang_current: 'العربية'
+                lang_title: 'اللغة'
             }
         };
 
@@ -1959,28 +2163,24 @@
             } else {
                 document.documentElement.dir = 'ltr';
             }
-            updateNavLabels();
+            applyTranslations();
             showToast(lang === 'fr' ? '🇫🇷 Français' : lang === 'en' ? '🇬🇧 English' : '🇸🇦 العربية');
         }
 
-        function updateNavLabels() {
-            const map = {
-                'btn-sched': 'nav_planning', 'btn-dash': 'nav_dashboard', 'btn-analytics': 'nav_analytics',
-                'btn-focus': 'nav_focus', 'btn-log': 'nav_journal', 'btn-goals': 'nav_goals',
-                'btn-wellness': 'nav_biohack', 'btn-download': 'nav_download'
-            };
-            for (const [id, key] of Object.entries(map)) {
-                const el = document.getElementById(id);
-                if (el) { const span = el.querySelector('span'); if (span) span.textContent = t(key); }
-            }
-            const mobMap = {
-                'mob-sched': 'nav_planning', 'mob-dash': 'nav_stats', 'mob-focus': 'nav_focus',
-                'mob-log': 'nav_journal', 'mob-analytics': 'nav_analytics', 'mob-more': 'nav_more'
-            };
-            for (const [id, key] of Object.entries(mobMap)) {
-                const el = document.getElementById(id);
-                if (el) { const span = el.querySelector('span'); if (span) span.textContent = t(key); }
-            }
+        function applyTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const val = t(key);
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = val;
+                } else {
+                    el.textContent = val;
+                }
+            });
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.getAttribute('data-i18n-html');
+                el.innerHTML = t(key);
+            });
         }
 
         function showLangModal() {
@@ -2046,7 +2246,7 @@
             
             // Apply saved language
             if (currentLang !== 'fr') switchLang(currentLang);
-            updateNavLabels();
+            applyTranslations();
             
             renderGrid(); 
             refreshAll(); 
