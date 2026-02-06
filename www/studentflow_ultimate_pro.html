@@ -304,6 +304,35 @@
                 max-width: 100%;
             }
             
+            /* Notes modal mobile scroll fix */
+            #notes-modal .glass {
+                height: 90vh !important;
+                max-height: 90vh !important;
+            }
+            
+            #notes-list {
+                -webkit-overflow-scrolling: touch !important;
+                overscroll-behavior: contain !important;
+            }
+            
+            #notes-list::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            #notes-list::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 3px;
+            }
+            
+            #notes-list::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 3px;
+            }
+            
+            #notes-list::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+            
             /* Form inputs mobile */
             input, textarea, select {
                 font-size: 16px !important; /* Prevent zoom on iOS */
@@ -1740,8 +1769,8 @@
 
     <!-- NOTES MODAL -->
     <div id="notes-modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] hidden items-center justify-center p-4">
-        <div class="glass max-w-lg w-full max-h-[80vh] flex flex-col">
-            <div class="p-6 border-b border-white/10">
+        <div class="glass max-w-lg w-full h-[80vh] flex flex-col">
+            <div class="p-6 border-b border-white/10 flex-shrink-0">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-2xl font-black">📝 Mes Notes</h3>
                     <button onclick="closeNotesModal()" class="p-2 hover:bg-white/10 rounded-xl">
@@ -1764,10 +1793,10 @@
                     <button onclick="filterByCategory('⚡')" class="note-cat-btn px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400" data-cat="⚡">⚡ Urgent</button>
                 </div>
             </div>
-            <div id="notes-list" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <div id="notes-list" class="flex-1 overflow-y-auto p-6 space-y-4 min-h-0">
                 <!-- Notes will be inserted here -->
             </div>
-            <div class="p-4 border-t border-white/10 flex gap-2">
+            <div class="p-4 border-t border-white/10 flex gap-2 flex-shrink-0">
                 <button onclick="openAddNoteModal()" class="flex-1 py-3 bg-indigo-600 rounded-xl font-bold text-sm hover:bg-indigo-500 touch-feedback">
                     + Nouvelle Note
                 </button>
