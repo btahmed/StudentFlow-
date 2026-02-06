@@ -6487,8 +6487,7 @@
         });
         
         function openNotesModal() {
-            currentFilterCategory = 'all';
-            document.getElementById('notes-search').value = '';
+            // Ne réinitialise plus les filtres et recherche
             updateCategoryButtons();
             renderNotes();
             document.getElementById('notes-modal').style.display = 'flex';
