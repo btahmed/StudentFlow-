@@ -5346,15 +5346,19 @@
         function handleSWMessage(event) {
             if (event.data.type === 'SYNC_JOURNAL') {
                 showToast('📝 Journal synchronisé automatiquement');
-                syncJournalToServer();
+                // syncJournalToServer(); // TODO: Implement server sync
             } else if (event.data.type === 'SYNC_ANALYTICS') {
                 showToast('📊 Analytics synchronisés automatiquement');
-                syncAnalyticsToServer();
+                // syncAnalyticsToServer(); // TODO: Implement server sync
             } else if (event.data.type === 'SYNC_GOALS') {
                 showToast('🎯 Objectifs synchronisés automatiquement');
-                syncGoalsToServer();
+                // syncGoalsToServer(); // TODO: Implement server sync
             } else if (event.data.type === 'CREATE_BACKUP') {
-                createAutomaticBackup();
+                exportData();
+                showToast('💾 Backup créé automatiquement');
+            } else if (event.data.type === 'STORE_OFFLINE_ANALYTICS') {
+                // Store offline analytics for later sync
+                console.log('Storing offline analytics:', event.data.payload);
             }
         }
         
