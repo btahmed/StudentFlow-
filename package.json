@@ -1,0 +1,47 @@
+{
+  "name": "studentflow-mobile",
+  "version": "2.0.0",
+  "description": "StudentFlow - AI-Powered Student Wellness Platform",
+  "author": "StudentFlow Team",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx http-server www -p 8080",
+    "build": "npm run copy",
+    "copy": "echo Files already in www folder",
+    "sync": "npm run copy && npx cap sync",
+    "open:android": "npx cap open android",
+    "open:ios": "npx cap open ios",
+    "android": "npm run sync && npm run open:android",
+    "ios": "npm run sync && npm run open:ios",
+    "add:android": "npx cap add android",
+    "add:ios": "npx cap add ios",
+    "update": "npx cap update",
+    "icons": "npx capacitor-assets generate"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.5.1",
+    "@capacitor/core": "^5.5.1",
+    "@capacitor/haptics": "^5.0.6",
+    "@capacitor/ios": "^5.5.1",
+    "@capacitor/keyboard": "^5.0.6",
+    "@capacitor/local-notifications": "^5.0.6",
+    "@capacitor/preferences": "^5.0.6",
+    "@capacitor/share": "^5.0.6",
+    "@capacitor/splash-screen": "^5.0.6",
+    "@capacitor/status-bar": "^5.0.6"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.4",
+    "@capacitor/cli": "^5.5.1",
+    "http-server": "^14.1.1"
+  },
+  "capacitor": {
+    "android": {
+      "minSdkVersion": 22,
+      "targetSdkVersion": 33
+    },
+    "ios": {
+      "minVersion": "13.0"
+    }
+  }
+}

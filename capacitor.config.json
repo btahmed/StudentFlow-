@@ -1,0 +1,56 @@
+{
+  "appId": "com.studentflow.app",
+  "appName": "StudentFlow",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#0b0f1a",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false,
+      "iosSpinnerStyle": "small",
+      "spinnerColor": "#6366f1"
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_studentflow",
+      "iconColor": "#6366F1",
+      "sound": "notification.wav"
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0b0f1a"
+    },
+    "Keyboard": {
+      "resize": "body",
+      "style": "DARK",
+      "resizeOnFullScreen": true
+    },
+    "Haptics": {
+      "enabled": true
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  },
+  "cordova": {},
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false,
+    "minWebViewVersion": 55,
+    "backgroundColor": "#0b0f1a"
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "allowsLinkPreview": true,
+    "backgroundColor": "#0b0f1a",
+    "preferredContentMode": "mobile"
+  }
+}

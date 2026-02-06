@@ -1377,6 +1377,45 @@
 
     <!-- AUDIO for notifications - Using Web Audio API for reliable sound -->
     <script>
+        // ==================== CAPACITOR INITIALIZATION ====================
+        const isCapacitor = window.Capacitor !== undefined;
+        
+        if (isCapacitor) {
+            console.log('[App] Running in Capacitor native mode');
+            
+            // Import Capacitor plugins when available
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    // Status bar styling
+                    if (window.Capacitor.Plugins.StatusBar) {
+                        const { StatusBar } = window.Capacitor.Plugins;
+                        await StatusBar.setBackgroundColor({ color: '#0b0f1a' });
+                        await StatusBar.setStyle({ style: 'DARK' });
+                    }
+                    
+                    // Hide splash screen
+                    if (window.Capacitor.Plugins.SplashScreen) {
+                        const { SplashScreen } = window.Capacitor.Plugins;
+                        await SplashScreen.hide();
+                    }
+                    
+                    // Handle back button on Android
+                    if (window.Capacitor.Plugins.App) {
+                        const { App } = window.Capacitor.Plugins;
+                        App.addListener('backButton', ({ canGoBack }) => {
+                            if (canGoBack) {
+                                window.history.back();
+                            } else {
+                                App.exitApp();
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.log('[Capacitor] Plugin init error:', e);
+                }
+            });
+        }
+        
         // ==================== OFFLINE DETECTION ====================
         let isOnline = navigator.onLine;
         
@@ -1384,7 +1423,8 @@
             isOnline = navigator.onLine;
             const banner = document.getElementById('offline-banner');
             if (banner) {
-                if (!isOnline) {
+                // Don't show offline banner in Capacitor (always works offline)
+                if (!isOnline && !isCapacitor) {
                     banner.classList.remove('hidden');
                 } else {
                     banner.classList.add('hidden');
@@ -1407,7 +1447,8 @@
         });
         
         // ==================== SERVICE WORKER REGISTRATION ====================
-        if ('serviceWorker' in navigator) {
+        // Skip service worker in Capacitor (native app handles caching)
+        if ('serviceWorker' in navigator && !isCapacitor) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
                     .then(registration => {
