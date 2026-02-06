@@ -278,6 +278,41 @@
                 left: 16px;
                 width: auto;
                 max-width: none;
+                height: auto;
+                max-height: calc(100vh - 120px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
+            }
+            
+            #quick-widget .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            #quick-widget button {
+                min-height: 44px;
+                font-size: 14px;
+                padding: 12px 16px;
+            }
+            
+            #quick-widget .text-lg {
+                font-size: 1.5rem;
+            }
+            
+            #quick-widget .text-xs {
+                font-size: 12px;
+            }
+            
+            #quick-widget .text-\[8px\] {
+                font-size: 10px;
+            }
+            
+            #quick-widget .space-y-2 > * + * {
+                margin-top: 0.75rem;
+            }
+            
+            #quick-widget .space-y-4 > * + * {
+                margin-top: 1rem;
             }
             
             /* Buttons mobile */
@@ -362,6 +397,25 @@
                 background: rgba(255, 255, 255, 0.3);
             }
             
+            /* Quick Widget scrollbar */
+            #quick-widget::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            #quick-widget::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 3px;
+            }
+            
+            #quick-widget::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 3px;
+            }
+            
+            #quick-widget::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+            
             /* Form inputs mobile */
             input, textarea, select {
                 font-size: 16px !important; /* Prevent zoom on iOS */
@@ -427,10 +481,45 @@
                 top: 70px;
                 right: 12px;
                 left: 12px;
+                max-height: calc(100vh - 100px);
             }
             
             #quick-widget .grid-cols-2 {
                 grid-template-columns: 1fr;
+            }
+            
+            #quick-widget button {
+                min-height: 48px;
+                font-size: 13px;
+                padding: 14px 16px;
+            }
+            
+            #quick-widget .text-lg {
+                font-size: 1.25rem;
+            }
+            
+            #quick-widget .text-xs {
+                font-size: 11px;
+            }
+            
+            #quick-widget .text-\[8px\] {
+                font-size: 9px;
+            }
+            
+            #quick-widget .p-3 {
+                padding: 0.75rem;
+            }
+            
+            #quick-widget .p-4 {
+                padding: 1rem;
+            }
+            
+            #quick-widget .rounded-lg {
+                border-radius: 0.5rem;
+            }
+            
+            #quick-widget .rounded-xl {
+                border-radius: 0.75rem;
             }
             
             /* Timer mobile small */
@@ -543,6 +632,17 @@
             
             .mobile-nav button i {
                 margin-right: 4px;
+            }
+            
+            /* Quick Widget landscape */
+            #quick-widget {
+                position: fixed;
+                top: 60px;
+                right: 20px;
+                left: auto;
+                width: 320px;
+                max-width: 40vw;
+                max-height: calc(100vh - 100px);
             }
         }
         
@@ -1334,7 +1434,7 @@
         </header>
         
         <!-- Quick Widget Panel -->
-        <div id="quick-widget" class="hidden fixed top-20 right-4 w-80 glass rounded-xl p-4 z-40 space-y-4">
+        <div id="quick-widget" class="hidden fixed top-20 right-4 w-80 glass rounded-xl p-4 z-40 space-y-4 max-w-[calc(100vw-2rem)]">
             <div class="flex justify-between items-center">
                 <h3 class="font-bold text-sm">Quick Dashboard</h3>
                 <button onclick="toggleQuickWidget()" class="p-1 hover:bg-white/10 rounded">
