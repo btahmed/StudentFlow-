@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>StudentFlow Ultimate Pro | AI-Powered Student Wellness</title>
     
     <!-- PWA Meta Tags -->
@@ -190,7 +190,7 @@
         @media (max-width: 768px) {
             .desktop-nav { display: none !important; }
             .mobile-nav { display: flex !important; }
-            main { margin-left: 0 !important; padding-bottom: 100px !important; }
+            main { margin-left: 0 !important; padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important; }
         }
         @media (min-width: 769px) {
             .mobile-nav { display: none !important; }
@@ -205,6 +205,8 @@
             backdrop-filter: blur(20px);
             border-top: 1px solid rgba(255,255,255,0.1);
             padding: 8px 16px;
+            padding-left: max(16px, env(safe-area-inset-left));
+            padding-right: max(16px, env(safe-area-inset-right));
             padding-bottom: max(8px, env(safe-area-inset-bottom));
             z-index: 100;
         }
