@@ -1,7 +1,6 @@
 workflows:
   android-build:
     name: Build StudentFlow APK
-    instance_type: linux_x2
 
     environment:
       vars:
@@ -24,7 +23,6 @@ workflows:
           unzip -q cmdline-tools.zip
           rm cmdline-tools.zip
 
-          # IMPORTANT: le SDK veut un dossier "latest"
           mkdir -p latest
           mv cmdline-tools/* latest/
 
