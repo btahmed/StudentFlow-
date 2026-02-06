@@ -6265,10 +6265,18 @@
                 } : null
             };
             
+            // Si on est en mode édition, supprimer l'ancienne note
+            if (window.editingNoteIndex !== undefined) {
+                db.notes.splice(window.editingNoteIndex, 1);
+                window.editingNoteIndex = undefined;
+                showToast('✏️ Note modifiée avec succès');
+            } else {
+                showToast('📝 Note enregistrée avec succès');
+            }
+            
             db.notes.push(note);
             save();
             playNotificationSound();
-            showToast('📝 Note enregistrée avec succès');
             
             // Schedule reminder if set
             if (note.reminder) {
@@ -6371,6 +6379,9 @@
             if (realIndex >= 0 && realIndex < db.notes.length) {
                 const note = db.notes[realIndex];
                 
+                // Stocker l'index de la note à modifier pour la supprimer après sauvegarde
+                window.editingNoteIndex = realIndex;
+                
                 // Remplir les champs avec les données de la note
                 document.getElementById('new-note-title').value = note.title || '';
                 document.getElementById('new-note-text').value = note.text || '';
@@ -6379,10 +6390,7 @@
                 selectNoteCategory(note.category);
                 selectNotePriority(note.priority);
                 
-                // Delete old note and open modal for editing
-                db.notes.splice(realIndex, 1);
-                save();
-                
+                // Ne supprimer la note qu'après la sauvegarde
                 openEditNoteModal();
                 showToast('✏️ Mode édition');
             }
