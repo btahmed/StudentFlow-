@@ -2495,6 +2495,18 @@
                     <input type="text" id="notes-search" placeholder="Rechercher..."
                         class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:border-indigo-500"
                         oninput="filterNotes()">
+                    <!-- Sort Buttons -->
+                    <div class="flex gap-1 mt-2">
+                        <button onclick="setSortMode('recent')" data-sort="recent" class="sort-btn text-xs px-2 py-1 rounded bg-indigo-500/30 text-indigo-300">
+                            Récentes
+                        </button>
+                        <button onclick="setSortMode('oldest')" data-sort="oldest" class="sort-btn text-xs px-2 py-1 rounded text-slate-400 hover:bg-white/10">
+                            Anciennes
+                        </button>
+                        <button onclick="setSortMode('alphabetical')" data-sort="alphabetical" class="sort-btn text-xs px-2 py-1 rounded text-slate-400 hover:bg-white/10">
+                            A-Z
+                        </button>
+                    </div>
                 </div>
                 <!-- Category Filters -->
                 <div class="flex gap-2 flex-wrap">
@@ -7063,6 +7075,23 @@
             renderNotes();
         }
 
+        // Global sort state
+        let currentNoteSort = 'recent'; // 'recent', 'oldest', 'alphabetical'
+
+        function setSortMode(mode) {
+            currentNoteSort = mode;
+            
+            // Update UI
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-500/30', 'text-indigo-300');
+                if (btn.dataset.sort === mode) {
+                    btn.classList.add('bg-indigo-500/30', 'text-indigo-300');
+                }
+            });
+            
+            renderNotes();
+        }
+
         function renderNotes() {
             const container = document.getElementById('notes-list');
             if (!container) return;
@@ -7117,8 +7146,15 @@
                 return;
             }
 
-            // Afficher les notes de la plus récente à la plus ancienne
-            const sortedNotes = [...filteredNotes].reverse();
+            // Sort notes based on current sort mode
+            let sortedNotes;
+            if (currentNoteSort === 'oldest') {
+                sortedNotes = filteredNotes; // Already chronological
+            } else if (currentNoteSort === 'alphabetical') {
+                sortedNotes = [...filteredNotes].sort((a, b) => a.title.localeCompare(b.title));
+            } else {
+                sortedNotes = [...filteredNotes].reverse(); // Recent first (default)
+            }
 
             container.innerHTML = sortedNotes.map((note, index) => {
                 const date = new Date(note.date);
