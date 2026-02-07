@@ -1079,6 +1079,32 @@
             opacity: 1;
         }
 
+        /* Loading States */
+        .loading {
+            opacity: 0.5;
+            cursor: wait;
+            pointer-events: none;
+            position: relative;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Progress Ring */
         .progress-ring {
             transform: rotate(-90deg);
@@ -1983,7 +2009,12 @@
                             <button onclick="setQuickStress(9)"
                                 class="quick-stress px-4 py-2 rounded-xl text-sm font-bold bg-red-500/20 text-red-400 hover:bg-red-500/30">9-10</button>
                         </div>
-                        <input type="range" id="in-stress" min="0" max="10" value="5" class="w-full mt-3">
+                        <input type="range" id="in-stress" min="0" max="10" value="5" class="w-full mt-3" aria-label="Niveau de stress de 0 à 10">
+                        <div class="flex justify-between text-[8px] text-slate-500 mt-1">
+                            <span>Faible</span>
+                            <span>Moyen</span>
+                            <span>Élevé</span>
+                        </div>
                         <div class="flex justify-between items-center mt-1">
                             <span class="text-lg">😌</span>
                             <span id="stress-display" class="text-2xl font-black text-indigo-500">5</span>
