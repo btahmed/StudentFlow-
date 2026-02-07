@@ -4443,10 +4443,15 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     onClick: (event, elements) => {
+                        console.log('Chart clicked - elements:', elements.length);
                         if (elements.length > 0) {
                             const index = elements[0].index;
+                            console.log('Index:', index, 'Data available:', last30.length);
                             const log = last30[index];
+                            console.log('Log data:', log);
                             showDayProfile(log);
+                        } else {
+                            console.log('No chart element clicked');
                         }
                     },
                     plugins: {
@@ -6241,10 +6246,15 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     onClick: (event, elements) => {
+                        console.log('7-day chart clicked - elements:', elements.length);
                         if (elements.length > 0) {
                             const index = elements[0].index;
+                            console.log('Index:', index, 'Data available:', last7.length);
                             const log = last7[index];
+                            console.log('Log data:', log);
                             showDayProfile(log);
+                        } else {
+                            console.log('No chart element clicked');
                         }
                     },
                     plugins: {
