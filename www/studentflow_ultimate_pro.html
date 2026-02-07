@@ -5426,20 +5426,37 @@
                 return;
             }
 
-            container.innerHTML = db.goals.map((goal, i) => `
+            // Sort by priority
+            const priorityOrder = { high: 0, medium: 1, low: 2 };
+            const sortedGoals = [...db.goals].sort((a, b) => {
+                return (priorityOrder[a.priority] || 1) - (priorityOrder[b.priority] || 1);
+            });
+
+            const priorityColors = {
+                high: 'bg-red-500/20 text-red-400 border-red-500',
+                medium: 'bg-yellow-500/20 text-yellow-400 border-yellow-500',
+                low: 'bg-green-500/20 text-green-400 border-green-500'
+            };
+
+            container.innerHTML = sortedGoals.map((goal, i) => {
+                const prioClass = priorityColors[goal.priority || 'medium'];
+                return `
                 <div class="glass p-4 flex items-center gap-4 ${goal.completed ? 'opacity-60' : ''}">
                     <button onclick="toggleGoal('${goal.id}')" class="w-8 h-8 rounded-full border-2 ${goal.completed ? 'bg-emerald-500 border-emerald-500' : 'border-slate-600'} flex items-center justify-center touch-feedback" aria-label="${goal.completed ? 'Marquer comme incomplet' : 'Marquer comme complet'}">
                         ${goal.completed ? '<i data-lucide="check" class="w-4 h-4"></i>' : ''}
                     </button>
                     <div class="flex-1">
-                        <p class="font-bold ${goal.completed ? 'line-through' : ''}">${escapeHtml(goal.text)}</p>
+                        <div class="flex items-center gap-2">
+                            <p class="font-bold ${goal.completed ? 'line-through' : ''}">${escapeHtml(goal.text)}</p>
+                            <span class="text-[8px] px-1.5 py-0.5 rounded border ${prioClass}">${goal.priority || 'medium'}</span>
+                        </div>
                         <p class="text-xs text-slate-400">${escapeHtml(goal.category)}</p>
                     </div>
                     <button onclick="deleteGoal('${goal.id}')" class="text-red-400 hover:text-red-500 touch-feedback" aria-label="Supprimer l'objectif">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
-            `).join('');
+            `}).join('');
 
             lucide.createIcons();
             updateGoalStats();
@@ -5452,11 +5469,13 @@
             }
 
             const category = prompt('Catégorie (Études/Santé/Personnel):', 'Études') || 'Études';
+            const priority = prompt('Priorité (High/Medium/Low):', 'Medium') || 'Medium';
 
             db.goals.push({
                 id: Helpers.genId(),
                 text,
                 category,
+                priority: priority.toLowerCase(), // 'high', 'medium', 'low'
                 completed: false,
                 created: new Date().toISOString()
             });
