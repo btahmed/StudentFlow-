@@ -1983,7 +1983,12 @@
                             <button onclick="setQuickStress(9)"
                                 class="quick-stress px-4 py-2 rounded-xl text-sm font-bold bg-red-500/20 text-red-400 hover:bg-red-500/30">9-10</button>
                         </div>
-                        <input type="range" id="in-stress" min="0" max="10" value="5" class="w-full mt-3">
+                        <input type="range" id="in-stress" min="0" max="10" value="5" class="w-full mt-3" aria-label="Niveau de stress de 0 à 10">
+                        <div class="flex justify-between text-[8px] text-slate-500 mt-1">
+                            <span>Faible</span>
+                            <span>Moyen</span>
+                            <span>Élevé</span>
+                        </div>
                         <div class="flex justify-between items-center mt-1">
                             <span class="text-lg">😌</span>
                             <span id="stress-display" class="text-2xl font-black text-indigo-500">5</span>
