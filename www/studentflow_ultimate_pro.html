@@ -6321,8 +6321,11 @@
             const dateStr = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
             // Calculer les focus sessions de ce jour
-            const dayFocusSessions = db.focusSessions.filter(s => s.timestamp.startsWith(log.date));
-            const totalFocusMinutes = dayFocusSessions.reduce((sum, s) => sum + s.duration, 0);
+            const dayFocusSessions = db.focusSessions.filter(s => {
+                const sessionDate = s.date || s.timestamp;
+                return sessionDate && sessionDate.startsWith(log.date);
+            });
+            const totalFocusMinutes = dayFocusSessions.reduce((sum, s) => sum + (s.duration || 0), 0);
 
             // Trouver les notes du jour
             const dayNotes = db.notes.filter(n => n.date.startsWith(log.date));
