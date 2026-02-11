@@ -6760,10 +6760,15 @@
         }
 
         function initNoteSpeechRecognition() {
+            console.log('🔍 DEBUG: Initializing note speech recognition...');
+            
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                console.error('❌ Speech Recognition API not available');
                 showToast('❌ Reconnaissance vocale non supportée');
                 return;
             }
+            
+            console.log('✅ Speech Recognition API available');
 
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             noteSpeechRecognition = new SpeechRecognition();
@@ -6771,12 +6776,16 @@
             noteSpeechRecognition.continuous = true;
             noteSpeechRecognition.interimResults = true;
             noteSpeechRecognition.lang = 'fr-FR';
+            
+            console.log('🔧 DEBUG: Config set - continuous=true, interim=true, lang=fr-FR');
 
             noteSpeechRecognition.onresult = (event) => {
+                console.log('🎤 DEBUG: Speech result received:', event);
                 let finalTranscript = '';
 
                 for (let i = event.resultIndex; i < event.results.length; i++) {
                     const transcript = event.results[i][0].transcript;
+                    console.log(`📝 DEBUG: Transcript part ${i}: "${transcript}" (final: ${event.results[i].isFinal})`);
                     if (event.results[i].isFinal) {
                         finalTranscript += transcript + ' ';
                     }
@@ -6784,21 +6793,38 @@
 
                 const noteField = document.getElementById('new-note-text');
                 if (noteField && finalTranscript) {
+                    console.log('✏️ DEBUG: Adding to textarea:', finalTranscript);
                     noteField.value = noteField.value + finalTranscript;
+                } else {
+                    console.warn('⚠️ DEBUG: No textarea found or no final transcript');
                 }
             };
 
             noteSpeechRecognition.onerror = (event) => {
-                console.error('Note speech recognition error:', event.error);
-                showToast('❌ Erreur de reconnaissance vocale');
+                console.error('❌ Note speech recognition error:', event.error);
+                console.error('❌ Full error event:', event);
+                
+                if (event.error === 'not-allowed') {
+                    showToast('❌ Microphone non autorisé - Autorisez le micro');
+                } else if (event.error === 'network') {
+                    showToast('❌ Erreur réseau - Vérifiez connexion');
+                } else if (event.error === 'no-speech') {
+                    showToast('🎤 Aucun discours détecté');
+                } else {
+                    showToast(`❌ Erreur: ${event.error}`);
+                }
+                
                 isNoteRecording = false;
                 updateNoteRecordingButton();
             };
 
             noteSpeechRecognition.onend = () => {
+                console.log('🔚 DEBUG: Speech recognition ended');
                 isNoteRecording = false;
                 updateNoteRecordingButton();
             };
+            
+            console.log('✅ DEBUG: Note speech recognition initialized successfully');
         }
 
         function updateNoteRecordingButton() {
