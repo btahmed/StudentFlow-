@@ -8,13 +8,25 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Environment / Secrets
+.env
+.env.*
+!.env.example
+
+# Keystores / Signing keys
+*.jks
+*.keystore
+*.pem
+*.p12
+
 # Android
 android/.gradle/
 android/build/
 android/app/build/
-# APK sauf le fichier final
+
+# Build artifacts (APK / AAB)
 *.apk
-!StudentFlow-FINAL.apk
+*.aab
 
 # iOS (Fichiers temporaires Xcode)
 ios/App/build/

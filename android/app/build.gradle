@@ -24,10 +24,10 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('studentflow-release.jks')
-            storePassword 'studentflow123'
-            keyAlias 'studentflow'
-            keyPassword 'studentflow123'
+            storeFile file(System.getenv('RELEASE_STORE_FILE') ?: 'studentflow-release.jks')
+            storePassword System.getenv('RELEASE_STORE_PASSWORD') ?: ''
+            keyAlias System.getenv('RELEASE_KEY_ALIAS') ?: 'studentflow'
+            keyPassword System.getenv('RELEASE_KEY_PASSWORD') ?: ''
         }
     }
     buildTypes {

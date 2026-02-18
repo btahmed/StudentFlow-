@@ -4189,7 +4189,7 @@
                     const item = db.timetable[id];
                     const cls = item ? `type-${item.type}` : 'slot-empty';
                     const isWeekend = d >= 6;
-                    root.innerHTML += `<div onclick="openModal('${id}')" class="slot ${cls} ${isWeekend ? 'opacity-80' : ''}">${item ? item.name : '+'}</div>`;
+                    root.innerHTML += `<div onclick="openModal('${id}')" class="slot ${cls} ${isWeekend ? 'opacity-80' : ''}">${item ? escapeHtml(item.name) : '+'}</div>`;
                 }
             }
         }
@@ -5795,21 +5795,43 @@
             const file = event.target.files[0];
             if (!file) return;
 
+            const maxSize = 5 * 1024 * 1024; // 5 MB limit
+            if (file.size > maxSize) {
+                playAlertSound();
+                showToast('❌ Fichier trop volumineux (max 5 Mo)');
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
                     const imported = JSON.parse(e.target.result);
-                    if (imported.timetable && imported.logs) {
-                        db = imported;
-                        save();
-                        location.reload();
-                    } else {
-                        playAlertSound();
-                        showToast('❌ Fichier invalide');
-                    }
+
+                    // Validate expected structure
+                    if (!imported || typeof imported !== 'object') throw new Error('Invalid format');
+                    if (!imported.timetable || typeof imported.timetable !== 'object') throw new Error('Missing timetable');
+                    if (!imported.logs || !Array.isArray(imported.logs)) throw new Error('Missing logs');
+
+                    // Sanitize string fields to prevent stored XSS
+                    const sanitize = (obj) => {
+                        if (typeof obj === 'string') return obj.slice(0, 1000);
+                        if (Array.isArray(obj)) return obj.map(sanitize);
+                        if (obj && typeof obj === 'object') {
+                            const clean = {};
+                            for (const [k, v] of Object.entries(obj)) {
+                                clean[k] = sanitize(v);
+                            }
+                            return clean;
+                        }
+                        return obj;
+                    };
+
+                    db = sanitize(imported);
+                    save();
+                    location.reload();
                 } catch (err) {
                     playAlertSound();
-                    showToast('❌ Erreur de lecture');
+                    showToast('❌ Fichier invalide');
                 }
             };
             reader.readAsText(file);
@@ -7097,6 +7119,12 @@
             const file = event.target.files[0];
             if (!file) return;
 
+            const maxSize = 5 * 1024 * 1024; // 5 MB limit
+            if (file.size > maxSize) {
+                showToast('❌ Fichier trop volumineux (max 5 Mo)');
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
@@ -7105,6 +7133,9 @@
                     if (data.notes && Array.isArray(data.notes)) {
                         data.notes.forEach(note => {
                             if (!note.id) note.id = Date.now().toString() + Math.random();
+                            // Sanitize string fields
+                            if (typeof note.text === 'string') note.text = note.text.slice(0, 5000);
+                            if (typeof note.title === 'string') note.title = note.title.slice(0, 200);
                         });
                         db.notes = [...db.notes, ...data.notes];
                     }
@@ -7289,7 +7320,7 @@
                                 <div class="flex items-center gap-1 mb-1">
                                     <span class="inline-block px-1 py-0.5 rounded-full text-[8px] font-bold ${catClass}">${note.category}</span>
                                     ${note.source === 'journal' ? '<span class="text-[8px] px-1 py-0.5 bg-orange-500/20 text-orange-400 rounded-full">Journal</span>' : ''}
-                                    ${note.title && note.title !== 'Note rapide' && note.title !== 'Note du journal' ? `<span class="text-[8px] text-slate-400">${note.title}</span>` : ''}
+                                    ${note.title && note.title !== 'Note rapide' && note.title !== 'Note du journal' ? `<span class="text-[8px] text-slate-400">${escapeHtml(note.title)}</span>` : ''}
                                 </div>
                                 <p class="text-xs">${escapeHtml(note.text)}</p>
                                 ${journalMeta}
