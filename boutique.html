@@ -112,6 +112,28 @@
             border-color: #6366f1;
             color: #a5b4fc;
         }
+
+        .shop-item h3 {
+            min-height: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shop-item p {
+            min-height: 2em;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-section-title {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            padding: 4px 0;
+        }
     </style>
 </head>
 
@@ -122,6 +144,9 @@
     <header class="sticky top-0 z-50 backdrop-blur-xl border-b border-white/5 px-4 py-3">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
+                <a href="studentflow_ultimate_pro.html" class="flex items-center justify-center w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" title="Retour">
+                    <span class="text-lg">←</span>
+                </a>
                 <span class="text-2xl">🛍️</span>
                 <div>
                     <h1 class="text-lg font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
@@ -159,15 +184,15 @@
         </div>
     </div>
 
-    <!-- Shop Grid -->
+    <!-- Shop Content -->
     <main class="max-w-4xl mx-auto px-4 py-4">
-        <div id="shop-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div id="shop-grid">
             <!-- Items injected by JS -->
         </div>
     </main>
 
     <!-- Inventory Section -->
-    <section class="max-w-4xl mx-auto px-4 py-4 mb-24">
+    <section class="max-w-4xl mx-auto px-4 pt-4 pb-8 mb-[env(safe-area-inset-bottom)]">
         <div class="glass p-4">
             <div class="flex items-center gap-2 mb-3">
                 <span class="text-xl">🎒</span>
@@ -268,40 +293,67 @@
         }
 
         // ==================== RENDERING ====================
+        const CATEGORY_LABELS = {
+            theme: { icon: '🎨', label: 'Thèmes' },
+            avatar: { icon: '👤', label: 'Avatars' },
+            boost: { icon: '⚡', label: 'Boosts' },
+            fun: { icon: '🎉', label: 'Fun' }
+        };
+
+        function renderItemCard(item, wisdom) {
+            const owned = boutiqueState.owned.includes(item.id);
+            const canBuy = wisdom >= item.price && !owned;
+
+            return `
+            <div class="shop-item glass p-4 flex flex-col items-center text-center gap-2" data-category="${item.category}">
+                <span class="text-4xl">${item.icon}</span>
+                <h3 class="text-xs font-bold text-white leading-tight">${item.name}</h3>
+                <p class="text-[10px] text-slate-500 leading-tight">${item.desc}</p>
+                <div class="flex items-center gap-1 mt-auto">
+                    <span class="text-amber-400 text-xs">✨</span>
+                    <span class="text-sm font-black ${canBuy ? 'text-amber-400' : owned ? 'text-emerald-400' : 'text-red-400'}">${item.price}</span>
+                </div>
+                ${owned
+                    ? `<span class="owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full">✓ Obtenu</span>`
+                    : `<button class="btn-buy w-full py-2 rounded-xl text-xs font-bold ${canBuy
+                        ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                        : 'bg-slate-800 text-slate-500'}"
+                        ${canBuy ? '' : 'disabled'}
+                        onclick="buyItem('${item.id}')">
+                        ${canBuy ? 'Acheter' : 'Pas assez'}
+                    </button>`
+                }
+            </div>`;
+        }
+
         function renderShop() {
             const grid = document.getElementById('shop-grid');
             const wisdom = getWisdom();
             document.getElementById('wallet').textContent = wisdom;
 
-            const items = currentCategory === 'all'
-                ? SHOP_ITEMS
-                : SHOP_ITEMS.filter(i => i.category === currentCategory);
-
-            grid.innerHTML = items.map(item => {
-                const owned = boutiqueState.owned.includes(item.id);
-                const canBuy = wisdom >= item.price && !owned;
-
-                return `
-                <div class="shop-item glass p-4 flex flex-col items-center text-center gap-2" data-category="${item.category}">
-                    <span class="text-4xl">${item.icon}</span>
-                    <h3 class="text-xs font-bold text-white leading-tight">${item.name}</h3>
-                    <p class="text-[10px] text-slate-500 leading-tight">${item.desc}</p>
-                    <div class="flex items-center gap-1 mt-auto">
-                        <span class="text-amber-400 text-xs">✨</span>
-                        <span class="text-sm font-black ${canBuy ? 'text-amber-400' : owned ? 'text-emerald-400' : 'text-red-400'}">${item.price}</span>
-                    </div>
-                    ${owned
-                        ? `<span class="owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full">✓ Obtenu</span>`
-                        : `<button class="btn-buy w-full py-2 rounded-xl text-xs font-bold ${canBuy
-                            ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
-                            : 'bg-slate-800 text-slate-500'}"
-                            ${canBuy ? '' : 'disabled'}
-                            onclick="buyItem('${item.id}')">
-                            ${canBuy ? 'Acheter' : 'Pas assez'}
-                        </button>`
-                    }
+            if (currentCategory === 'all') {
+                const categories = ['theme', 'avatar', 'boost', 'fun'];
+                grid.innerHTML = categories.map(cat => {
+                    const catItems = SHOP_ITEMS.filter(i => i.category === cat);
+                    const info = CATEGORY_LABELS[cat];
+                    return `
+                    <div class="mb-4">
+                        <div class="category-section-title flex items-center gap-2 mb-2">
+                            <span>${info.icon}</span>
+                            <span>${info.label}</span>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            ${catItems.map(item => renderItemCard(item, wisdom)).join('')}
+                        </div>
+                    </div>`;
+                }).join('');
+            } else {
+                const items = SHOP_ITEMS.filter(i => i.category === currentCategory);
+                grid.innerHTML = `
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    ${items.map(item => renderItemCard(item, wisdom)).join('')}
                 </div>`;
-            }).join('');
+            }
 
             renderInventory();
         }
