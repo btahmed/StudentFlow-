@@ -103,6 +103,8 @@
         :root {
             --p: #6366f1;
             --s: #f43f5e;
+            --p-rgb: 99, 102, 241;
+            --s-rgb: 244, 63, 94;
             --bg: #0b0f1a;
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
@@ -163,7 +165,7 @@
         }
 
         .glass:hover {
-            border-color: rgba(99, 102, 241, 0.3);
+            border-color: rgba(var(--p-rgb), 0.3);
             transform: translateY(-2px);
         }
 
@@ -210,10 +212,10 @@
         }
 
         .type-cours {
-            background: linear-gradient(135deg, #6366f1, #4338ca) !important;
+            background: linear-gradient(135deg, var(--p), color-mix(in srgb, var(--p), #000 25%)) !important;
             color: white;
             border: none;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 15px rgba(var(--p-rgb), 0.4);
         }
 
         .type-revisions {
@@ -266,16 +268,16 @@
         }
 
         .slot-empty:hover {
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(var(--p-rgb), 0.1);
             border-color: var(--p);
             color: var(--p);
             transform: scale(1.05);
         }
 
         .nav-active {
-            color: #6366f1 !important;
-            background: rgba(99, 102, 241, 0.15);
-            border-left: 3px solid #6366f1;
+            color: var(--p) !important;
+            background: rgba(var(--p-rgb), 0.15);
+            border-left: 3px solid var(--p);
         }
 
         .tab-pane {
@@ -288,9 +290,9 @@
         }
 
         .shop-cat-btn.active {
-            background: rgba(99, 102, 241, 0.3);
-            border-color: #6366f1;
-            color: #a5b4fc;
+            background: rgba(var(--p-rgb), 0.3);
+            border-color: var(--p);
+            color: color-mix(in srgb, var(--p), #fff 40%);
         }
 
         .shop-item-card {
@@ -315,7 +317,7 @@
 
         .btn-shop-buy:hover:not(:disabled) {
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 20px rgba(var(--p-rgb), 0.4);
         }
 
         .btn-shop-buy:disabled {
@@ -336,16 +338,19 @@
         }
 
         .shop-active-badge {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, var(--p), var(--s));
         }
 
         /* Boutique theme color overrides */
-        body.theme-ocean { --p: #0ea5e9; --s: #06b6d4; }
-        body.theme-sunset { --p: #f97316; --s: #f43f5e; }
-        body.theme-forest { --p: #22c55e; --s: #10b981; }
-        body.theme-galaxy { --p: #8b5cf6; --s: #6366f1; }
-        body.theme-neon { --p: #d946ef; --s: #a855f7; }
-        body.theme-gold { --p: #eab308; --s: #f59e0b; }
+        body.theme-ocean { --p: #0ea5e9; --s: #06b6d4; --p-rgb: 14, 165, 233; --s-rgb: 6, 182, 212; }
+        body.theme-sunset { --p: #f97316; --s: #f43f5e; --p-rgb: 249, 115, 22; --s-rgb: 244, 63, 94; }
+        body.theme-forest { --p: #22c55e; --s: #10b981; --p-rgb: 34, 197, 94; --s-rgb: 16, 185, 129; }
+        body.theme-galaxy { --p: #8b5cf6; --s: #6366f1; --p-rgb: 139, 92, 246; --s-rgb: 99, 102, 241; }
+        body.theme-neon { --p: #d946ef; --s: #a855f7; --p-rgb: 217, 70, 239; --s-rgb: 168, 85, 247; }
+        body.theme-gold { --p: #eab308; --s: #f59e0b; --p-rgb: 234, 179, 8; --s-rgb: 245, 158, 11; }
+        body.theme-cherry { --p: #ec4899; --s: #f472b6; --p-rgb: 236, 72, 153; --s-rgb: 244, 114, 182; }
+        body.theme-arctic { --p: #38bdf8; --s: #7dd3fc; --p-rgb: 56, 189, 248; --s-rgb: 125, 211, 252; }
+        body.theme-volcano { --p: #ef4444; --s: #f97316; --p-rgb: 239, 68, 68; --s-rgb: 249, 115, 22; }
 
         .type-btn {
             transition: all 0.2s;
@@ -404,11 +409,11 @@
 
             0%,
             100% {
-                box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+                box-shadow: 0 0 20px rgba(var(--p-rgb), 0.3);
             }
 
             50% {
-                box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+                box-shadow: 0 0 40px rgba(var(--p-rgb), 0.6);
             }
         }
 
@@ -425,7 +430,7 @@
         }
 
         .stat-number {
-            background: linear-gradient(135deg, #6366f1, #f43f5e);
+            background: linear-gradient(135deg, var(--p), var(--s));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -471,23 +476,23 @@
         }
 
         .heat-0 {
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(var(--p-rgb), 0.1);
         }
 
         .heat-1 {
-            background: rgba(99, 102, 241, 0.3);
+            background: rgba(var(--p-rgb), 0.3);
         }
 
         .heat-2 {
-            background: rgba(99, 102, 241, 0.5);
+            background: rgba(var(--p-rgb), 0.5);
         }
 
         .heat-3 {
-            background: rgba(99, 102, 241, 0.7);
+            background: rgba(var(--p-rgb), 0.7);
         }
 
         .heat-4 {
-            background: rgba(99, 102, 241, 0.9);
+            background: rgba(var(--p-rgb), 0.9);
         }
 
         /* MOBILE BOTTOM NAV */
@@ -1103,15 +1108,15 @@
         }
 
         .mobile-nav button:hover {
-            background: rgba(99, 102, 241, 0.15);
+            background: rgba(var(--p-rgb), 0.15);
             color: #e2e8f0;
             transform: translateY(-2px);
         }
 
         .mobile-nav button.active {
-            color: #6366f1;
-            background: rgba(99, 102, 241, 0.2);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            color: var(--p);
+            background: rgba(var(--p-rgb), 0.2);
+            box-shadow: 0 4px 12px rgba(var(--p-rgb), 0.3);
         }
 
         .mobile-nav button span {
@@ -1155,8 +1160,8 @@
             width: 20px;
             height: 20px;
             margin: -10px 0 0 -10px;
-            border: 2px solid rgba(99, 102, 241, 0.3);
-            border-top-color: #6366f1;
+            border: 2px solid rgba(var(--p-rgb), 0.3);
+            border-top-color: var(--p);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
@@ -1215,14 +1220,73 @@
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: #6366f1;
+            background: var(--p);
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 10px rgba(var(--p-rgb), 0.4);
             transition: transform 0.2s;
         }
 
         input[type="range"]::-webkit-slider-thumb:hover {
             transform: scale(1.2);
+        }
+
+        /* Theme-aware overrides for Tailwind utility classes */
+        [class*="theme-"] .text-indigo-500 {
+            color: var(--p) !important;
+        }
+        [class*="theme-"] .text-indigo-400 {
+            color: color-mix(in srgb, var(--p), #fff 20%) !important;
+        }
+        [class*="theme-"] .bg-indigo-600,
+        [class*="theme-"] .bg-indigo-500 {
+            background-color: var(--p) !important;
+        }
+        [class*="theme-"] .hover\:bg-indigo-500:hover {
+            background-color: color-mix(in srgb, var(--p), #fff 10%) !important;
+        }
+        [class*="theme-"] .border-indigo-500\/50,
+        [class*="theme-"] .border-indigo-500\/30 {
+            border-color: rgba(var(--p-rgb), 0.5) !important;
+        }
+        [class*="theme-"] .bg-indigo-500\/20,
+        [class*="theme-"] .bg-indigo-500\/10 {
+            background-color: rgba(var(--p-rgb), 0.2) !important;
+        }
+        [class*="theme-"] .hover\:bg-indigo-500\/30:hover {
+            background-color: rgba(var(--p-rgb), 0.3) !important;
+        }
+        [class*="theme-"] .shadow-indigo-500\/50 {
+            --tw-shadow-color: rgba(var(--p-rgb), 0.5);
+        }
+        [class*="theme-"] .from-indigo-600 {
+            --tw-gradient-from: var(--p) !important;
+        }
+        [class*="theme-"] .to-purple-600 {
+            --tw-gradient-to: var(--s) !important;
+        }
+        [class*="theme-"] .from-indigo-500 {
+            --tw-gradient-from: var(--p) !important;
+        }
+        [class*="theme-"] .to-purple-500 {
+            --tw-gradient-to: var(--s) !important;
+        }
+        [class*="theme-"] .bg-gradient-to-r.from-indigo-600.to-purple-600,
+        [class*="theme-"] .bg-gradient-to-br.from-indigo-600.to-purple-600 {
+            background-image: linear-gradient(to right, var(--p), var(--s)) !important;
+        }
+        [class*="theme-"] .bg-gradient-to-r.from-indigo-500.to-purple-500 {
+            background-image: linear-gradient(to right, rgba(var(--p-rgb), 0.1), rgba(var(--s-rgb), 0.1)) !important;
+        }
+        [class*="theme-"] .bg-gradient-to-br.from-indigo-500\/10.to-purple-500\/10 {
+            background-image: linear-gradient(to bottom right, rgba(var(--p-rgb), 0.1), rgba(var(--s-rgb), 0.1)) !important;
+        }
+        [class*="theme-"] .focus\:border-indigo-500:focus,
+        [class*="theme-"] .focus\:border-indigo-600:focus {
+            border-color: var(--p) !important;
+        }
+        [class*="theme-"] .progress-ring__circle.text-indigo-500 {
+            color: var(--p) !important;
+            stroke: var(--p) !important;
         }
     </style>
 </head>
@@ -4391,6 +4455,13 @@
         }
 
         // ==================== ANALYTICS ====================
+        function getThemeColor(cssVar) {
+            return getComputedStyle(document.body).getPropertyValue(cssVar).trim();
+        }
+        function getThemeRgba(cssVar, alpha) {
+            const rgb = getComputedStyle(document.body).getPropertyValue(cssVar).trim();
+            return `rgba(${rgb}, ${alpha})`;
+        }
         function updateAnalytics() {
             updateHeatmap();
             updateRadarChart();
@@ -4439,13 +4510,13 @@
                     datasets: [{
                         label: 'Ton Profil',
                         data: [10 - avgStress, focusScore, planningScore, streakScore, avgSleep],
-                        backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                        borderColor: '#6366f1',
+                        backgroundColor: getThemeRgba('--p-rgb', 0.2),
+                        borderColor: getThemeColor('--p'),
                         borderWidth: 2,
-                        pointBackgroundColor: '#6366f1',
+                        pointBackgroundColor: getThemeColor('--p'),
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#6366f1'
+                        pointHoverBorderColor: getThemeColor('--p')
                     }]
                 },
                 options: {
@@ -4536,8 +4607,8 @@
                         {
                             label: 'Stress (/10)',
                             data: last30.map(l => l.stress),
-                            borderColor: '#f43f5e',
-                            backgroundColor: 'rgba(244, 63, 94, 0.1)',
+                            borderColor: getThemeColor('--s'),
+                            backgroundColor: getThemeRgba('--s-rgb', 0.1),
                             tension: 0.4,
                             borderWidth: 2,
                             fill: true,
@@ -4547,8 +4618,8 @@
                         {
                             label: 'Sommeil (heures)',
                             data: last30.map(l => l.sleep),
-                            borderColor: '#6366f1',
-                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            borderColor: getThemeColor('--p'),
+                            backgroundColor: getThemeRgba('--p-rgb', 0.1),
                             tension: 0.4,
                             borderWidth: 2,
                             borderDash: [5, 5],
@@ -6362,8 +6433,8 @@
                         {
                             label: 'Stress (/10)',
                             data: last7.map(l => l.stress),
-                            borderColor: '#f43f5e',
-                            backgroundColor: 'rgba(244, 63, 94, 0.1)',
+                            borderColor: getThemeColor('--s'),
+                            backgroundColor: getThemeRgba('--s-rgb', 0.1),
                             fill: true,
                             tension: 0.4,
                             borderWidth: 2,
@@ -6373,8 +6444,8 @@
                         {
                             label: 'Sommeil (heures)',
                             data: last7.map(l => l.sleep),
-                            borderColor: '#6366f1',
-                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            borderColor: getThemeColor('--p'),
+                            backgroundColor: getThemeRgba('--p-rgb', 0.1),
                             tension: 0.4,
                             borderDash: [5, 5],
                             borderWidth: 2,
@@ -6775,22 +6846,32 @@
             { id: 'theme_galaxy', name: 'Thème Galaxie', desc: 'Couleurs cosmiques', icon: '🌌', price: 100, category: 'theme' },
             { id: 'theme_neon', name: 'Thème Néon', desc: 'Style cyberpunk', icon: '💜', price: 100, category: 'theme' },
             { id: 'theme_gold', name: 'Thème Or', desc: 'Luxe et prestige', icon: '👑', price: 200, category: 'theme' },
+            { id: 'theme_cherry', name: 'Thème Cerise', desc: 'Rose doux et romantique', icon: '🌸', price: 75, category: 'theme' },
+            { id: 'theme_arctic', name: 'Thème Arctique', desc: 'Bleu glacé et frais', icon: '❄️', price: 75, category: 'theme' },
+            { id: 'theme_volcano', name: 'Thème Volcan', desc: 'Rouge feu intense', icon: '🌋', price: 120, category: 'theme' },
             { id: 'avatar_ninja', name: 'Avatar Ninja', desc: 'Silencieux mais efficace', icon: '🥷', price: 30, category: 'avatar' },
             { id: 'avatar_wizard', name: 'Avatar Mage', desc: 'Maître de la sagesse', icon: '🧙', price: 30, category: 'avatar' },
             { id: 'avatar_astronaut', name: 'Avatar Astronaute', desc: 'Explore l\'infini', icon: '🧑‍🚀', price: 50, category: 'avatar' },
             { id: 'avatar_robot', name: 'Avatar Robot', desc: 'Productivité maximale', icon: '🤖', price: 50, category: 'avatar' },
             { id: 'avatar_dragon', name: 'Avatar Dragon', desc: 'Puissance légendaire', icon: '🐉', price: 150, category: 'avatar' },
             { id: 'avatar_unicorn', name: 'Avatar Licorne', desc: 'Rare et magique', icon: '🦄', price: 200, category: 'avatar' },
+            { id: 'avatar_phoenix', name: 'Avatar Phénix', desc: 'Renaît de ses cendres', icon: '🦅', price: 100, category: 'avatar' },
+            { id: 'avatar_alien', name: 'Avatar Alien', desc: 'Venu d\'ailleurs', icon: '👽', price: 80, category: 'avatar' },
             { id: 'boost_xp2', name: 'XP x2 (1 jour)', desc: 'Double les points gagnés', icon: '⚡', price: 80, category: 'boost' },
             { id: 'boost_streak_shield', name: 'Bouclier Streak', desc: 'Protège ton streak 1 fois', icon: '🛡️', price: 60, category: 'boost' },
             { id: 'boost_wisdom_bomb', name: 'Bombe de Sagesse', desc: '+25 points bonus', icon: '💣', price: 40, category: 'boost' },
             { id: 'boost_lucky_star', name: 'Étoile Chanceuse', desc: 'Bonus aléatoire 1-50 pts', icon: '⭐', price: 35, category: 'boost' },
+            { id: 'boost_mega_bomb', name: 'Méga Bombe', desc: '+75 points bonus massif', icon: '💥', price: 100, category: 'boost' },
+            { id: 'boost_time_warp', name: 'Saut Temporel', desc: '+3 jours de streak', icon: '⏰', price: 90, category: 'boost' },
             { id: 'fun_confetti', name: 'Pluie de Confettis', desc: 'Fête sur ton écran!', icon: '🎊', price: 20, category: 'fun' },
             { id: 'fun_fireworks', name: 'Feux d\'Artifice', desc: 'Animation spectaculaire', icon: '🎆', price: 25, category: 'fun' },
             { id: 'fun_trophy', name: 'Trophée Doré', desc: 'Badge de collection', icon: '🏆', price: 100, category: 'fun' },
             { id: 'fun_crown', name: 'Couronne Royale', desc: 'Tu es le/la meilleur(e)', icon: '👑', price: 150, category: 'fun' },
             { id: 'fun_diploma', name: 'Diplôme d\'Honneur', desc: 'Récompense ultime', icon: '📜', price: 300, category: 'fun' },
             { id: 'fun_pet_cat', name: 'Chat Virtuel', desc: 'Ton compagnon d\'études', icon: '🐱', price: 120, category: 'fun' },
+            { id: 'fun_pet_dog', name: 'Chien Virtuel', desc: 'Fidèle compagnon', icon: '🐕', price: 120, category: 'fun' },
+            { id: 'fun_rainbow', name: 'Arc-en-ciel', desc: 'Effet arc-en-ciel magique', icon: '🌈', price: 45, category: 'fun' },
+            { id: 'fun_medal', name: 'Médaille d\'Or', desc: 'Champion des études', icon: '🥇', price: 80, category: 'fun' },
         ];
 
         const BOUTIQUE_KEY = 'sf_boutique';
@@ -6875,15 +6956,16 @@
                 actionHtml = `<span class="shop-owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full">✓ Obtenu</span>`;
             } else {
                 actionHtml = `<button class="btn-shop-buy w-full py-2 rounded-xl text-xs font-bold transition-all ${canBuy
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                    ? 'text-white'
                     : 'bg-slate-800 text-slate-500'}"
+                    ${canBuy ? 'style="background: linear-gradient(to right, var(--p), var(--s))"' : ''}
                     ${canBuy ? '' : 'disabled'}
                     onclick="shopBuyItem('${item.id}')">
                     ${canBuy ? 'Acheter' : 'Pas assez'}
                 </button>`;
             }
 
-            return `<div class="shop-item-card glass p-4 flex flex-col items-center text-center gap-2 ${isActive ? 'border-indigo-500/50' : ''}">
+            return `<div class="shop-item-card glass p-4 flex flex-col items-center text-center gap-2" style="${isActive ? 'border-color: rgba(var(--p-rgb), 0.5)' : ''}">
                 <span class="text-4xl">${item.icon}</span>
                 <h3 class="text-xs font-bold text-white leading-tight min-h-[2em] flex items-center justify-center">${item.name}</h3>
                 <p class="text-[10px] text-slate-500 leading-tight min-h-[2em] flex items-center">${item.desc}</p>
@@ -6909,10 +6991,10 @@
 
             list.innerHTML = ownedItems.map(item => {
                 const isActive = boutiqueState.activeTheme === item.id || boutiqueState.activeAvatar === item.id;
-                return `<div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-xl ${isActive ? 'border border-indigo-500/50' : ''}">
+                return `<div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-xl" style="${isActive ? 'border: 1px solid rgba(var(--p-rgb), 0.5)' : ''}">
                     <span class="text-lg">${item.icon}</span>
                     <span class="text-[10px] font-bold text-slate-300">${item.name}</span>
-                    ${isActive ? '<span class="text-[8px] text-indigo-400 font-bold">ACTIF</span>' : ''}
+                    ${isActive ? '<span class="text-[8px] font-bold" style="color: var(--p)">ACTIF</span>' : ''}
                 </div>`;
             }).join('');
         }
@@ -6937,6 +7019,16 @@
                 save();
                 updateGamification();
                 showToast('💣 +25 points de sagesse bonus!');
+            } else if (item.id === 'boost_mega_bomb') {
+                db.gamification.wisdom += 75;
+                save();
+                updateGamification();
+                showToast('💥 Méga Bombe: +75 points de sagesse!');
+            } else if (item.id === 'boost_time_warp') {
+                db.gamification.streak += 3;
+                save();
+                updateGamification();
+                showToast('⏰ Saut Temporel: +3 jours de streak!');
             } else if (item.id === 'boost_lucky_star') {
                 const bonus = Math.floor(Math.random() * 50) + 1;
                 db.gamification.wisdom += bonus;
@@ -6960,13 +7052,25 @@
             if (!item || !boutiqueState.owned.includes(item.id)) return;
 
             if (item.category === 'theme') {
-                boutiqueState.activeTheme = itemId;
-                applyBoutiqueTheme(itemId);
-                showToast(item.icon + ' ' + item.name + ' activé!');
+                if (boutiqueState.activeTheme === itemId) {
+                    boutiqueState.activeTheme = null;
+                    applyBoutiqueTheme(null);
+                    showToast('🎨 Thème par défaut restauré');
+                } else {
+                    boutiqueState.activeTheme = itemId;
+                    applyBoutiqueTheme(itemId);
+                    showToast(item.icon + ' ' + item.name + ' activé!');
+                }
             } else if (item.category === 'avatar') {
-                boutiqueState.activeAvatar = itemId;
-                applyBoutiqueAvatar(itemId);
-                showToast(item.icon + ' ' + item.name + ' activé!');
+                if (boutiqueState.activeAvatar === itemId) {
+                    boutiqueState.activeAvatar = null;
+                    applyBoutiqueAvatar(null);
+                    showToast('🎓 Avatar par défaut restauré');
+                } else {
+                    boutiqueState.activeAvatar = itemId;
+                    applyBoutiqueAvatar(itemId);
+                    showToast(item.icon + ' ' + item.name + ' activé!');
+                }
             }
 
             saveBoutiqueState();
