@@ -2467,7 +2467,7 @@
                         <span class="text-3xl">🛍️</span>
                         <div>
                             <h2 class="text-2xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Boutique Récompenses</h2>
-                            <p class="text-[10px] text-slate-500">Dépense tes points sagesse</p>
+                            <p class="text-[10px] text-slate-500">Dépense tes points de sagesse</p>
                         </div>
                     </div>
                     <div class="glass px-4 py-2 flex items-center gap-2">
@@ -6924,7 +6924,8 @@
             if (wisdom < item.price || boutiqueState.owned.includes(item.id)) return;
 
             db.gamification.wisdom -= item.price;
-            db.gamification.level = Math.floor(db.gamification.wisdom / 100) + 1;
+            const newLevel = Math.floor(db.gamification.wisdom / 100) + 1;
+            if (newLevel > db.gamification.level) db.gamification.level = newLevel;
             save();
             updateGamification();
 
@@ -6973,8 +6974,10 @@
         }
 
         function applyBoutiqueTheme(themeId) {
-            // Remove all boutique theme classes
-            document.body.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest', 'theme-galaxy', 'theme-neon', 'theme-gold');
+            // Remove all boutique theme classes dynamically
+            SHOP_ITEMS.filter(i => i.category === 'theme').forEach(i => {
+                document.body.classList.remove(i.id.replace('theme_', 'theme-'));
+            });
             if (themeId) {
                 const className = themeId.replace('theme_', 'theme-');
                 document.body.classList.add(className);
