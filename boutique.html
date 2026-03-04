@@ -303,9 +303,31 @@
         function renderItemCard(item, wisdom) {
             const owned = boutiqueState.owned.includes(item.id);
             const canBuy = wisdom >= item.price && !owned;
+            const isActiveTheme = boutiqueState.activeTheme === item.id;
+            const isActiveAvatar = boutiqueState.activeAvatar === item.id;
+            const isActive = isActiveTheme || isActiveAvatar;
+
+            let actionHtml;
+            if (owned && (item.category === 'theme' || item.category === 'avatar')) {
+                if (isActive) {
+                    actionHtml = `<span class="owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">⭐ Actif</span>`;
+                } else {
+                    actionHtml = `<button class="btn-buy w-full py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white" onclick="activateItem('${item.id}')">Activer</button>`;
+                }
+            } else if (owned) {
+                actionHtml = `<span class="owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full">✓ Obtenu</span>`;
+            } else {
+                actionHtml = `<button class="btn-buy w-full py-2 rounded-xl text-xs font-bold ${canBuy
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                    : 'bg-slate-800 text-slate-500'}"
+                    ${canBuy ? '' : 'disabled'}
+                    onclick="buyItem('${item.id}')">
+                    ${canBuy ? 'Acheter' : 'Pas assez'}
+                </button>`;
+            }
 
             return `
-            <div class="shop-item glass p-4 flex flex-col items-center text-center gap-2" data-category="${item.category}">
+            <div class="shop-item glass p-4 flex flex-col items-center text-center gap-2 ${isActive ? 'border-indigo-500/50' : ''}" data-category="${item.category}">
                 <span class="text-4xl">${item.icon}</span>
                 <h3 class="text-xs font-bold text-white leading-tight">${item.name}</h3>
                 <p class="text-[10px] text-slate-500 leading-tight">${item.desc}</p>
@@ -313,16 +335,7 @@
                     <span class="text-amber-400 text-xs">✨</span>
                     <span class="text-sm font-black ${canBuy ? 'text-amber-400' : owned ? 'text-emerald-400' : 'text-red-400'}">${item.price}</span>
                 </div>
-                ${owned
-                    ? `<span class="owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full">✓ Obtenu</span>`
-                    : `<button class="btn-buy w-full py-2 rounded-xl text-xs font-bold ${canBuy
-                        ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
-                        : 'bg-slate-800 text-slate-500'}"
-                        ${canBuy ? '' : 'disabled'}
-                        onclick="buyItem('${item.id}')">
-                        ${canBuy ? 'Acheter' : 'Pas assez'}
-                    </button>`
-                }
+                ${actionHtml}
             </div>`;
         }
 
@@ -372,12 +385,14 @@
                 return;
             }
 
-            list.innerHTML = ownedItems.map(item => `
-                <div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-xl">
+            list.innerHTML = ownedItems.map(item => {
+                const isActive = boutiqueState.activeTheme === item.id || boutiqueState.activeAvatar === item.id;
+                return `<div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-xl ${isActive ? 'border border-indigo-500/50' : ''}">
                     <span class="text-lg">${item.icon}</span>
                     <span class="text-[10px] font-bold text-slate-300">${item.name}</span>
-                </div>
-            `).join('');
+                    ${isActive ? '<span class="text-[8px] text-indigo-400 font-bold">ACTIF</span>' : ''}
+                </div>`;
+            }).join('');
         }
 
         // ==================== ACTIONS ====================
@@ -418,6 +433,22 @@
                 saveBoutiqueState();
             }
 
+            renderShop();
+        }
+
+        function activateItem(itemId) {
+            const item = SHOP_ITEMS.find(i => i.id === itemId);
+            if (!item || !boutiqueState.owned.includes(item.id)) return;
+
+            if (item.category === 'theme') {
+                boutiqueState.activeTheme = itemId;
+                showToast(`${item.icon} ${item.name} activé!`);
+            } else if (item.category === 'avatar') {
+                boutiqueState.activeAvatar = itemId;
+                showToast(`${item.icon} ${item.name} activé!`);
+            }
+
+            saveBoutiqueState();
             renderShop();
         }
 

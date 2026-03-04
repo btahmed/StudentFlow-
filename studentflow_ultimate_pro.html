@@ -287,6 +287,66 @@
             display: block;
         }
 
+        .shop-cat-btn.active {
+            background: rgba(99, 102, 241, 0.3);
+            border-color: #6366f1;
+            color: #a5b4fc;
+        }
+
+        .shop-item-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-item-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.5s;
+        }
+
+        .shop-item-card:hover::after {
+            left: 100%;
+        }
+
+        .btn-shop-buy:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-shop-buy:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .shop-owned-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .btn-shop-activate {
+            transition: all 0.3s;
+        }
+
+        .btn-shop-activate:hover {
+            transform: scale(1.05);
+        }
+
+        .shop-active-badge {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        }
+
+        /* Boutique theme color overrides */
+        body.theme-ocean { --p: #0ea5e9; --s: #06b6d4; }
+        body.theme-sunset { --p: #f97316; --s: #f43f5e; }
+        body.theme-forest { --p: #22c55e; --s: #10b981; }
+        body.theme-galaxy { --p: #8b5cf6; --s: #6366f1; }
+        body.theme-neon { --p: #d946ef; --s: #a855f7; }
+        body.theme-gold { --p: #eab308; --s: #f59e0b; }
+
         .type-btn {
             transition: all 0.2s;
             opacity: 0.4;
@@ -1233,6 +1293,9 @@
         <!-- Gamification Panel -->
         <div class="hidden md:block w-full px-4 mb-4">
             <div class="glass p-4 space-y-3">
+                <div class="flex items-center gap-2 justify-center">
+                    <span id="user-avatar-display" class="text-3xl">🎓</span>
+                </div>
                 <div class="flex justify-between items-center">
                     <span class="text-xs text-slate-400">Niveau</span>
                     <div class="flex items-center gap-2">
@@ -1318,6 +1381,11 @@
                 <span class="hidden md:block font-bold uppercase text-[10px]"
                     data-i18n="nav_download">Télécharger</span>
             </button>
+            <button onclick="switchTab('boutique')" id="btn-boutique"
+                class="flex items-center gap-4 p-4 rounded-2xl w-full text-slate-400 touch-feedback">
+                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                <span class="hidden md:block font-bold uppercase text-[10px]">Boutique</span>
+            </button>
         </div>
 
         <!-- Bottom Actions -->
@@ -1390,6 +1458,11 @@
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="download" class="w-5 h-5 text-blue-500"></i>
             <span class="font-bold text-sm">Télécharger</span>
+        </button>
+        <button onclick="switchTab('boutique'); closeMobileMore()"
+            class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-pink-500"></i>
+            <span class="font-bold text-sm">Boutique</span>
         </button>
         <button onclick="openDataModal(); closeMobileMore()"
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
@@ -2381,6 +2454,51 @@
                         APK direct pour Android et PWA pour iOS - installation instantanée et sécurisée pour tous les
                         étudiants.
                     </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOUTIQUE TAB -->
+        <div id="boutique" class="tab-pane max-w-4xl mx-auto space-y-6">
+            <!-- Boutique Header -->
+            <div class="glass p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">🛍️</span>
+                        <div>
+                            <h2 class="text-2xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Boutique Récompenses</h2>
+                            <p class="text-[10px] text-slate-500">Dépense tes points de sagesse</p>
+                        </div>
+                    </div>
+                    <div class="glass px-4 py-2 flex items-center gap-2">
+                        <span class="text-xl">✨</span>
+                        <span id="shop-wallet" class="text-xl font-black text-amber-400">0</span>
+                        <span class="text-xs text-slate-500">pts</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="flex gap-2 overflow-x-auto pb-2">
+                <button class="shop-cat-btn active glass px-4 py-2 text-xs font-bold rounded-full whitespace-nowrap border border-transparent" onclick="shopFilterCategory('all')">🏪 Tout</button>
+                <button class="shop-cat-btn glass px-4 py-2 text-xs font-bold rounded-full whitespace-nowrap text-slate-400 border border-transparent" onclick="shopFilterCategory('theme')">🎨 Thèmes</button>
+                <button class="shop-cat-btn glass px-4 py-2 text-xs font-bold rounded-full whitespace-nowrap text-slate-400 border border-transparent" onclick="shopFilterCategory('avatar')">👤 Avatars</button>
+                <button class="shop-cat-btn glass px-4 py-2 text-xs font-bold rounded-full whitespace-nowrap text-slate-400 border border-transparent" onclick="shopFilterCategory('boost')">⚡ Boosts</button>
+                <button class="shop-cat-btn glass px-4 py-2 text-xs font-bold rounded-full whitespace-nowrap text-slate-400 border border-transparent" onclick="shopFilterCategory('fun')">🎉 Fun</button>
+            </div>
+
+            <!-- Shop Grid -->
+            <div id="shop-grid-inline"></div>
+
+            <!-- Inventory -->
+            <div class="glass p-4">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xl">🎒</span>
+                    <h2 class="text-sm font-black text-slate-300">Mon Inventaire</h2>
+                    <span id="shop-inventory-count" class="ml-auto text-xs font-bold text-indigo-400 bg-indigo-500/20 px-2 py-1 rounded-full">0</span>
+                </div>
+                <div id="shop-inventory-list" class="flex flex-wrap gap-2">
+                    <p class="text-xs text-slate-500 italic" id="shop-empty-inventory">Aucun objet acheté</p>
                 </div>
             </div>
         </div>
@@ -3562,6 +3680,7 @@
             refreshAll();
             checkSafeMode();
             updateGamification();
+            initBoutiqueState();
             renderGoals();
             updateAnalytics();
             updateSessionDots();
@@ -6632,6 +6751,7 @@
 
             if (id === 'dash') refreshAll();
             if (id === 'analytics') updateAnalytics();
+            if (id === 'boutique') renderInlineShop();
 
             lucide.createIcons();
         }
@@ -6645,6 +6765,240 @@
 
         function closeMobileMore() {
             document.getElementById('mobile-more-menu').classList.add('hidden');
+        }
+
+        // ==================== BOUTIQUE INTÉGRÉE ====================
+        const SHOP_ITEMS = [
+            { id: 'theme_ocean', name: 'Thème Océan', desc: 'Couleurs apaisantes bleues', icon: '🌊', price: 50, category: 'theme' },
+            { id: 'theme_sunset', name: 'Thème Coucher de Soleil', desc: 'Dégradé orange-rose', icon: '🌅', price: 50, category: 'theme' },
+            { id: 'theme_forest', name: 'Thème Forêt', desc: 'Tons verts nature', icon: '🌲', price: 50, category: 'theme' },
+            { id: 'theme_galaxy', name: 'Thème Galaxie', desc: 'Couleurs cosmiques', icon: '🌌', price: 100, category: 'theme' },
+            { id: 'theme_neon', name: 'Thème Néon', desc: 'Style cyberpunk', icon: '💜', price: 100, category: 'theme' },
+            { id: 'theme_gold', name: 'Thème Or', desc: 'Luxe et prestige', icon: '👑', price: 200, category: 'theme' },
+            { id: 'avatar_ninja', name: 'Avatar Ninja', desc: 'Silencieux mais efficace', icon: '🥷', price: 30, category: 'avatar' },
+            { id: 'avatar_wizard', name: 'Avatar Mage', desc: 'Maître de la sagesse', icon: '🧙', price: 30, category: 'avatar' },
+            { id: 'avatar_astronaut', name: 'Avatar Astronaute', desc: 'Explore l\'infini', icon: '🧑‍🚀', price: 50, category: 'avatar' },
+            { id: 'avatar_robot', name: 'Avatar Robot', desc: 'Productivité maximale', icon: '🤖', price: 50, category: 'avatar' },
+            { id: 'avatar_dragon', name: 'Avatar Dragon', desc: 'Puissance légendaire', icon: '🐉', price: 150, category: 'avatar' },
+            { id: 'avatar_unicorn', name: 'Avatar Licorne', desc: 'Rare et magique', icon: '🦄', price: 200, category: 'avatar' },
+            { id: 'boost_xp2', name: 'XP x2 (1 jour)', desc: 'Double les points gagnés', icon: '⚡', price: 80, category: 'boost' },
+            { id: 'boost_streak_shield', name: 'Bouclier Streak', desc: 'Protège ton streak 1 fois', icon: '🛡️', price: 60, category: 'boost' },
+            { id: 'boost_wisdom_bomb', name: 'Bombe de Sagesse', desc: '+25 points bonus', icon: '💣', price: 40, category: 'boost' },
+            { id: 'boost_lucky_star', name: 'Étoile Chanceuse', desc: 'Bonus aléatoire 1-50 pts', icon: '⭐', price: 35, category: 'boost' },
+            { id: 'fun_confetti', name: 'Pluie de Confettis', desc: 'Fête sur ton écran!', icon: '🎊', price: 20, category: 'fun' },
+            { id: 'fun_fireworks', name: 'Feux d\'Artifice', desc: 'Animation spectaculaire', icon: '🎆', price: 25, category: 'fun' },
+            { id: 'fun_trophy', name: 'Trophée Doré', desc: 'Badge de collection', icon: '🏆', price: 100, category: 'fun' },
+            { id: 'fun_crown', name: 'Couronne Royale', desc: 'Tu es le/la meilleur(e)', icon: '👑', price: 150, category: 'fun' },
+            { id: 'fun_diploma', name: 'Diplôme d\'Honneur', desc: 'Récompense ultime', icon: '📜', price: 300, category: 'fun' },
+            { id: 'fun_pet_cat', name: 'Chat Virtuel', desc: 'Ton compagnon d\'études', icon: '🐱', price: 120, category: 'fun' },
+        ];
+
+        const BOUTIQUE_KEY = 'sf_boutique';
+        let boutiqueState = loadBoutiqueState();
+        let shopCategory = 'all';
+
+        function loadBoutiqueState() {
+            try {
+                const data = localStorage.getItem(BOUTIQUE_KEY);
+                if (data) return JSON.parse(data);
+            } catch (e) { console.error(e); }
+            return { owned: [], activeTheme: null, activeAvatar: null };
+        }
+
+        function saveBoutiqueState() {
+            localStorage.setItem(BOUTIQUE_KEY, JSON.stringify(boutiqueState));
+        }
+
+        function shopFilterCategory(cat) {
+            shopCategory = cat;
+            document.querySelectorAll('.shop-cat-btn').forEach(btn => btn.classList.remove('active'));
+            const labels = { all: 'tout', theme: 'thèmes', avatar: 'avatars', boost: 'boosts', fun: 'fun' };
+            document.querySelectorAll('.shop-cat-btn').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(labels[cat] || '')) btn.classList.add('active');
+            });
+            renderInlineShop();
+        }
+
+        function renderInlineShop() {
+            const grid = document.getElementById('shop-grid-inline');
+            if (!grid) return;
+            const wisdom = db.gamification.wisdom;
+            const walletEl = document.getElementById('shop-wallet');
+            if (walletEl) walletEl.textContent = wisdom;
+
+            const CATEGORY_LABELS = {
+                theme: { icon: '🎨', label: 'Thèmes' },
+                avatar: { icon: '👤', label: 'Avatars' },
+                boost: { icon: '⚡', label: 'Boosts' },
+                fun: { icon: '🎉', label: 'Fun' }
+            };
+
+            if (shopCategory === 'all') {
+                const categories = ['theme', 'avatar', 'boost', 'fun'];
+                grid.innerHTML = categories.map(cat => {
+                    const catItems = SHOP_ITEMS.filter(i => i.category === cat);
+                    const info = CATEGORY_LABELS[cat];
+                    return `<div class="mb-4">
+                        <div class="text-xs font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-2 mb-2">
+                            <span>${info.icon}</span><span>${info.label}</span>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            ${catItems.map(item => renderShopCard(item, wisdom)).join('')}
+                        </div>
+                    </div>`;
+                }).join('');
+            } else {
+                const items = SHOP_ITEMS.filter(i => i.category === shopCategory);
+                grid.innerHTML = `<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    ${items.map(item => renderShopCard(item, wisdom)).join('')}
+                </div>`;
+            }
+
+            renderShopInventory();
+        }
+
+        function renderShopCard(item, wisdom) {
+            const owned = boutiqueState.owned.includes(item.id);
+            const canBuy = wisdom >= item.price && !owned;
+            const isActiveTheme = boutiqueState.activeTheme === item.id;
+            const isActiveAvatar = boutiqueState.activeAvatar === item.id;
+            const isActive = isActiveTheme || isActiveAvatar;
+
+            let actionHtml;
+            if (owned && (item.category === 'theme' || item.category === 'avatar')) {
+                if (isActive) {
+                    actionHtml = `<span class="shop-active-badge text-[10px] font-bold text-white px-3 py-1 rounded-full">⭐ Actif</span>`;
+                } else {
+                    actionHtml = `<button class="btn-shop-activate w-full py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white" onclick="activateShopItem('${item.id}')">Activer</button>`;
+                }
+            } else if (owned) {
+                actionHtml = `<span class="shop-owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full">✓ Obtenu</span>`;
+            } else {
+                actionHtml = `<button class="btn-shop-buy w-full py-2 rounded-xl text-xs font-bold transition-all ${canBuy
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                    : 'bg-slate-800 text-slate-500'}"
+                    ${canBuy ? '' : 'disabled'}
+                    onclick="shopBuyItem('${item.id}')">
+                    ${canBuy ? 'Acheter' : 'Pas assez'}
+                </button>`;
+            }
+
+            return `<div class="shop-item-card glass p-4 flex flex-col items-center text-center gap-2 ${isActive ? 'border-indigo-500/50' : ''}">
+                <span class="text-4xl">${item.icon}</span>
+                <h3 class="text-xs font-bold text-white leading-tight min-h-[2em] flex items-center justify-center">${item.name}</h3>
+                <p class="text-[10px] text-slate-500 leading-tight min-h-[2em] flex items-center">${item.desc}</p>
+                <div class="flex items-center gap-1 mt-auto">
+                    <span class="text-amber-400 text-xs">✨</span>
+                    <span class="text-sm font-black ${canBuy ? 'text-amber-400' : owned ? 'text-emerald-400' : 'text-red-400'}">${item.price}</span>
+                </div>
+                ${actionHtml}
+            </div>`;
+        }
+
+        function renderShopInventory() {
+            const list = document.getElementById('shop-inventory-list');
+            const countEl = document.getElementById('shop-inventory-count');
+            if (!list || !countEl) return;
+            const ownedItems = SHOP_ITEMS.filter(i => boutiqueState.owned.includes(i.id));
+            countEl.textContent = ownedItems.length;
+
+            if (ownedItems.length === 0) {
+                list.innerHTML = '<p class="text-xs text-slate-500 italic">Aucun objet acheté</p>';
+                return;
+            }
+
+            list.innerHTML = ownedItems.map(item => {
+                const isActive = boutiqueState.activeTheme === item.id || boutiqueState.activeAvatar === item.id;
+                return `<div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-xl ${isActive ? 'border border-indigo-500/50' : ''}">
+                    <span class="text-lg">${item.icon}</span>
+                    <span class="text-[10px] font-bold text-slate-300">${item.name}</span>
+                    ${isActive ? '<span class="text-[8px] text-indigo-400 font-bold">ACTIF</span>' : ''}
+                </div>`;
+            }).join('');
+        }
+
+        function shopBuyItem(itemId) {
+            const item = SHOP_ITEMS.find(i => i.id === itemId);
+            if (!item) return;
+            const wisdom = db.gamification.wisdom;
+            if (wisdom < item.price || boutiqueState.owned.includes(item.id)) return;
+
+            db.gamification.wisdom -= item.price;
+            const newLevel = Math.floor(db.gamification.wisdom / 100) + 1;
+            if (newLevel > db.gamification.level) db.gamification.level = newLevel;
+            save();
+            updateGamification();
+
+            boutiqueState.owned.push(item.id);
+            saveBoutiqueState();
+
+            if (item.id === 'boost_wisdom_bomb') {
+                db.gamification.wisdom += 25;
+                save();
+                updateGamification();
+                showToast('💣 +25 points de sagesse bonus!');
+            } else if (item.id === 'boost_lucky_star') {
+                const bonus = Math.floor(Math.random() * 50) + 1;
+                db.gamification.wisdom += bonus;
+                save();
+                updateGamification();
+                showToast('⭐ Étoile Chanceuse: +' + bonus + ' points!');
+            } else {
+                showToast(item.icon + ' ' + item.name + ' obtenu!');
+            }
+
+            if (item.category === 'boost') {
+                boutiqueState.owned = boutiqueState.owned.filter(id => id !== item.id);
+                saveBoutiqueState();
+            }
+
+            renderInlineShop();
+        }
+
+        function activateShopItem(itemId) {
+            const item = SHOP_ITEMS.find(i => i.id === itemId);
+            if (!item || !boutiqueState.owned.includes(item.id)) return;
+
+            if (item.category === 'theme') {
+                boutiqueState.activeTheme = itemId;
+                applyBoutiqueTheme(itemId);
+                showToast(item.icon + ' ' + item.name + ' activé!');
+            } else if (item.category === 'avatar') {
+                boutiqueState.activeAvatar = itemId;
+                applyBoutiqueAvatar(itemId);
+                showToast(item.icon + ' ' + item.name + ' activé!');
+            }
+
+            saveBoutiqueState();
+            renderInlineShop();
+        }
+
+        function applyBoutiqueTheme(themeId) {
+            // Remove all boutique theme classes dynamically
+            SHOP_ITEMS.filter(i => i.category === 'theme').forEach(i => {
+                document.body.classList.remove(i.id.replace('theme_', 'theme-'));
+            });
+            if (themeId) {
+                const className = themeId.replace('theme_', 'theme-');
+                document.body.classList.add(className);
+            }
+        }
+
+        function applyBoutiqueAvatar(avatarId) {
+            const avatarDisplay = document.getElementById('user-avatar-display');
+            if (!avatarDisplay) return;
+            if (avatarId) {
+                const item = SHOP_ITEMS.find(i => i.id === avatarId);
+                if (item) avatarDisplay.textContent = item.icon;
+            } else {
+                avatarDisplay.textContent = '🎓';
+            }
+        }
+
+        function initBoutiqueState() {
+            boutiqueState = loadBoutiqueState();
+            if (boutiqueState.activeTheme) applyBoutiqueTheme(boutiqueState.activeTheme);
+            if (boutiqueState.activeAvatar) applyBoutiqueAvatar(boutiqueState.activeAvatar);
         }
 
         // ==================== SHORTCUTS INFO ====================
