@@ -10,6 +10,8 @@
         :root {
             --p: #6366f1;
             --s: #f43f5e;
+            --p-rgb: 99, 102, 241;
+            --s-rgb: 244, 63, 94;
             --bg: #0b0f1a;
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
@@ -43,7 +45,7 @@
         }
 
         .glass:hover {
-            border-color: rgba(99, 102, 241, 0.3);
+            border-color: rgba(var(--p-rgb), 0.3);
             transform: translateY(-2px);
         }
 
@@ -108,9 +110,9 @@
         }
 
         .category-btn.active {
-            background: rgba(99, 102, 241, 0.3);
-            border-color: #6366f1;
-            color: #a5b4fc;
+            background: rgba(var(--p-rgb), 0.3);
+            border-color: var(--p);
+            color: color-mix(in srgb, var(--p), #fff 40%);
         }
 
         .shop-item h3 {
@@ -310,7 +312,7 @@
             let actionHtml;
             if (owned && (item.category === 'theme' || item.category === 'avatar')) {
                 if (isActive) {
-                    actionHtml = `<span class="owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">⭐ Actif</span>`;
+                    actionHtml = `<span class="owned-badge text-[10px] font-bold text-white px-3 py-1 rounded-full" style="background: linear-gradient(135deg, var(--p), var(--s));">⭐ Actif</span>`;
                 } else {
                     actionHtml = `<button class="btn-buy w-full py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white" onclick="activateItem('${item.id}')">Activer</button>`;
                 }

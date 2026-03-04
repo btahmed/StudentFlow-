@@ -4455,10 +4455,10 @@
 
         // ==================== ANALYTICS ====================
         function getThemeColor(cssVar) {
-            return getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
+            return getComputedStyle(document.body).getPropertyValue(cssVar).trim();
         }
         function getThemeRgba(cssVar, alpha) {
-            const rgb = getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
+            const rgb = getComputedStyle(document.body).getPropertyValue(cssVar).trim();
             return `rgba(${rgb}, ${alpha})`;
         }
         function updateAnalytics() {
