@@ -1231,9 +1231,11 @@
         }
 
         /* Theme-aware overrides for Tailwind utility classes */
-        [class*="theme-"] .text-indigo-500,
-        [class*="theme-"] .text-indigo-400 {
+        [class*="theme-"] .text-indigo-500 {
             color: var(--p) !important;
+        }
+        [class*="theme-"] .text-indigo-400 {
+            color: color-mix(in srgb, var(--p), #fff 20%) !important;
         }
         [class*="theme-"] .bg-indigo-600,
         [class*="theme-"] .bg-indigo-500 {
@@ -1272,16 +1274,15 @@
         [class*="theme-"] .bg-gradient-to-br.from-indigo-600.to-purple-600 {
             background-image: linear-gradient(to right, var(--p), var(--s)) !important;
         }
-        [class*="theme-"] .bg-gradient-to-r.from-indigo-500.to-purple-500,
-        [class*="theme-"] .bg-gradient-to-br.from-indigo-500\/10.to-purple-500\/10 {
+        [class*="theme-"] .bg-gradient-to-r.from-indigo-500.to-purple-500 {
             background-image: linear-gradient(to right, rgba(var(--p-rgb), 0.1), rgba(var(--s-rgb), 0.1)) !important;
+        }
+        [class*="theme-"] .bg-gradient-to-br.from-indigo-500\/10.to-purple-500\/10 {
+            background-image: linear-gradient(to bottom right, rgba(var(--p-rgb), 0.1), rgba(var(--s-rgb), 0.1)) !important;
         }
         [class*="theme-"] .focus\:border-indigo-500:focus,
         [class*="theme-"] .focus\:border-indigo-600:focus {
             border-color: var(--p) !important;
-        }
-        [class*="theme-"] .text-indigo-400 {
-            color: color-mix(in srgb, var(--p), #fff 20%) !important;
         }
         [class*="theme-"] .progress-ring__circle.text-indigo-500 {
             color: var(--p) !important;
