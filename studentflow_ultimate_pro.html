@@ -1511,37 +1511,37 @@
         <button onclick="switchTab('wellness'); closeMobileMore()"
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="activity" class="w-5 h-5 text-emerald-500"></i>
-            <span class="font-bold text-sm">Bio-Hack</span>
+            <span class="font-bold text-sm" data-i18n="nav_biohack">Bio-Hack</span>
         </button>
         <button onclick="switchTab('goals'); closeMobileMore()"
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="flag" class="w-5 h-5 text-amber-500"></i>
-            <span class="font-bold text-sm">Objectifs</span>
+            <span class="font-bold text-sm" data-i18n="nav_goals">Objectifs</span>
         </button>
         <button onclick="switchTab('download'); closeMobileMore()"
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="download" class="w-5 h-5 text-blue-500"></i>
-            <span class="font-bold text-sm">Télécharger</span>
+            <span class="font-bold text-sm" data-i18n="nav_download">Télécharger</span>
         </button>
         <button onclick="switchTab('boutique'); closeMobileMore()"
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="shopping-bag" class="w-5 h-5 text-pink-500"></i>
-            <span class="font-bold text-sm">Boutique</span>
+            <span class="font-bold text-sm" data-i18n="nav_boutique">Boutique</span>
         </button>
         <button onclick="openDataModal(); closeMobileMore()"
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="database" class="w-5 h-5 text-purple-500"></i>
-            <span class="font-bold text-sm">Données</span>
+            <span class="font-bold text-sm" data-i18n="nav_data">Données</span>
         </button>
         <button onclick="showShortcutsInfo(); closeMobileMore()"
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="info" class="w-5 h-5 text-cyan-500"></i>
-            <span class="font-bold text-sm">Raccourcis</span>
+            <span class="font-bold text-sm" data-i18n="nav_shortcuts">Raccourcis</span>
         </button>
         <button onclick="showLangModal(); closeMobileMore()"
             class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 text-left">
             <i data-lucide="languages" class="w-5 h-5 text-violet-500"></i>
-            <span class="font-bold text-sm">Langue</span>
+            <span class="font-bold text-sm" data-i18n="nav_lang">Langue</span>
         </button>
     </div>
 
@@ -1901,15 +1901,15 @@
                     <div class="flex gap-4 justify-center flex-wrap">
                         <button onclick="startPomodoro()" id="start-btn"
                             class="px-8 py-4 bg-indigo-600 rounded-2xl font-black uppercase text-sm hover:bg-indigo-500 transition touch-feedback">
-                            <i data-lucide="play" class="w-5 h-5 inline mr-2"></i> Start
+                            <i data-lucide="play" class="w-5 h-5 inline mr-2"></i><span data-i18n="btn_start">Start</span>
                         </button>
                         <button onclick="pausePomodoro()"
                             class="px-8 py-4 bg-slate-700 rounded-2xl font-black uppercase text-sm hover:bg-slate-600 transition touch-feedback">
-                            <i data-lucide="pause" class="w-5 h-5 inline mr-2"></i> Pause
+                            <i data-lucide="pause" class="w-5 h-5 inline mr-2"></i><span data-i18n="btn_pause">Pause</span>
                         </button>
                         <button onclick="resetPomodoro()"
                             class="px-8 py-4 bg-red-500/20 text-red-500 rounded-2xl font-black uppercase text-sm hover:bg-red-500/30 transition touch-feedback">
-                            <i data-lucide="rotate-ccw" class="w-5 h-5 inline mr-2"></i> Reset
+                            <i data-lucide="rotate-ccw" class="w-5 h-5 inline mr-2"></i><span data-i18n="btn_reset">Reset</span>
                         </button>
                     </div>
 
@@ -3405,7 +3405,7 @@
                 nav_planning: 'Planning', nav_dashboard: 'Dashboard', nav_analytics: 'Analytics',
                 nav_focus: 'Focus', nav_journal: 'Journal', nav_goals: 'Objectifs', nav_biohack: 'Bio-Hack',
                 nav_download: 'Télécharger', nav_data: 'Données', nav_reset: 'Reset', nav_shortcuts: 'Raccourcis',
-                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'Plus', nav_lang: 'Langue',
+                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'Plus', nav_lang: 'Langue', nav_boutique: 'Boutique',
                 // Header
                 subtitle: 'AI-Powered Wellness Platform', btn_notifs: 'Notifs', btn_note: 'Note', btn_my_notes: 'Mes Notes',
                 // Planning
@@ -3486,13 +3486,33 @@
                 shortcut_journal: 'Journal', shortcut_note: 'Nouvelle note', shortcut_theme: 'Changer thème',
                 shortcut_pomodoro: 'Start/Pause Pomodoro', shortcut_sound: 'Son ambiant (Focus)',
                 shortcut_close: 'Fermer les modals', understood: "J'ai compris!",
-                lang_title: 'Langue'
+                lang_title: 'Langue',
+                // Dynamic content
+                pred_empty: '📊 Remplis ton planning pour une prédiction précise.',
+                pred_light: '☀️ Semaine légère ({n}h). Parfait pour des projets perso!',
+                pred_moderate: '⛅ Charge modérée ({n}h). Maintiens tes routines de sommeil.',
+                pred_heavy: '🌤️ Semaine chargée ({n}h). Prévois des pauses régulières.',
+                pred_overload: '⚠️ ALERTE: {n}h planifiées! Risque de surcharge. Libère des créneaux.',
+                pred_stress_add: ' 🔴 Ton stress est déjà élevé, priorise le repos.',
+                chrono_balanced: '☀️ Profil Équilibré', chrono_advice_balanced: 'Maintiens ton rythme actuel.',
+                chrono_optimal: '🌟 Profil Optimal', chrono_advice_optimal: 'Excellent équilibre! Tu peux augmenter ta charge si besoin.',
+                chrono_tired: '😴 Profil Fatigué', chrono_advice_tired: 'Priorité au sommeil! Vise 7-8h par nuit.',
+                chrono_stressed: '⚡ Profil Sous Tension', chrono_advice_stressed: "Intègre plus de pauses et d'exercices de respiration.",
+                ai_fill_journal: 'Continue de remplir ton journal pour des conseils personnalisés!',
+                ai_critical: '🚨 ALERTE: Combinaison dangereuse sommeil/stress. Repos IMMÉDIAT recommandé.',
+                ai_sleep_deficit: '😴 Déficit de sommeil détecté. Couche-toi 30min plus tôt ce soir.',
+                ai_high_stress: "😰 Stress élevé. Essaie l'exercice de cohérence cardiaque dans Bio-Hack.",
+                ai_perfect: '✨ PARFAIT! Ton équilibre est optimal. Continue comme ça!',
+                ai_stable: "👍 Équilibre correct. Quelques ajustements peuvent t'amener au niveau supérieur.",
+                timer_running: 'En cours...', timer_resume: 'Reprendre',
+                goals_empty: 'Aucun objectif. Clique sur "+ Ajouter"',
+                chrono_fill3: 'Remplis au moins 3 jours pour l\'analyse...'
             },
             en: {
                 nav_planning: 'Planning', nav_dashboard: 'Dashboard', nav_analytics: 'Analytics',
                 nav_focus: 'Focus', nav_journal: 'Journal', nav_goals: 'Goals', nav_biohack: 'Bio-Hack',
                 nav_download: 'Download', nav_data: 'Data', nav_reset: 'Reset', nav_shortcuts: 'Shortcuts',
-                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'More', nav_lang: 'Language',
+                nav_stats: 'Stats', nav_zen: 'Zen', nav_more: 'More', nav_lang: 'Language', nav_boutique: 'Boutique',
                 subtitle: 'AI-Powered Wellness Platform', btn_notifs: 'Notifs', btn_note: 'Note', btn_my_notes: 'My Notes',
                 ai_prediction: '🔮 AI Prediction', prediction_loading: 'Analyzing...',
                 planning_title: '📅 Weekly Planning', btn_templates: 'Templates',
@@ -3562,13 +3582,33 @@
                 shortcut_journal: 'Journal', shortcut_note: 'New note', shortcut_theme: 'Toggle theme',
                 shortcut_pomodoro: 'Start/Pause Pomodoro', shortcut_sound: 'Ambient sound (Focus)',
                 shortcut_close: 'Close modals', understood: 'Got it!',
-                lang_title: 'Language'
+                lang_title: 'Language',
+                // Dynamic content
+                pred_empty: '📊 Fill in your schedule for an accurate prediction.',
+                pred_light: '☀️ Light week ({n}h). Perfect for personal projects!',
+                pred_moderate: '⛅ Moderate workload ({n}h). Keep your sleep routines.',
+                pred_heavy: '🌤️ Heavy week ({n}h). Plan regular breaks.',
+                pred_overload: '⚠️ ALERT: {n}h scheduled! Overload risk. Free up slots.',
+                pred_stress_add: ' 🔴 Your stress is already high, prioritize rest.',
+                chrono_balanced: '☀️ Balanced Profile', chrono_advice_balanced: 'Keep your current pace.',
+                chrono_optimal: '🌟 Optimal Profile', chrono_advice_optimal: 'Excellent balance! You can increase your workload if needed.',
+                chrono_tired: '😴 Tired Profile', chrono_advice_tired: 'Sleep is the priority! Aim for 7-8h per night.',
+                chrono_stressed: '⚡ Stressed Profile', chrono_advice_stressed: 'Include more breaks and breathing exercises.',
+                ai_fill_journal: 'Keep filling your journal for personalized advice!',
+                ai_critical: '🚨 ALERT: Dangerous sleep/stress combination. IMMEDIATE rest recommended.',
+                ai_sleep_deficit: '😴 Sleep deficit detected. Go to bed 30min earlier tonight.',
+                ai_high_stress: '😰 High stress. Try the cardiac coherence exercise in Bio-Hack.',
+                ai_perfect: '✨ PERFECT! Your balance is optimal. Keep it up!',
+                ai_stable: '👍 Good balance. A few adjustments can take you to the next level.',
+                timer_running: 'Running...', timer_resume: 'Resume',
+                goals_empty: 'No goals. Click on "+ Add"',
+                chrono_fill3: 'Fill at least 3 days for analysis...'
             },
             ar: {
                 nav_planning: 'التخطيط', nav_dashboard: 'لوحة القيادة', nav_analytics: 'التحليلات',
                 nav_focus: 'تركيز', nav_journal: 'يوميات', nav_goals: 'أهداف', nav_biohack: 'بيو-هاك',
                 nav_download: 'تحميل', nav_data: 'بيانات', nav_reset: 'إعادة', nav_shortcuts: 'اختصارات',
-                nav_stats: 'إحصائيات', nav_zen: 'زن', nav_more: 'المزيد', nav_lang: 'اللغة',
+                nav_stats: 'إحصائيات', nav_zen: 'زن', nav_more: 'المزيد', nav_lang: 'اللغة', nav_boutique: 'المتجر',
                 subtitle: 'منصة رفاهية مدعومة بالذكاء الاصطناعي', btn_notifs: 'إشعارات', btn_note: 'ملاحظة', btn_my_notes: 'ملاحظاتي',
                 ai_prediction: '🔮 توقعات الذكاء الاصطناعي', prediction_loading: 'جاري التحليل...',
                 planning_title: '📅 التخطيط الأسبوعي', btn_templates: 'قوالب',
@@ -3638,7 +3678,27 @@
                 shortcut_journal: 'اليوميات', shortcut_note: 'ملاحظة جديدة', shortcut_theme: 'تغيير المظهر',
                 shortcut_pomodoro: 'بدء/إيقاف بومودورو', shortcut_sound: 'صوت محيط (تركيز)',
                 shortcut_close: 'إغلاق النوافذ', understood: 'فهمت!',
-                lang_title: 'اللغة'
+                lang_title: 'اللغة',
+                // Dynamic content
+                pred_empty: '📊 أكمل جدولك للحصول على تنبؤ دقيق.',
+                pred_light: '☀️ أسبوع خفيف ({n}س). مثالي للمشاريع الشخصية!',
+                pred_moderate: '⛅ حمل معتدل ({n}س). حافظ على روتين نومك.',
+                pred_heavy: '🌤️ أسبوع مكثف ({n}س). خطط لاستراحات منتظمة.',
+                pred_overload: '⚠️ تنبيه: {n}س مجدولة! خطر التحميل الزائد. حرر بعض الأوقات.',
+                pred_stress_add: ' 🔴 توترك مرتفع بالفعل، أعطِ الأولوية للراحة.',
+                chrono_balanced: '☀️ ملف متوازن', chrono_advice_balanced: 'حافظ على إيقاعك الحالي.',
+                chrono_optimal: '🌟 ملف مثالي', chrono_advice_optimal: 'توازن ممتاز! يمكنك زيادة حملك عند الحاجة.',
+                chrono_tired: '😴 ملف متعب', chrono_advice_tired: 'النوم هو الأولوية! استهدف 7-8 ساعات في الليلة.',
+                chrono_stressed: '⚡ ملف متوتر', chrono_advice_stressed: 'أضف المزيد من الاستراحات وتمارين التنفس.',
+                ai_fill_journal: 'واصل تعبئة يومياتك للحصول على نصائح مخصصة!',
+                ai_critical: '🚨 تنبيه: تركيبة خطيرة من النوم/التوتر. يُنصح بالراحة الفورية.',
+                ai_sleep_deficit: '😴 تم اكتشاف عجز في النوم. اذهب للنوم 30 دقيقة مبكرًا الليلة.',
+                ai_high_stress: '😰 توتر مرتفع. جرب تمرين التماسك القلبي في Bio-Hack.',
+                ai_perfect: '✨ مثالي! توازنك ممتاز. استمر هكذا!',
+                ai_stable: '👍 توازن جيد. بعض التعديلات يمكن أن ترفعك للمستوى التالي.',
+                timer_running: 'يعمل...', timer_resume: 'استئناف',
+                goals_empty: 'لا أهداف. انقر على "+ إضافة"',
+                chrono_fill3: 'أكمل 3 أيام على الأقل للتحليل...'
             }
         };
 
@@ -3738,7 +3798,7 @@
 
             // Apply saved language
             if (currentLang !== 'fr') switchLang(currentLang);
-            applyTranslations();
+            else applyTranslations();
 
             renderGrid();
             refreshAll();
@@ -4433,21 +4493,21 @@
             const lastLog = db.logs[db.logs.length - 1];
             const avgStress = db.logs.length > 0 ? db.logs.reduce((a, b) => a + b.stress, 0) / db.logs.length : 5;
 
-            let msg = '📊 Remplis ton planning pour une prédiction précise.';
+            let msg = t('pred_empty');
 
             if (load > 0) {
                 if (load < 10) {
-                    msg = `☀️ Semaine légère (${load}h). Parfait pour des projets perso!`;
+                    msg = t('pred_light').replace('{n}', load);
                 } else if (load < 20) {
-                    msg = `⛅ Charge modérée (${load}h). Maintiens tes routines de sommeil.`;
+                    msg = t('pred_moderate').replace('{n}', load);
                 } else if (load < 30) {
-                    msg = `🌤️ Semaine chargée (${load}h). Prévois des pauses régulières.`;
+                    msg = t('pred_heavy').replace('{n}', load);
                 } else {
-                    msg = `⚠️ ALERTE: ${load}h planifiées! Risque de surcharge. Libère des créneaux.`;
+                    msg = t('pred_overload').replace('{n}', load);
                 }
 
                 if (lastLog && lastLog.stress > 7) {
-                    msg += ' 🔴 Ton stress est déjà élevé, priorise le repos.';
+                    msg += t('pred_stress_add');
                 }
             }
 
@@ -4919,7 +4979,7 @@
             if (pomodoroTimer) return;
 
             pomodoroActive = true;
-            document.getElementById('start-btn').innerHTML = '<i data-lucide="pause" class="w-5 h-5 inline mr-2"></i> En cours...';
+            document.getElementById('start-btn').innerHTML = `<i data-lucide="pause" class="w-5 h-5 inline mr-2"></i> ${t('timer_running')}`;
             lucide.createIcons();
 
             // Visibility API - pause si onglet inactif (optionnel)
@@ -4945,7 +5005,7 @@
             clearInterval(pomodoroTimer);
             pomodoroTimer = null;
             pomodoroActive = false;
-            document.getElementById('start-btn').innerHTML = '<i data-lucide="play" class="w-5 h-5 inline mr-2"></i> Reprendre';
+            document.getElementById('start-btn').innerHTML = `<i data-lucide="play" class="w-5 h-5 inline mr-2"></i> ${t('timer_resume')}`;
             lucide.createIcons();
         }
 
@@ -4958,9 +5018,9 @@
             isExamMode = false;
             updateTimerDisplay();
             updateSessionDots();
-            document.getElementById('start-btn').innerHTML = '<i data-lucide="play" class="w-5 h-5 inline mr-2"></i> Start';
-            document.getElementById('timer-phase').textContent = 'TRAVAIL';
-            document.getElementById('focus-mode-label').textContent = 'Technique Pomodoro';
+            document.getElementById('start-btn').innerHTML = `<i data-lucide="play" class="w-5 h-5 inline mr-2"></i> ${t('btn_start')}`;
+            document.getElementById('timer-phase').textContent = t('timer_work');
+            document.getElementById('focus-mode-label').textContent = t('pomodoro_technique');
             document.getElementById('progress-circle').classList.remove('text-emerald-500', 'text-amber-500');
             document.getElementById('progress-circle').classList.add('text-indigo-500');
             lucide.createIcons();
@@ -5655,7 +5715,7 @@
             if (!container) return;
 
             if (db.goals.length === 0) {
-                container.innerHTML = '<p class="text-center text-slate-400 py-8">Aucun objectif. Clique sur "+ Ajouter"</p>';
+                container.innerHTML = `<p class="text-center text-slate-400 py-8">${t('goals_empty')}</p>`;
                 updateGoalStats();
                 return;
             }
@@ -6688,25 +6748,25 @@
         function analyzeChronotype() {
             const container = document.getElementById('chronotype-analysis');
             if (!container || db.logs.length < 3) {
-                if (container) container.innerHTML = '<p class="text-slate-500">Remplis au moins 3 jours...</p>';
+                if (container) container.innerHTML = `<p class="text-slate-500">${t('chrono_fill3')}</p>`;
                 return;
             }
 
             const avgStress = db.logs.reduce((a, b) => a + b.stress, 0) / db.logs.length;
             const avgSleep = db.logs.reduce((a, b) => a + b.sleep, 0) / db.logs.length;
 
-            let profile = '☀️ Profil Équilibré';
-            let advice = 'Maintiens ton rythme actuel.';
+            let profile = t('chrono_balanced');
+            let advice = t('chrono_advice_balanced');
 
             if (avgSleep > 7.5 && avgStress < 5) {
-                profile = '🌟 Profil Optimal';
-                advice = 'Excellent équilibre! Tu peux augmenter ta charge si besoin.';
+                profile = t('chrono_optimal');
+                advice = t('chrono_advice_optimal');
             } else if (avgSleep < 6) {
-                profile = '😴 Profil Fatigué';
-                advice = 'Priorité au sommeil! Vise 7-8h par nuit.';
+                profile = t('chrono_tired');
+                advice = t('chrono_advice_tired');
             } else if (avgStress > 7) {
-                profile = '⚡ Profil Sous Tension';
-                advice = 'Intègre plus de pauses et d\'exercices de respiration.';
+                profile = t('chrono_stressed');
+                advice = t('chrono_advice_stressed');
             }
 
             container.innerHTML = `
@@ -6726,24 +6786,24 @@
             const last = db.logs[db.logs.length - 1];
             const avgStress = db.logs.reduce((a, b) => a + b.stress, 0) / db.logs.length;
 
-            let msg = "Continue de remplir ton journal pour des conseils personnalisés!";
+            let msg = t('ai_fill_journal');
             const badges = [];
 
             if (last) {
                 if (last.sleep < 5.5 && last.stress > 8) {
-                    msg = "🚨 ALERTE: Combinaison dangereuse sommeil/stress. Repos IMMÉDIAT recommandé.";
+                    msg = t('ai_critical');
                     badges.push({ text: "CRITIQUE", color: "red" });
                 } else if (last.sleep < 6) {
-                    msg = "😴 Déficit de sommeil détecté. Couche-toi 30min plus tôt ce soir.";
+                    msg = t('ai_sleep_deficit');
                     badges.push({ text: "Sommeil", color: "amber" });
                 } else if (last.stress > 7) {
-                    msg = "😰 Stress élevé. Essaie l'exercice de cohérence cardiaque dans Bio-Hack.";
+                    msg = t('ai_high_stress');
                     badges.push({ text: "Stress", color: "pink" });
                 } else if (last.sleep >= 7 && last.stress <= 4) {
-                    msg = "✨ PARFAIT! Ton équilibre est optimal. Continue comme ça!";
+                    msg = t('ai_perfect');
                     badges.push({ text: "OPTIMAL", color: "emerald" });
                 } else {
-                    msg = "👍 Équilibre correct. Quelques ajustements peuvent t'amener au niveau supérieur.";
+                    msg = t('ai_stable');
                     badges.push({ text: "Stable", color: "indigo" });
                 }
             }
