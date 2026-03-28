@@ -3733,6 +3733,11 @@
                 const key = el.getAttribute('data-i18n-html');
                 el.innerHTML = t(key);
             });
+            // Re-render dynamic sections that use t() directly
+            if (typeof predictStress === 'function') predictStress();
+            if (typeof analyzeChronotype === 'function') analyzeChronotype();
+            if (typeof updateAIInsights === 'function') updateAIInsights();
+            if (typeof renderGoals === 'function') renderGoals();
         }
 
         function showLangModal() {
