@@ -2571,52 +2571,38 @@
     <!-- SLOT MODAL -->
     <div id="modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] hidden items-center justify-center p-4">
         <div class="glass max-w-sm w-full p-8 space-y-6 text-center">
-            <h3 class="text-2xl font-black">📝 Détail du Créneau</h3>
-            <input type="text" id="course-name" placeholder="Nom (auto si vide)"
+            <h3 class="text-2xl font-black" data-i18n="slot_detail">📝 Détail du Créneau</h3>
+            <input type="text" id="course-name" data-i18n="slot_placeholder" placeholder="Nom (auto si vide)"
                 class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-indigo-600 font-bold text-center">
 
-            <!-- Types de créneaux (avec nouveaux types) -->
+            <!-- Types de créneaux -->
             <div class="grid grid-cols-4 gap-2">
-                <button id="btn-cours" onclick="selectType('cours')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-indigo-600">
-                    📚 Cours
-                </button>
-                <button id="btn-revisions" onclick="selectType('revisions')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-amber-600">
-                    ✏️ Révision
-                </button>
-                <button id="btn-repos" onclick="selectType('repos')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-emerald-600">
-                    😴 Repos
-                </button>
-                <button id="btn-sport" onclick="selectType('sport')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-rose-600">
-                    🏃 Sport
-                </button>
+                <button id="btn-cours" onclick="selectType('cours')" data-i18n="type_cours"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-indigo-600">📚 Cours</button>
+                <button id="btn-revisions" onclick="selectType('revisions')" data-i18n="type_revision"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-amber-600">✏️ Révision</button>
+                <button id="btn-repos" onclick="selectType('repos')" data-i18n="type_repos"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-emerald-600">😴 Repos</button>
+                <button id="btn-sport" onclick="selectType('sport')" data-i18n="type_sport"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-rose-600">🏃 Sport</button>
             </div>
             <div class="grid grid-cols-3 gap-2">
-                <button id="btn-social" onclick="selectType('social')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-purple-600">
-                    👥 Social
-                </button>
-                <button id="btn-admin" onclick="selectType('admin')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-slate-600">
-                    📋 Admin
-                </button>
-                <button id="btn-repas" onclick="selectType('repas')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-orange-600">
-                    🍽️ Repas
-                </button>
+                <button id="btn-social" onclick="selectType('social')" data-i18n="type_social"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-purple-600">👥 Social</button>
+                <button id="btn-admin" onclick="selectType('admin')" data-i18n="type_admin"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-slate-600">📋 Admin</button>
+                <button id="btn-repas" onclick="selectType('repas')" data-i18n="type_repas"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-orange-600">🍽️ Repas</button>
             </div>
 
             <div class="flex flex-col gap-2">
                 <button onclick="confirmSlot()"
-                    class="w-full py-4 bg-white text-black font-black uppercase text-xs rounded-xl touch-feedback">Valider</button>
+                    class="w-full py-4 bg-white text-black font-black uppercase text-xs rounded-xl touch-feedback" data-i18n="btn_validate">Valider</button>
                 <div class="flex gap-2">
                     <button onclick="deleteCurrentSlot()"
-                        class="flex-1 py-3 text-xs font-bold bg-red-500/10 text-red-500 rounded-xl touch-feedback">Supprimer</button>
+                        class="flex-1 py-3 text-xs font-bold bg-red-500/10 text-red-500 rounded-xl touch-feedback" data-i18n="btn_delete_slot">Supprimer</button>
                     <button onclick="closeModal()"
-                        class="flex-1 py-3 text-xs font-bold bg-white/5 rounded-xl touch-feedback">Fermer</button>
+                        class="flex-1 py-3 text-xs font-bold bg-white/5 rounded-xl touch-feedback" data-i18n="btn_close">Fermer</button>
                 </div>
             </div>
         </div>
@@ -3480,6 +3466,7 @@
                 slot_detail: '📝 Détail du Créneau', slot_placeholder: 'Nom (auto si vide)',
                 type_cours: '📚 Cours', type_revision: '✏️ Révision', type_repos: '😴 Repos', type_sport: '🏃 Sport',
                 type_social: '👥 Social', type_admin: '📋 Admin', type_repas: '🍽️ Repas',
+                btn_validate: 'Valider', btn_close: 'Fermer', btn_delete_slot: 'Supprimer',
                 // Shortcuts modal
                 shortcuts_title: 'Raccourcis Clavier',
                 shortcut_planning: 'Planning', shortcut_analytics: 'Analytics', shortcut_focus: 'Mode Focus',
@@ -3577,6 +3564,7 @@
                 slot_detail: '📝 Slot Detail', slot_placeholder: 'Name (auto if empty)',
                 type_cours: '📚 Class', type_revision: '✏️ Study', type_repos: '😴 Rest', type_sport: '🏃 Sport',
                 type_social: '👥 Social', type_admin: '📋 Admin', type_repas: '🍽️ Meal',
+                btn_validate: 'Save', btn_close: 'Close', btn_delete_slot: 'Delete',
                 shortcuts_title: 'Keyboard Shortcuts',
                 shortcut_planning: 'Planning', shortcut_analytics: 'Analytics', shortcut_focus: 'Focus Mode',
                 shortcut_journal: 'Journal', shortcut_note: 'New note', shortcut_theme: 'Toggle theme',
@@ -3673,6 +3661,7 @@
                 slot_detail: '📝 تفاصيل الخانة', slot_placeholder: 'الاسم (تلقائي إذا فارغ)',
                 type_cours: '📚 دروس', type_revision: '✏️ مراجعة', type_repos: '😴 راحة', type_sport: '🏃 رياضة',
                 type_social: '👥 اجتماعي', type_admin: '📋 إداري', type_repas: '🍽️ وجبة',
+                btn_validate: 'حفظ', btn_close: 'إغلاق', btn_delete_slot: 'حذف',
                 shortcuts_title: 'اختصارات لوحة المفاتيح',
                 shortcut_planning: 'التخطيط', shortcut_analytics: 'التحليلات', shortcut_focus: 'وضع التركيز',
                 shortcut_journal: 'اليوميات', shortcut_note: 'ملاحظة جديدة', shortcut_theme: 'تغيير المظهر',
@@ -3783,7 +3772,7 @@
         }
 
         // ==================== INIT ====================
-        window.onload = () => {
+        window.addEventListener('load', () => {
             if (typeof lucide !== 'undefined') lucide.createIcons();
 
             // Apply saved theme
@@ -3831,7 +3820,7 @@
                 // Already granted
             }
 
-        };
+        });
 
         // ==================== RACCOURCIS CLAVIER (outside onload for reliability) ====================
         document.addEventListener('DOMContentLoaded', () => {
@@ -4429,17 +4418,18 @@
             const root = document.getElementById('grid-root');
             if (!root) return;
 
-            root.innerHTML = "";
+            const parts = [];
             for (let h = 8; h <= 19; h++) {
-                root.innerHTML += `<div class="flex items-center justify-center font-bold text-[9px] text-slate-600">${h}h</div>`;
+                parts.push(`<div class="flex items-center justify-center font-bold text-[9px] text-slate-600">${h}h</div>`);
                 for (let d = 1; d <= 7; d++) {
                     const id = `${d}-${h}`;
                     const item = db.timetable[id];
                     const cls = item ? `type-${item.type}` : 'slot-empty';
                     const isWeekend = d >= 6;
-                    root.innerHTML += `<div onclick="openModal('${id}')" class="slot ${cls} ${isWeekend ? 'opacity-80' : ''}">${item ? escapeHtml(item.name) : '+'}</div>`;
+                    parts.push(`<div onclick="openModal('${id}')" class="slot ${cls} ${isWeekend ? 'opacity-80' : ''}">${item ? escapeHtml(item.name) : '+'}</div>`);
                 }
             }
+            root.innerHTML = parts.join('');
         }
 
         function openModal(id) {
