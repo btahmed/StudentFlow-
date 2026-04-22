@@ -1610,6 +1610,9 @@
                                 <button onclick="applyTemplate('light'); toggleTemplateMenu();"
                                     class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg"
                                     data-i18n="tpl_light">🌴 Semaine Light</button>
+                                <button onclick="applyTemplate('weekend_overload'); toggleTemplateMenu();"
+                                    class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg text-red-400"
+                                    data-i18n="tpl_weekend">🔥 Weekend Chargé</button>
                                 <hr class="border-white/10 my-2">
                                 <button onclick="saveAsTemplate(); toggleTemplateMenu();"
                                     class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg text-amber-400"
@@ -2571,52 +2574,38 @@
     <!-- SLOT MODAL -->
     <div id="modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] hidden items-center justify-center p-4">
         <div class="glass max-w-sm w-full p-8 space-y-6 text-center">
-            <h3 class="text-2xl font-black">📝 Détail du Créneau</h3>
-            <input type="text" id="course-name" placeholder="Nom (auto si vide)"
+            <h3 class="text-2xl font-black" data-i18n="slot_detail">📝 Détail du Créneau</h3>
+            <input type="text" id="course-name" data-i18n="slot_placeholder" placeholder="Nom (auto si vide)"
                 class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-indigo-600 font-bold text-center">
 
-            <!-- Types de créneaux (avec nouveaux types) -->
+            <!-- Types de créneaux -->
             <div class="grid grid-cols-4 gap-2">
-                <button id="btn-cours" onclick="selectType('cours')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-indigo-600">
-                    📚 Cours
-                </button>
-                <button id="btn-revisions" onclick="selectType('revisions')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-amber-600">
-                    ✏️ Révision
-                </button>
-                <button id="btn-repos" onclick="selectType('repos')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-emerald-600">
-                    😴 Repos
-                </button>
-                <button id="btn-sport" onclick="selectType('sport')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-rose-600">
-                    🏃 Sport
-                </button>
+                <button id="btn-cours" onclick="selectType('cours')" data-i18n="type_cours"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-indigo-600">📚 Cours</button>
+                <button id="btn-revisions" onclick="selectType('revisions')" data-i18n="type_revision"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-amber-600">✏️ Révision</button>
+                <button id="btn-repos" onclick="selectType('repos')" data-i18n="type_repos"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-emerald-600">😴 Repos</button>
+                <button id="btn-sport" onclick="selectType('sport')" data-i18n="type_sport"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-rose-600">🏃 Sport</button>
             </div>
             <div class="grid grid-cols-3 gap-2">
-                <button id="btn-social" onclick="selectType('social')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-purple-600">
-                    👥 Social
-                </button>
-                <button id="btn-admin" onclick="selectType('admin')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-slate-600">
-                    📋 Admin
-                </button>
-                <button id="btn-repas" onclick="selectType('repas')"
-                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-orange-600">
-                    🍽️ Repas
-                </button>
+                <button id="btn-social" onclick="selectType('social')" data-i18n="type_social"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-purple-600">👥 Social</button>
+                <button id="btn-admin" onclick="selectType('admin')" data-i18n="type_admin"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-slate-600">📋 Admin</button>
+                <button id="btn-repas" onclick="selectType('repas')" data-i18n="type_repas"
+                    class="type-btn p-3 text-[10px] font-black uppercase rounded-xl bg-orange-600">🍽️ Repas</button>
             </div>
 
             <div class="flex flex-col gap-2">
                 <button onclick="confirmSlot()"
-                    class="w-full py-4 bg-white text-black font-black uppercase text-xs rounded-xl touch-feedback">Valider</button>
+                    class="w-full py-4 bg-white text-black font-black uppercase text-xs rounded-xl touch-feedback" data-i18n="btn_validate">Valider</button>
                 <div class="flex gap-2">
                     <button onclick="deleteCurrentSlot()"
-                        class="flex-1 py-3 text-xs font-bold bg-red-500/10 text-red-500 rounded-xl touch-feedback">Supprimer</button>
+                        class="flex-1 py-3 text-xs font-bold bg-red-500/10 text-red-500 rounded-xl touch-feedback" data-i18n="btn_delete_slot">Supprimer</button>
                     <button onclick="closeModal()"
-                        class="flex-1 py-3 text-xs font-bold bg-white/5 rounded-xl touch-feedback">Fermer</button>
+                        class="flex-1 py-3 text-xs font-bold bg-white/5 rounded-xl touch-feedback" data-i18n="btn_close">Fermer</button>
                 </div>
             </div>
         </div>
@@ -3411,7 +3400,7 @@
                 // Planning
                 ai_prediction: '🔮 Prédiction IA', prediction_loading: 'Analyse en cours...',
                 planning_title: '📅 Planning Semaine', btn_templates: 'Templates',
-                tpl_normal: '📚 Semaine Type', tpl_exam: '📝 Semaine Examens', tpl_light: '🌴 Semaine Light',
+                tpl_normal: '📚 Semaine Type', tpl_exam: '📝 Semaine Examens', tpl_light: '🌴 Semaine Light', tpl_weekend: '🔥 Weekend Chargé',
                 tpl_save: '💾 Sauvegarder actuel', btn_demo: 'Démo', btn_clear: 'Vider',
                 shortcuts_hint: '💡 Raccourcis: N=Note, F=Focus, J=Journal, P=Planning, A=Analytics, T=Thème, S=Son (focus), Espace=Pomodoro, Esc=Fermer',
                 day_mon: 'LUN', day_tue: 'MAR', day_wed: 'MER', day_thu: 'JEU', day_fri: 'VEN', day_sat: 'SAM', day_sun: 'DIM',
@@ -3434,7 +3423,7 @@
                 avg_sleep_stat: 'Sommeil moy.', stress_trend: 'Tendance stress',
                 // Focus
                 focus_title: '🎯 FOCUS MODE', pomodoro_technique: 'Technique Pomodoro',
-                focus_tag_placeholder: 'Tag: Maths, Projet...', timer_work: 'TRAVAIL',
+                focus_tag_placeholder: 'Tag: Maths, Projet...', timer_work: 'TRAVAIL', timer_break: 'PAUSE', timer_long_break: 'LONG BREAK', timer_exam: 'EXAMEN',
                 long_break: '→ Long break', btn_start: 'Start', btn_pause: 'Pause', btn_reset: 'Reset',
                 today_label: "Aujourd'hui:", btn_history: 'Historique',
                 ambient_sound: '🎧 Son Ambiant', sound_rain: 'Pluie', sound_forest: 'Forêt',
@@ -3456,7 +3445,7 @@
                 goals_title: '🎯 Objectifs', btn_add: '+ Ajouter',
                 weekly_summary: '📈 Résumé Hebdomadaire', completed: 'Complétés', in_progress: 'En cours', total: 'Total',
                 // Wellness
-                wellness_title: '💆 Centre Bio-Hack', auto_reminders: 'Rappels Automatiques', btn_activate: 'Activer',
+                wellness_title: '💆 Centre Bio-Hack', auto_reminders: 'Rappels Automatiques', btn_activate: 'Activer', reminder_disable: 'Désactiver', reminders_active: '✅ Rappels actifs',
                 remind_water: 'Hydratation', remind_water_freq: 'Toutes les 45 min',
                 remind_eyes: 'Pause Yeux', remind_eyes_freq: 'Toutes les 20 min',
                 remind_stretch: 'Étirement', remind_stretch_freq: 'Toutes les heures',
@@ -3464,7 +3453,7 @@
                 reminders_off: 'Rappels désactivés', ai_recommendations: 'Recommandations IA',
                 ai_reco_placeholder: 'Remplis ton journal pour des conseils personnalisés...',
                 breathing_title: '🫁 Cohérence Cardiaque', breathing_desc: '5 secondes inspir, 5 secondes expir',
-                breathing_ready: 'Prêt', btn_begin: 'Commencer',
+                breathing_ready: 'Prêt', btn_begin: 'Commencer', btn_stop: 'Arrêter', breathing_done: 'Terminé!',
                 tip_stretching: 'Étirements', tip_hydration: 'Hydratation', tip_eyes: 'Repos yeux', tip_walk: 'Micro-marche',
                 // Download
                 install_title: 'Installer StudentFlow',
@@ -3480,6 +3469,7 @@
                 slot_detail: '📝 Détail du Créneau', slot_placeholder: 'Nom (auto si vide)',
                 type_cours: '📚 Cours', type_revision: '✏️ Révision', type_repos: '😴 Repos', type_sport: '🏃 Sport',
                 type_social: '👥 Social', type_admin: '📋 Admin', type_repas: '🍽️ Repas',
+                btn_validate: 'Valider', btn_close: 'Fermer', btn_delete_slot: 'Supprimer',
                 // Shortcuts modal
                 shortcuts_title: 'Raccourcis Clavier',
                 shortcut_planning: 'Planning', shortcut_analytics: 'Analytics', shortcut_focus: 'Mode Focus',
@@ -3516,7 +3506,7 @@
                 subtitle: 'AI-Powered Wellness Platform', btn_notifs: 'Notifs', btn_note: 'Note', btn_my_notes: 'My Notes',
                 ai_prediction: '🔮 AI Prediction', prediction_loading: 'Analyzing...',
                 planning_title: '📅 Weekly Planning', btn_templates: 'Templates',
-                tpl_normal: '📚 Standard Week', tpl_exam: '📝 Exam Week', tpl_light: '🌴 Light Week',
+                tpl_normal: '📚 Standard Week', tpl_exam: '📝 Exam Week', tpl_light: '🌴 Light Week', tpl_weekend: '🔥 Loaded Weekend',
                 tpl_save: '💾 Save current', btn_demo: 'Demo', btn_clear: 'Clear',
                 shortcuts_hint: '💡 Shortcuts: N=Note, F=Focus, J=Journal, P=Planning, A=Analytics, T=Theme, S=Sound (focus), Space=Pomodoro, Esc=Close',
                 day_mon: 'MON', day_tue: 'TUE', day_wed: 'WED', day_thu: 'THU', day_fri: 'FRI', day_sat: 'SAT', day_sun: 'SUN',
@@ -3536,7 +3526,7 @@
                 best_day: 'Best day', focus_sessions: 'Focus Sessions',
                 avg_sleep_stat: 'Avg. sleep', stress_trend: 'Stress trend',
                 focus_title: '🎯 FOCUS MODE', pomodoro_technique: 'Pomodoro Technique',
-                focus_tag_placeholder: 'Tag: Math, Project...', timer_work: 'WORK',
+                focus_tag_placeholder: 'Tag: Math, Project...', timer_work: 'WORK', timer_break: 'BREAK', timer_long_break: 'LONG BREAK', timer_exam: 'EXAM',
                 long_break: '→ Long break', btn_start: 'Start', btn_pause: 'Pause', btn_reset: 'Reset',
                 today_label: 'Today:', btn_history: 'History',
                 ambient_sound: '🎧 Ambient Sound', sound_rain: 'Rain', sound_forest: 'Forest',
@@ -3555,7 +3545,7 @@
                 btn_sync: '💾 Sync',
                 goals_title: '🎯 Goals', btn_add: '+ Add',
                 weekly_summary: '📈 Weekly Summary', completed: 'Completed', in_progress: 'In progress', total: 'Total',
-                wellness_title: '💆 Bio-Hack Center', auto_reminders: 'Auto Reminders', btn_activate: 'Activate',
+                wellness_title: '💆 Bio-Hack Center', auto_reminders: 'Auto Reminders', btn_activate: 'Activate', reminder_disable: 'Disable', reminders_active: '✅ Reminders active',
                 remind_water: 'Hydration', remind_water_freq: 'Every 45 min',
                 remind_eyes: 'Eye Break', remind_eyes_freq: 'Every 20 min',
                 remind_stretch: 'Stretching', remind_stretch_freq: 'Every hour',
@@ -3563,7 +3553,7 @@
                 reminders_off: 'Reminders disabled', ai_recommendations: 'AI Recommendations',
                 ai_reco_placeholder: 'Fill your journal for personalized advice...',
                 breathing_title: '🫁 Cardiac Coherence', breathing_desc: '5 sec inhale, 5 sec exhale',
-                breathing_ready: 'Ready', btn_begin: 'Begin',
+                breathing_ready: 'Ready', btn_begin: 'Begin', btn_stop: 'Stop', breathing_done: 'Done!',
                 tip_stretching: 'Stretching', tip_hydration: 'Hydration', tip_eyes: 'Eye rest', tip_walk: 'Micro-walk',
                 install_title: 'Install StudentFlow',
                 android_title: 'Android (Direct Version)',
@@ -3577,6 +3567,7 @@
                 slot_detail: '📝 Slot Detail', slot_placeholder: 'Name (auto if empty)',
                 type_cours: '📚 Class', type_revision: '✏️ Study', type_repos: '😴 Rest', type_sport: '🏃 Sport',
                 type_social: '👥 Social', type_admin: '📋 Admin', type_repas: '🍽️ Meal',
+                btn_validate: 'Save', btn_close: 'Close', btn_delete_slot: 'Delete',
                 shortcuts_title: 'Keyboard Shortcuts',
                 shortcut_planning: 'Planning', shortcut_analytics: 'Analytics', shortcut_focus: 'Focus Mode',
                 shortcut_journal: 'Journal', shortcut_note: 'New note', shortcut_theme: 'Toggle theme',
@@ -3612,7 +3603,7 @@
                 subtitle: 'منصة رفاهية مدعومة بالذكاء الاصطناعي', btn_notifs: 'إشعارات', btn_note: 'ملاحظة', btn_my_notes: 'ملاحظاتي',
                 ai_prediction: '🔮 توقعات الذكاء الاصطناعي', prediction_loading: 'جاري التحليل...',
                 planning_title: '📅 التخطيط الأسبوعي', btn_templates: 'قوالب',
-                tpl_normal: '📚 أسبوع عادي', tpl_exam: '📝 أسبوع امتحانات', tpl_light: '🌴 أسبوع خفيف',
+                tpl_normal: '📚 أسبوع عادي', tpl_exam: '📝 أسبوع امتحانات', tpl_light: '🌴 أسبوع خفيف', tpl_weekend: '🔥 عطلة مكثفة',
                 tpl_save: '💾 حفظ الحالي', btn_demo: 'تجريبي', btn_clear: 'مسح',
                 shortcuts_hint: '💡 اختصارات: N=ملاحظة، F=تركيز، J=يوميات، P=تخطيط، A=تحليلات، T=مظهر، S=صوت، مسافة=بومودورو، Esc=إغلاق',
                 day_mon: 'إثن', day_tue: 'ثلا', day_wed: 'أرب', day_thu: 'خمي', day_fri: 'جمع', day_sat: 'سبت', day_sun: 'أحد',
@@ -3632,7 +3623,7 @@
                 best_day: 'أفضل يوم', focus_sessions: 'جلسات التركيز',
                 avg_sleep_stat: 'متوسط النوم', stress_trend: 'اتجاه التوتر',
                 focus_title: '🎯 وضع التركيز', pomodoro_technique: 'تقنية بومودورو',
-                focus_tag_placeholder: 'وسم: رياضيات، مشروع...', timer_work: 'عمل',
+                focus_tag_placeholder: 'وسم: رياضيات، مشروع...', timer_work: 'عمل', timer_break: 'استراحة', timer_long_break: 'استراحة طويلة', timer_exam: 'امتحان',
                 long_break: '← استراحة طويلة', btn_start: 'ابدأ', btn_pause: 'إيقاف', btn_reset: 'إعادة',
                 today_label: 'اليوم:', btn_history: 'السجل',
                 ambient_sound: '🎧 صوت محيط', sound_rain: 'مطر', sound_forest: 'غابة',
@@ -3651,7 +3642,7 @@
                 btn_sync: '💾 مزامنة',
                 goals_title: '🎯 الأهداف', btn_add: '+ إضافة',
                 weekly_summary: '📈 ملخص أسبوعي', completed: 'مكتمل', in_progress: 'قيد التنفيذ', total: 'المجموع',
-                wellness_title: '💆 مركز بيو-هاك', auto_reminders: 'تذكيرات تلقائية', btn_activate: 'تفعيل',
+                wellness_title: '💆 مركز بيو-هاك', auto_reminders: 'تذكيرات تلقائية', btn_activate: 'تفعيل', reminder_disable: 'تعطيل', reminders_active: '✅ التذكيرات نشطة',
                 remind_water: 'ترطيب', remind_water_freq: 'كل 45 دقيقة',
                 remind_eyes: 'راحة العينين', remind_eyes_freq: 'كل 20 دقيقة',
                 remind_stretch: 'تمدد', remind_stretch_freq: 'كل ساعة',
@@ -3659,7 +3650,7 @@
                 reminders_off: 'التذكيرات معطلة', ai_recommendations: 'توصيات الذكاء الاصطناعي',
                 ai_reco_placeholder: 'املأ يومياتك للحصول على نصائح مخصصة...',
                 breathing_title: '🫁 تماسك القلب', breathing_desc: '5 ثوان شهيق، 5 ثوان زفير',
-                breathing_ready: 'جاهز', btn_begin: 'ابدأ',
+                breathing_ready: 'جاهز', btn_begin: 'ابدأ', btn_stop: 'إيقاف', breathing_done: 'انتهى!',
                 tip_stretching: 'تمارين', tip_hydration: 'ترطيب', tip_eyes: 'راحة العينين', tip_walk: 'مشي قصير',
                 install_title: 'تثبيت StudentFlow',
                 android_title: 'أندرويد (نسخة مباشرة)',
@@ -3673,6 +3664,7 @@
                 slot_detail: '📝 تفاصيل الخانة', slot_placeholder: 'الاسم (تلقائي إذا فارغ)',
                 type_cours: '📚 دروس', type_revision: '✏️ مراجعة', type_repos: '😴 راحة', type_sport: '🏃 رياضة',
                 type_social: '👥 اجتماعي', type_admin: '📋 إداري', type_repas: '🍽️ وجبة',
+                btn_validate: 'حفظ', btn_close: 'إغلاق', btn_delete_slot: 'حذف',
                 shortcuts_title: 'اختصارات لوحة المفاتيح',
                 shortcut_planning: 'التخطيط', shortcut_analytics: 'التحليلات', shortcut_focus: 'وضع التركيز',
                 shortcut_journal: 'اليوميات', shortcut_note: 'ملاحظة جديدة', shortcut_theme: 'تغيير المظهر',
@@ -3783,7 +3775,7 @@
         }
 
         // ==================== INIT ====================
-        window.onload = () => {
+        window.addEventListener('load', () => {
             if (typeof lucide !== 'undefined') lucide.createIcons();
 
             // Apply saved theme
@@ -3831,7 +3823,7 @@
                 // Already granted
             }
 
-        };
+        });
 
         // ==================== RACCOURCIS CLAVIER (outside onload for reliability) ====================
         document.addEventListener('DOMContentLoaded', () => {
@@ -4429,17 +4421,18 @@
             const root = document.getElementById('grid-root');
             if (!root) return;
 
-            root.innerHTML = "";
+            const parts = [];
             for (let h = 8; h <= 19; h++) {
-                root.innerHTML += `<div class="flex items-center justify-center font-bold text-[9px] text-slate-600">${h}h</div>`;
+                parts.push(`<div class="flex items-center justify-center font-bold text-[9px] text-slate-600">${h}h</div>`);
                 for (let d = 1; d <= 7; d++) {
                     const id = `${d}-${h}`;
                     const item = db.timetable[id];
                     const cls = item ? `type-${item.type}` : 'slot-empty';
                     const isWeekend = d >= 6;
-                    root.innerHTML += `<div onclick="openModal('${id}')" class="slot ${cls} ${isWeekend ? 'opacity-80' : ''}">${item ? escapeHtml(item.name) : '+'}</div>`;
+                    parts.push(`<div onclick="openModal('${id}')" class="slot ${cls} ${isWeekend ? 'opacity-80' : ''}">${item ? escapeHtml(item.name) : '+'}</div>`);
                 }
             }
+            root.innerHTML = parts.join('');
         }
 
         function openModal(id) {
@@ -5073,7 +5066,7 @@
                 focusPhase = 'work';
                 pomodoroSeconds = CONFIG.POMODORO.WORK * 60;
                 pomodoroInitial = CONFIG.POMODORO.WORK * 60;
-                document.getElementById('timer-phase').textContent = 'TRAVAIL';
+                document.getElementById('timer-phase').textContent = t('timer_work');
                 document.getElementById('progress-circle').classList.remove('text-emerald-500', 'text-amber-500');
                 document.getElementById('progress-circle').classList.add('text-indigo-500');
                 updateTimerDisplay();
@@ -5088,7 +5081,7 @@
             pomodoroSeconds = breakDuration * 60;
             pomodoroInitial = breakDuration * 60;
 
-            document.getElementById('timer-phase').textContent = isLongBreak ? 'LONG BREAK' : 'PAUSE';
+            document.getElementById('timer-phase').textContent = isLongBreak ? t('timer_long_break') : t('timer_break');
             document.getElementById('progress-circle').classList.remove('text-indigo-500');
             document.getElementById('progress-circle').classList.add(isLongBreak ? 'text-amber-500' : 'text-emerald-500');
 
@@ -5117,7 +5110,7 @@
             pomodoroSeconds = pomodoroInitial;
             focusPhase = 'work';
             isExamMode = false;
-            document.getElementById('timer-phase').textContent = 'TRAVAIL';
+            document.getElementById('timer-phase').textContent = t('timer_work');
             document.getElementById('focus-mode-label').textContent = `${minutes} minutes de focus`;
             updateTimerDisplay();
         }
@@ -5128,7 +5121,7 @@
             pomodoroSeconds = pomodoroInitial;
             focusPhase = 'work';
 
-            document.getElementById('timer-phase').textContent = 'EXAMEN';
+            document.getElementById('timer-phase').textContent = t('timer_exam');
             document.getElementById('focus-mode-label').textContent = `Mode Examen - ${minutes}min`;
             document.getElementById('progress-circle').classList.remove('text-indigo-500', 'text-emerald-500');
             document.getElementById('progress-circle').classList.add('text-amber-500');
@@ -5856,8 +5849,8 @@
             if (breathingInterval) {
                 clearInterval(breathingInterval);
                 breathingInterval = null;
-                document.getElementById('breathing-btn').textContent = 'Commencer';
-                document.getElementById('breathing-text').textContent = 'Prêt';
+                document.getElementById('breathing-btn').textContent = t('btn_begin');
+                document.getElementById('breathing-text').textContent = t('breathing_ready');
                 document.getElementById('breathing-circle').style.transform = 'scale(1)';
                 return;
             }
@@ -5865,7 +5858,7 @@
             let phase = 'inspire';
             const circle = document.getElementById('breathing-circle');
             const text = document.getElementById('breathing-text');
-            document.getElementById('breathing-btn').textContent = 'Arrêter';
+            document.getElementById('breathing-btn').textContent = t('btn_stop');
 
             function animate() {
                 if (phase === 'inspire') {
@@ -5886,8 +5879,8 @@
                 if (breathingInterval) {
                     clearInterval(breathingInterval);
                     breathingInterval = null;
-                    document.getElementById('breathing-btn').textContent = 'Commencer';
-                    text.textContent = 'Terminé!';
+                    document.getElementById('breathing-btn').textContent = t('btn_begin');
+                    text.textContent = t('breathing_done');
                     circle.style.transform = 'scale(1)';
                     addWisdom(10, 'Exercice respiration');
                 }
@@ -5916,19 +5909,19 @@
             const status = document.getElementById('reminder-status');
 
             if (remindersActive) {
-                btn.textContent = 'Désactiver';
+                btn.textContent = t('reminder_disable');
                 btn.classList.remove('bg-amber-500/20', 'text-amber-400');
                 btn.classList.add('bg-emerald-500/20', 'text-emerald-400');
-                status.textContent = '✅ Rappels actifs';
+                status.textContent = t('reminders_active');
                 status.classList.add('text-emerald-400');
                 startReminders();
                 playNotificationSound();
                 showToast('🔔 Rappels activés!');
             } else {
-                btn.textContent = 'Activer';
+                btn.textContent = t('btn_activate');
                 btn.classList.remove('bg-emerald-500/20', 'text-emerald-400');
                 btn.classList.add('bg-amber-500/20', 'text-amber-400');
-                status.textContent = 'Rappels désactivés';
+                status.textContent = t('reminders_off');
                 status.classList.remove('text-emerald-400');
                 stopReminders();
                 showToast('🔕 Rappels désactivés');
@@ -6889,6 +6882,7 @@
             if (id === 'analytics') updateAnalytics();
             if (id === 'boutique') renderInlineShop();
 
+            applyTranslations();
             lucide.createIcons();
         }
 
@@ -8110,6 +8104,53 @@
                     "6-10": { name: "Loisirs", type: "repos" },
                     "7-10": { name: "Repos", type: "repos" }
                 }
+            },
+            weekend_overload: {
+                name: '🔥 Weekend Chargé',
+                slots: {
+                    // Semaine chargée
+                    "1-9":  { name: "Cours", type: "cours" },
+                    "1-10": { name: "Cours", type: "cours" },
+                    "1-14": { name: "Révisions", type: "revisions" },
+                    "2-9":  { name: "Cours", type: "cours" },
+                    "2-14": { name: "Révisions", type: "revisions" },
+                    "2-15": { name: "Révisions", type: "revisions" },
+                    "3-9":  { name: "Cours", type: "cours" },
+                    "3-10": { name: "Cours", type: "cours" },
+                    "3-14": { name: "Révisions", type: "revisions" },
+                    "4-9":  { name: "Cours", type: "cours" },
+                    "4-14": { name: "Révisions", type: "revisions" },
+                    "4-15": { name: "Révisions", type: "revisions" },
+                    "5-9":  { name: "Cours", type: "cours" },
+                    "5-10": { name: "Cours", type: "cours" },
+                    "5-14": { name: "Révisions", type: "revisions" },
+                    // SAMEDI — totalement surchargé
+                    "6-8":  { name: "Révisions", type: "revisions" },
+                    "6-9":  { name: "Révisions", type: "revisions" },
+                    "6-10": { name: "Révisions", type: "revisions" },
+                    "6-11": { name: "Révisions", type: "revisions" },
+                    "6-12": { name: "Révisions", type: "revisions" },
+                    "6-13": { name: "Projet", type: "revisions" },
+                    "6-14": { name: "Projet", type: "revisions" },
+                    "6-15": { name: "Révisions", type: "revisions" },
+                    "6-16": { name: "Révisions", type: "revisions" },
+                    "6-17": { name: "Révisions", type: "revisions" },
+                    "6-18": { name: "Révisions", type: "revisions" },
+                    "6-19": { name: "Révisions", type: "revisions" },
+                    // DIMANCHE — totalement surchargé
+                    "7-8":  { name: "Révisions", type: "revisions" },
+                    "7-9":  { name: "Révisions", type: "revisions" },
+                    "7-10": { name: "Révisions", type: "revisions" },
+                    "7-11": { name: "Révisions", type: "revisions" },
+                    "7-12": { name: "Révisions", type: "revisions" },
+                    "7-13": { name: "Travail", type: "revisions" },
+                    "7-14": { name: "Projet", type: "revisions" },
+                    "7-15": { name: "Révisions", type: "revisions" },
+                    "7-16": { name: "Révisions", type: "revisions" },
+                    "7-17": { name: "Révisions", type: "revisions" },
+                    "7-18": { name: "Révisions", type: "revisions" },
+                    "7-19": { name: "Révisions", type: "revisions" }
+                }
             }
         };
 
@@ -8128,9 +8169,24 @@
                 };
             });
 
+            // Weekend chargé : injecter des logs de stress élevé + reset le cooldown 24h
+            // pour que l'alerte SafeMode s'affiche immédiatement
+            if (templateName === 'weekend_overload') {
+                const ago = (days) => new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+                db.logs = [
+                    ...db.logs,
+                    { id: Helpers.genId(), day: 'Jeu', stress: 8, sleep: 5.5, mood: '😰', date: ago(3) },
+                    { id: Helpers.genId(), day: 'Ven', stress: 9, sleep: 5,   mood: '😰', date: ago(2) },
+                    { id: Helpers.genId(), day: 'Sam', stress: 8, sleep: 5,   mood: '😓', date: ago(1) }
+                ];
+                db.safeMode = db.safeMode || {};
+                db.safeMode.dismissedAt = null;
+            }
+
             save();
             renderGrid();
             refreshAll();
+            checkSafeMode();
             playSuccessSound();
             showToast(`✅ Template "${template.name}" appliqué`);
         }
