@@ -1610,6 +1610,9 @@
                                 <button onclick="applyTemplate('light'); toggleTemplateMenu();"
                                     class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg"
                                     data-i18n="tpl_light">🌴 Semaine Light</button>
+                                <button onclick="applyTemplate('weekend_overload'); toggleTemplateMenu();"
+                                    class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg text-red-400"
+                                    data-i18n="tpl_weekend">🔥 Weekend Chargé</button>
                                 <hr class="border-white/10 my-2">
                                 <button onclick="saveAsTemplate(); toggleTemplateMenu();"
                                     class="w-full text-left px-3 py-2 text-xs font-bold hover:bg-white/10 rounded-lg text-amber-400"
@@ -3397,7 +3400,7 @@
                 // Planning
                 ai_prediction: '🔮 Prédiction IA', prediction_loading: 'Analyse en cours...',
                 planning_title: '📅 Planning Semaine', btn_templates: 'Templates',
-                tpl_normal: '📚 Semaine Type', tpl_exam: '📝 Semaine Examens', tpl_light: '🌴 Semaine Light',
+                tpl_normal: '📚 Semaine Type', tpl_exam: '📝 Semaine Examens', tpl_light: '🌴 Semaine Light', tpl_weekend: '🔥 Weekend Chargé',
                 tpl_save: '💾 Sauvegarder actuel', btn_demo: 'Démo', btn_clear: 'Vider',
                 shortcuts_hint: '💡 Raccourcis: N=Note, F=Focus, J=Journal, P=Planning, A=Analytics, T=Thème, S=Son (focus), Espace=Pomodoro, Esc=Fermer',
                 day_mon: 'LUN', day_tue: 'MAR', day_wed: 'MER', day_thu: 'JEU', day_fri: 'VEN', day_sat: 'SAM', day_sun: 'DIM',
@@ -3503,7 +3506,7 @@
                 subtitle: 'AI-Powered Wellness Platform', btn_notifs: 'Notifs', btn_note: 'Note', btn_my_notes: 'My Notes',
                 ai_prediction: '🔮 AI Prediction', prediction_loading: 'Analyzing...',
                 planning_title: '📅 Weekly Planning', btn_templates: 'Templates',
-                tpl_normal: '📚 Standard Week', tpl_exam: '📝 Exam Week', tpl_light: '🌴 Light Week',
+                tpl_normal: '📚 Standard Week', tpl_exam: '📝 Exam Week', tpl_light: '🌴 Light Week', tpl_weekend: '🔥 Loaded Weekend',
                 tpl_save: '💾 Save current', btn_demo: 'Demo', btn_clear: 'Clear',
                 shortcuts_hint: '💡 Shortcuts: N=Note, F=Focus, J=Journal, P=Planning, A=Analytics, T=Theme, S=Sound (focus), Space=Pomodoro, Esc=Close',
                 day_mon: 'MON', day_tue: 'TUE', day_wed: 'WED', day_thu: 'THU', day_fri: 'FRI', day_sat: 'SAT', day_sun: 'SUN',
@@ -3600,7 +3603,7 @@
                 subtitle: 'منصة رفاهية مدعومة بالذكاء الاصطناعي', btn_notifs: 'إشعارات', btn_note: 'ملاحظة', btn_my_notes: 'ملاحظاتي',
                 ai_prediction: '🔮 توقعات الذكاء الاصطناعي', prediction_loading: 'جاري التحليل...',
                 planning_title: '📅 التخطيط الأسبوعي', btn_templates: 'قوالب',
-                tpl_normal: '📚 أسبوع عادي', tpl_exam: '📝 أسبوع امتحانات', tpl_light: '🌴 أسبوع خفيف',
+                tpl_normal: '📚 أسبوع عادي', tpl_exam: '📝 أسبوع امتحانات', tpl_light: '🌴 أسبوع خفيف', tpl_weekend: '🔥 عطلة مكثفة',
                 tpl_save: '💾 حفظ الحالي', btn_demo: 'تجريبي', btn_clear: 'مسح',
                 shortcuts_hint: '💡 اختصارات: N=ملاحظة، F=تركيز، J=يوميات، P=تخطيط، A=تحليلات، T=مظهر، S=صوت، مسافة=بومودورو، Esc=إغلاق',
                 day_mon: 'إثن', day_tue: 'ثلا', day_wed: 'أرب', day_thu: 'خمي', day_fri: 'جمع', day_sat: 'سبت', day_sun: 'أحد',
@@ -8101,6 +8104,53 @@
                     "6-10": { name: "Loisirs", type: "repos" },
                     "7-10": { name: "Repos", type: "repos" }
                 }
+            },
+            weekend_overload: {
+                name: '🔥 Weekend Chargé',
+                slots: {
+                    // Semaine chargée
+                    "1-9":  { name: "Cours", type: "cours" },
+                    "1-10": { name: "Cours", type: "cours" },
+                    "1-14": { name: "Révisions", type: "revisions" },
+                    "2-9":  { name: "Cours", type: "cours" },
+                    "2-14": { name: "Révisions", type: "revisions" },
+                    "2-15": { name: "Révisions", type: "revisions" },
+                    "3-9":  { name: "Cours", type: "cours" },
+                    "3-10": { name: "Cours", type: "cours" },
+                    "3-14": { name: "Révisions", type: "revisions" },
+                    "4-9":  { name: "Cours", type: "cours" },
+                    "4-14": { name: "Révisions", type: "revisions" },
+                    "4-15": { name: "Révisions", type: "revisions" },
+                    "5-9":  { name: "Cours", type: "cours" },
+                    "5-10": { name: "Cours", type: "cours" },
+                    "5-14": { name: "Révisions", type: "revisions" },
+                    // SAMEDI — totalement surchargé
+                    "6-8":  { name: "Révisions", type: "revisions" },
+                    "6-9":  { name: "Révisions", type: "revisions" },
+                    "6-10": { name: "Révisions", type: "revisions" },
+                    "6-11": { name: "Révisions", type: "revisions" },
+                    "6-12": { name: "Révisions", type: "revisions" },
+                    "6-13": { name: "Projet", type: "revisions" },
+                    "6-14": { name: "Projet", type: "revisions" },
+                    "6-15": { name: "Révisions", type: "revisions" },
+                    "6-16": { name: "Révisions", type: "revisions" },
+                    "6-17": { name: "Révisions", type: "revisions" },
+                    "6-18": { name: "Révisions", type: "revisions" },
+                    "6-19": { name: "Révisions", type: "revisions" },
+                    // DIMANCHE — totalement surchargé
+                    "7-8":  { name: "Révisions", type: "revisions" },
+                    "7-9":  { name: "Révisions", type: "revisions" },
+                    "7-10": { name: "Révisions", type: "revisions" },
+                    "7-11": { name: "Révisions", type: "revisions" },
+                    "7-12": { name: "Révisions", type: "revisions" },
+                    "7-13": { name: "Travail", type: "revisions" },
+                    "7-14": { name: "Projet", type: "revisions" },
+                    "7-15": { name: "Révisions", type: "revisions" },
+                    "7-16": { name: "Révisions", type: "revisions" },
+                    "7-17": { name: "Révisions", type: "revisions" },
+                    "7-18": { name: "Révisions", type: "revisions" },
+                    "7-19": { name: "Révisions", type: "revisions" }
+                }
             }
         };
 
@@ -8119,9 +8169,22 @@
                 };
             });
 
+            // Weekend chargé : ajouter des entrées de journal réalistes (stress élevé, sommeil court)
+            // pour refléter la situation d'un étudiant surchargé et déclencher le SafeMode
+            if (templateName === 'weekend_overload') {
+                const ago = (days) => new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+                db.logs = [
+                    ...db.logs,
+                    { id: Helpers.genId(), day: 'Jeu', stress: 8, sleep: 5.5, mood: '😰', date: ago(3) },
+                    { id: Helpers.genId(), day: 'Ven', stress: 9, sleep: 5,   mood: '😰', date: ago(2) },
+                    { id: Helpers.genId(), day: 'Sam', stress: 8, sleep: 5,   mood: '😓', date: ago(1) }
+                ];
+            }
+
             save();
             renderGrid();
             refreshAll();
+            checkSafeMode();
             playSuccessSound();
             showToast(`✅ Template "${template.name}" appliqué`);
         }
