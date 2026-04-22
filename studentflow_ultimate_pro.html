@@ -8169,8 +8169,8 @@
                 };
             });
 
-            // Weekend chargé : ajouter des entrées de journal réalistes (stress élevé, sommeil court)
-            // pour refléter la situation d'un étudiant surchargé et déclencher le SafeMode
+            // Weekend chargé : injecter des logs de stress élevé + reset le cooldown 24h
+            // pour que l'alerte SafeMode s'affiche immédiatement
             if (templateName === 'weekend_overload') {
                 const ago = (days) => new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
                 db.logs = [
@@ -8179,6 +8179,8 @@
                     { id: Helpers.genId(), day: 'Ven', stress: 9, sleep: 5,   mood: '😰', date: ago(2) },
                     { id: Helpers.genId(), day: 'Sam', stress: 8, sleep: 5,   mood: '😓', date: ago(1) }
                 ];
+                db.safeMode = db.safeMode || {};
+                db.safeMode.dismissedAt = null;
             }
 
             save();
